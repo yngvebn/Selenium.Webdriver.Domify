@@ -1,9 +1,9 @@
 using System;
 using System.Reflection;
 
-namespace Selenium.Webdriver.Domify.Extensions
+namespace Selenium.Webdriver.Domify
 {
-    public static class DocumentExtensions
+    public static class NavigationExtensions
     {
         public static T Page<T>(this INavigationService webDriver) where T : Page, new()
         {
@@ -47,6 +47,15 @@ namespace Selenium.Webdriver.Domify.Extensions
         /// <summary>
         /// Browses to the given Page with the current browser window
         /// </summary>
+        public static void GoTo(this INavigationService document, Uri uri)
+        {
+            document.GoToPageUrl(uri);
+
+        }
+
+        /// <summary>
+        /// Browses to the given Page with the current browser window
+        /// </summary>
         public static object GoTo(this INavigationService document, Type t)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(t);
@@ -55,7 +64,7 @@ namespace Selenium.Webdriver.Domify.Extensions
                 document.GoToPageUrl(navigationInfo.Url);
             else
                 throw new InvalidOperationException("You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
-            MethodInfo method = typeof(DocumentExtensions).GetMethod("GetCurrentPage");
+            MethodInfo method = typeof(NavigationExtensions).GetMethod("GetCurrentPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, null);
 

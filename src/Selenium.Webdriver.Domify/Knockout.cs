@@ -5,10 +5,8 @@ using OpenQA.Selenium.Internal;
 
 namespace Selenium.Webdriver.Domify
 {
-
     public static class Knockout
     {
-
         public static By ByValue(string value)
         {
             return new DataBoundConstraint(value);
@@ -56,7 +54,5 @@ namespace Selenium.Webdriver.Domify
 
             }
         }
-
-
     }
 }

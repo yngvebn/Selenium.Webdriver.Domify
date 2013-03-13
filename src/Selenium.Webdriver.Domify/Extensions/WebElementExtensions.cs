@@ -11,7 +11,6 @@ namespace Selenium.Webdriver.Domify
             return Elements.Button.Create(driver.Button(By.Id(id)));
         }
 
-
         public static Button Button(this ISearchContext driver, By constraint)
         {
             return Elements.Button.Create(driver.FindElement(constraint));

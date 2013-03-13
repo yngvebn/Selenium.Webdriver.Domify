@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using OpenQA.Selenium;
 
-namespace Selenium.Webdriver.Domify.Extensions
+namespace Selenium.Webdriver.Domify
 {
     public static class WebDriverExtensions
     {
@@ -17,7 +17,10 @@ namespace Selenium.Webdriver.Domify.Extensions
             return driver.PageSource.Contains(text);
         }
 
-        
+        public static IDocument Document(this IWebDriver driver)
+        {
+            return new Document(driver);
+        }
         public static bool Exists(this IWebElement element)
         {
             return element.IsVisible();

@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Selenium.Webdriver.Domify.Extensions;
+
 using Selenium.Webdriver.Domify.GUITests.Core;
 using Selenium.Webdriver.Domify.GUITests.Pages;
 

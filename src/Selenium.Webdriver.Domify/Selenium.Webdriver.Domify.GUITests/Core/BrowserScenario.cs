@@ -24,7 +24,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
 
         public IDocument Document
         {
-            get { return BrowserTestSettings.Document; }
+            get { return BrowserTestSettings.Driver.Document(); }
         }
 
         [TestFixtureSetUp]

@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
-namespace Selenium.Webdriver.Domify.Extensions
+namespace Selenium.Webdriver.Domify
 {
     public static class JavascriptExtensions
     {
