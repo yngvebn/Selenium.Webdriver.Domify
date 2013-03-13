@@ -19,8 +19,6 @@ namespace Selenium.Webdriver.Domify
         IList<Table> Tables { get; }
         IList<CheckBox> CheckBoxes { get; }
         IEnumerable<IWebElement> ElementsWithTag(string tagName);
-
-        object Eval(string javascript);
         string PageSource { get; }
         INavigationService Navigation { get; }
         void ClearCache();
@@ -122,25 +120,11 @@ namespace Selenium.Webdriver.Domify
             return _driver.FindElements(By.TagName(tagName));
         }
 
-        public object Eval(string javascript)
-        {
-            var js = Driver as IJavaScriptExecutor;
-            return js.ExecuteScript(javascript);
-        }
-
         public void GoTo(string url)
         {
             _driver.Navigate().GoToUrl(url);
 
         }
-
-        private void EnsureAllElementsHaveId()
-        {
-            string js = "$('*:not([id])').each(function(){ $(this).attr('id', '_id__'+(Math.floor(Math.random()*10000000)+1));  });";
-            Eval(js);
-
-        }
-
 
         public IWebElement FindElement(By @by)
         {

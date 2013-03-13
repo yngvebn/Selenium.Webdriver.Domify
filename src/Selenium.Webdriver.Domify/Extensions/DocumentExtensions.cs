@@ -1,8 +1,7 @@
 using System;
 using System.Reflection;
-using OpenQA.Selenium.Chrome;
 
-namespace Selenium.Webdriver.Domify
+namespace Selenium.Webdriver.Domify.Extensions
 {
     public static class DocumentExtensions
     {
