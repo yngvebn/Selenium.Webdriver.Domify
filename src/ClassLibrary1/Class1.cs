@@ -20,6 +20,7 @@ namespace ClassLibrary1
             {
                 driver.Document().Navigation.GoTo(new Uri("http://localhost:31337/"));
                 var link = driver.Document().TextField("textbox");
+                var color = link.Style.GetAttributeValue("color");
             }
 
         }

@@ -34,8 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Selenium.Webdriver.Domify">
-      <HintPath>packages\Selenium.Webdriver.Domify.1.0.0.24023\lib\net45\Selenium.Webdriver.Domify.dll</HintPath>
+    <Reference Include="Selenium.Webdriver.Domify, Version=1.0.0.25201, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Selenium.Webdriver.Domify.1.0.0.25201\lib\net45\Selenium.Webdriver.Domify.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

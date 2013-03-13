@@ -1,9 +1,13 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+<style>
+    input[type=text]{ color: blue;}
+    
+</style>
 <br/><br/><br/><br/><br/>
 <h2>Index</h2>
-<input type="text" id="textbox"/>
+<input type="text" id="textbox" />
 
 <input type="text" id="delayedtextbox"/>
 
@@ -11,8 +15,8 @@
 
 
 <script type="text/javascript">
-    setTimeout(function() {
-        document.getElementById("delayedtextbox").value = '5 seconds elapsed';
-    }, 5000);
+    //setTimeout(function() {
+    //    document.getElementById("delayedtextbox").value = '5 seconds elapsed';
+    //}, 5000);
 
 </script>
