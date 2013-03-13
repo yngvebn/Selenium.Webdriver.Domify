@@ -2,21 +2,20 @@
 <package>
   <metadata>
     <id>Selenium.Webdriver.Domify</id>
-    <version>1.0.0.25224</version>
+    <version>1.0.26489-alpha</version>
     <title>Selenium.Webdriver.Domify</title>
     <authors>Yngve Bakken Nilsen</authors>
     <owners>
     </owners>
     <description>
-      A long description of the package. This shows up in the right pane of the Add Package Dialog as well as in the Package Manager Console when listing packages using the Get-Package command.
+      Extends Selenium.Webdriver to make it easier to navigate and access the DOM.
     </description>
     <releaseNotes>
     </releaseNotes>
     <summary>
-      A short description of the package. If specified, this shows up in the middle pane of the Add Package Dialog. If not specified, a truncated version of the description is used instead.
     </summary>
     <language>en-US</language>
-    <projectUrl>https://nuget.org/packages/Selenium.Webdriver.Domify</projectUrl>
+    <projectUrl>https://github.com/yngvebn/Selenium.Webdriver.Domify</projectUrl>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>

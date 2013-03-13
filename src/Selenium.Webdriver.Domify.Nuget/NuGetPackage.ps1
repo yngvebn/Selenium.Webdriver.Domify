@@ -270,13 +270,13 @@ $strPath = "C:\Users\yngven\Dropbox\Projects\_GitHub\Selenium.Webdriver.Domify\s
 $Assembly = [Reflection.Assembly]::Loadfile($strPath)
 
 $AssemblyName = $Assembly.GetName()
-$Assemblyversion =  $AssemblyName.version.ToString()
+$Assemblyversion =  $AssemblyName.version.Major.ToString() +"." +$AssemblyName.version.Minor.ToString() +"."+ $AssemblyName.version.Revision.ToString()
 
 $path = "C:\Users\yngven\Dropbox\Projects\_GitHub\Selenium.Webdriver.Domify\src\Selenium.Webdriver.Domify.Nuget\Package.nuspec"
 $file = New-Object xml
 $file.Load($path)
 
-$file.package.metadata.version = $Assemblyversion
+$file.package.metadata.version = $Assemblyversion + "-alpha"
 $file.Save($path)
 # Create symbols package if any .pdb files are located in the lib folder
 If ((Get-ChildItem *.pdb -Path .\lib -Recurse).Count -gt 0) {
