@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.GUITests.Pages
@@ -15,5 +16,10 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         {
             get { return Document.TextField("delayedtextbox"); }
         }
+        public TextField KnockoutTextBox
+        {
+            get { return Document.TextField(Knockout.ByValue("someValue")); }
+        }
+
     }
 }

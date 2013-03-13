@@ -73,7 +73,7 @@
     <Compile Include="Elements\TextField.cs" />
     <Compile Include="Elements\UL.cs" />
     <Compile Include="Find.cs" />
-    <Compile Include="KoFind.cs" />
+    <Compile Include="Knockout.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="PageDescriptionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
