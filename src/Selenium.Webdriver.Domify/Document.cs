@@ -14,6 +14,12 @@ namespace Selenium.Webdriver.Domify
         internal Document(IWebDriver driver)
         {
             _driver = driver;
+            Settings = new DocumentSettings()
+                {
+                    WaitTimeout = TimeSpan.FromSeconds(30),
+                    AlwaysWaitForElement = true,
+                    EnsureAllElementsHaveId = true
+                };
         }
 
         public Uri Uri
@@ -23,6 +29,8 @@ namespace Selenium.Webdriver.Domify
                 return new Uri(_driver.Url);
             }
         }
+
+        public IDocumentSettings Settings { get; private set; }
 
         public IWebElement Body
         {
@@ -90,12 +98,16 @@ namespace Selenium.Webdriver.Domify
         public void GoTo(string url)
         {
             _driver.Navigate().GoToUrl(url);
-
         }
 
         public IWebElement FindElement(By @by)
         {
-            return _driver.FindElement(@by);
+            if (!Settings.AlwaysWaitForElement)
+                return _driver.FindElement(@by);
+            else
+            {
+                return TimeoutManager.Execute(Settings.WaitTimeout, () => _driver.FindElement(@by));
+            }
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by)

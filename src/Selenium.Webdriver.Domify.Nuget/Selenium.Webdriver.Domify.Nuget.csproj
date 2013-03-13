@@ -69,8 +69,8 @@
   </Target>-->
   <Target Name="AfterBuild">
     <Delete Files=".\NuGet.log" />
-    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " ContinueOnError="True" Command="PowerShell.exe -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Unrestricted -Command &quot;&amp; {.\NuGetPackage.ps1} &quot;" IgnoreExitCode="true" />
-    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " ContinueOnError="True" Command="PowerShell.exe -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command &quot;&amp; {.\NuGetPackage.ps1 -Publish} &quot;" IgnoreExitCode="true" />
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " ContinueOnError="True" Command="PowerShell.exe -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Unrestricted -Command &quot;&amp; {.\NuGetPackage.ps1  -WorkingPath $(ProjectDir)} &quot;" IgnoreExitCode="true" />
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " ContinueOnError="True" Command="PowerShell.exe -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command &quot;&amp; {.\NuGetPackage.ps1 -Publish -WorkingPath $(ProjectDir) } &quot;" IgnoreExitCode="true" />
     <!-- Hack to get error code from powershell script and not powershell.exe -->
     <Exec Command="exit %errorlevel">
       <Output PropertyName="ExitCode" TaskParameter="ExitCode" />
@@ -83,8 +83,8 @@
     <Error Text="Created package but encountered error(s) when trying to publish it.%0aCheck the NuGet.log file for details." Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' And '$(ExitCode)' == '1' " File="NuGet.log" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>del C:\Users\yngven\Dropbox\Nuget\Selenium.Webdriver.Domify\*.* /Q
-xcopy $(ProjectDir)*.nupkg C:\Users\yngven\Dropbox\Nuget\Selenium.Webdriver.Domify\ /Y</PostBuildEvent>
+    <PostBuildEvent>rem del C:\Users\yngven\Dropbox\Nuget\Selenium.Webdriver.Domify\*.* /Q
+rem xcopy $(ProjectDir)*.nupkg C:\Users\yngven\Dropbox\Nuget\Selenium.Webdriver.Domify\ /Y</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>del $(ProjectDir)*.nupgk /Q

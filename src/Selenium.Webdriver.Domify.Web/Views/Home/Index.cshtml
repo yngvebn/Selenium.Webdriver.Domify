@@ -1,22 +1,40 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<style>
-    input[type=text]{ color: blue;}
-    
-</style>
-<br/><br/><br/><br/><br/>
-<h2>Index</h2>
-<input type="text" id="textbox" />
+<html>
+<head>
+    <style>
+        input[type=text] {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Index</h2>
+    <input type="text" id="textbox" />
 
-<input type="text" id="delayedtextbox"/>
+    <input type="text" id="delayedtextbox" />
 
-<input type="text" data-bind="value: someValue"/>
-
-
+    <input type="text" data-bind="value: someValue" />
+</body>
+</html>
 <script type="text/javascript">
-    //setTimeout(function() {
-    //    document.getElementById("delayedtextbox").value = '5 seconds elapsed';
-    //}, 5000);
+    setTimeout(function () {
+        document.getElementById("delayedtextbox").value = '5 seconds elapsed';
+    }, 5000);
+
+    setTimeout(function () {
+
+    var link = document.createElement('a');
+    link.setAttribute('href', 'mypage.htm');
+    link.setAttribute('id', 'someLink');
+    link.innerHTML = "Link";
+    document.getElementsByTagName("body")[0].appendChild(link);
+    }, 5000);
 
 </script>

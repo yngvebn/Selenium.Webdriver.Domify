@@ -45,7 +45,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         /// <summary>
-        /// Browses to the given Page with the current browser window
+        /// Browses to the given URI with the current browser window
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
         {
@@ -70,6 +70,13 @@ namespace Selenium.Webdriver.Domify
 
         }
 
+        /// <summary>
+        /// Navigates to the given page with the additional URL-string
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="document"></param>
+        /// <param name="appendToUrl">Extra string to append to the Page-URL</param>
+        /// <returns></returns>
         public static T GoTo<T>(this INavigationService document, string appendToUrl) where T : Page, new()
         {
             var navigationInfo = TryGetPageDescriptionAttribute<T>();
@@ -88,11 +95,23 @@ namespace Selenium.Webdriver.Domify
             return uri;
         }
 
+        /// <summary>
+        /// Checks if the current browser is at the given page
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="document"></param>
+        /// <returns></returns>
         public static bool IsAtPage<T>(this INavigationService document) where T : Page, new()
         {
             return document.IsAtPage(typeof(T));
         }
 
+        /// <summary>
+        /// Checks if the current browser is at the given page
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="document"></param>
+        /// <returns></returns>
         public static bool IsAtPage(this INavigationService document, Type pageType)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(pageType);

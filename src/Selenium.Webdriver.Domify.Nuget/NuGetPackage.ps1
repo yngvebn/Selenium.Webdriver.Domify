@@ -1,5 +1,6 @@
 Param (
-    [switch]$Publish
+    [switch]$Publish,
+	[string]$WorkingPath
 )
 
 $ErrorActionPreference = "Stop"
@@ -266,13 +267,15 @@ Write-Log (Invoke-Command {.\NuGet.exe update -Self} -ErrorAction Stop)
 
 Write-Log " "
 Write-Log "Creating package..." -ForegroundColor Green
-$strPath = "C:\Users\yngven\Dropbox\Projects\_GitHub\Selenium.Webdriver.Domify\src\Selenium.Webdriver.Domify.Nuget\lib\net45\Selenium.Webdriver.Domify.dll"
+Write-Host $WorkingPath
+$strPath = "$WorkingPath\lib\net45\Selenium.Webdriver.Domify.dll"
+Write-Host $strPath
 $Assembly = [Reflection.Assembly]::Loadfile($strPath)
 
 $AssemblyName = $Assembly.GetName()
 $Assemblyversion =  $AssemblyName.version.Major.ToString() +"." +$AssemblyName.version.Minor.ToString() +"."+ $AssemblyName.version.Revision.ToString()
 
-$path = "C:\Users\yngven\Dropbox\Projects\_GitHub\Selenium.Webdriver.Domify\src\Selenium.Webdriver.Domify.Nuget\Package.nuspec"
+$path = "Package.nuspec"
 $file = New-Object xml
 $file.Load($path)
 

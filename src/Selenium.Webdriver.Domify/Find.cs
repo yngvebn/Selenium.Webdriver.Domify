@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify
 {
-    public class Find
+    internal class Find
     {
         public static By ByClass(string className)
         {

@@ -52,8 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
+    <Compile Include="DocumentSettings.cs" />
     <Compile Include="Elements\HyperLink.cs" />
-    <Compile Include="Elements\BaseWebElement.cs" />
+    <Compile Include="Elements\HtmlColor.cs" />
     <Compile Include="Elements\Button.cs" />
     <Compile Include="Elements\CheckBox.cs" />
     <Compile Include="Elements\Div.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Elements\SelectList.cs" />
     <Compile Include="Elements\SelectListItem.cs" />
     <Compile Include="Elements\Span.cs" />
+    <Compile Include="Elements\Style.cs" />
     <Compile Include="Elements\Table.cs" />
     <Compile Include="Elements\TableBody.cs" />
     <Compile Include="Elements\TableBodyCollection.cs" />
@@ -75,10 +77,12 @@
     <Compile Include="Elements\TableRowCollection.cs" />
     <Compile Include="Elements\TextField.cs" />
     <Compile Include="Elements\UL.cs" />
+    <Compile Include="Elements\WebElement.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
     <Compile Include="Find.cs" />
-    <Compile Include="IDocument.cs" />
-    <Compile Include="INavigationService.cs" />
+    <Compile Include="Public\IDocument.cs" />
+    <Compile Include="Public\IDocumentSettings.cs" />
+    <Compile Include="Public\INavigationService.cs" />
     <Compile Include="Knockout.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Page.cs" />
@@ -87,6 +91,7 @@
     <Compile Include="Extensions\NavigationExtensions.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="TimeoutManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

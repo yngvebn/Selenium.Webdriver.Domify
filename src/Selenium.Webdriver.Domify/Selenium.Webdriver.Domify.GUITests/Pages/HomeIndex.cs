@@ -22,5 +22,9 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
             get { return Document.TextField(Knockout.ByValue("someValue")); }
         }
 
+        public HyperLink DelayedLink
+        {
+            get { return Document.Link("someLink"); }
+        }
     }
 }

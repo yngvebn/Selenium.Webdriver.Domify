@@ -23,7 +23,7 @@ namespace Selenium.Webdriver.Domify.GUITests
         [ExpectedException(typeof(TimeoutException))]
         public void TimeoutExceptionShouldBeThrown()
         {
-            Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value), 3);
+            Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value), TimeSpan.FromSeconds(3));
         }
 
     }
