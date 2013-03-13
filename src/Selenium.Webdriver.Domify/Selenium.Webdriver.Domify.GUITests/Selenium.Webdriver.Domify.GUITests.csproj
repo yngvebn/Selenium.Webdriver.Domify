@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BrowserScenario.cs" />
+    <Compile Include="Core\SetupClass.cs" />
     <Compile Include="IfNothingHappensWaitUntilTimesout.cs" />
     <Compile Include="KnockoutTextFieldTests.cs" />
     <Compile Include="Pages\HomeIndex.cs" />
