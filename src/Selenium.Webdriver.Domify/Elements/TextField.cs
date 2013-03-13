@@ -20,6 +20,12 @@ namespace Selenium.Webdriver.Domify.Elements
             Driver.ExecuteJavascript(string.Format("document.getElementById('{0}').value = '{1}'", Id, textToType));
         }
 
+        public new string Text
+        {
+            get { return Value; }
+            set { Value = value; }
+        }
+
         public string Value
         {
             get { return GetAttribute("value"); }

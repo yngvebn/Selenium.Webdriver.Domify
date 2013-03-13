@@ -2,17 +2,15 @@ namespace Selenium.Webdriver.Domify
 {
     public class Page
     {
-        private Document _driver;
-
         public Page()
         {
 
         }
-        public Page(Document driver)
+        public Page(IDocument driver)
         {
-            _driver = driver;
+            Document = driver;
         }
 
-        public Document Document { get { return _driver; } set { _driver = value; } }
+        public IDocument Document { get; set; }
     }
 }

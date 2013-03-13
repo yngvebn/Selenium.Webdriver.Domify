@@ -4,3 +4,12 @@
 
 <h2>Index</h2>
 <input type="text" id="textbox"/>
+
+<input type="text" id="delayedtextbox"/>
+
+<script type="text/javascript">
+    setTimeout(function() {
+        document.getElementById("delayedtextbox").value = '5 seconds elapsed';
+    }, 5000);
+
+</script>

@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextFieldTests.cs" />
     <Compile Include="Core\ThenAttribute.cs" />
+    <Compile Include="WaitForElementTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

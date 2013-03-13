@@ -4,15 +4,21 @@ using OpenQA.Selenium.Chrome;
 
 namespace Selenium.Webdriver.Domify
 {
-    public static class WebBrowser
+    public static class DocumentExtensions
     {
+        public static T Page<T>(this IDocument webDriver) where T : Page, new()
+        {
+            var t = new T { Document = webDriver };
+            return t;
+        }
+        
 
         /// <summary>
         /// Shortcut to Current.Page
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GetCurrentPage<T>(this Document document) where T : Page, new()
+        public static T GetCurrentPage<T>(this IDocument document) where T : Page, new()
         {
             return document.Page<T>();
         }
@@ -22,7 +28,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GoTo<T>(this Document document) where T : Page, new()
+        public static T GoTo<T>(this IDocument document) where T : Page, new()
         {
             var navigationInfo = TryGetPageDescriptionAttribute<T>();
 
@@ -34,15 +40,15 @@ namespace Selenium.Webdriver.Domify
             return document.GetCurrentPage<T>();
         }
 
-        private static void GoToPageUrl(this Document document, Uri relativeUrl)
+        private static void GoToPageUrl(this IDocument document, Uri relativeUrl)
         {
-            document.GoTo(relativeUrl.ToString());
+            document.Driver.Navigate().GoToUrl(relativeUrl);
         }
 
         /// <summary>
         /// Browses to the given Page with the current browser window
         /// </summary>
-        public static object GoTo(this Document document, Type t)
+        public static object GoTo(this IDocument document, Type t)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(t);
 
@@ -50,13 +56,13 @@ namespace Selenium.Webdriver.Domify
                 document.GoToPageUrl(navigationInfo.Url);
             else
                 throw new InvalidOperationException("You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
-            MethodInfo method = typeof(WebBrowser).GetMethod("GetCurrentPage");
+            MethodInfo method = typeof(DocumentExtensions).GetMethod("GetCurrentPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, null);
 
         }
 
-        public static T GoTo<T>(this Document document, string appendToUrl) where T : Page, new()
+        public static T GoTo<T>(this IDocument document, string appendToUrl) where T : Page, new()
         {
             var navigationInfo = TryGetPageDescriptionAttribute<T>();
 
@@ -74,12 +80,12 @@ namespace Selenium.Webdriver.Domify
             return uri;
         }
 
-        public static bool IsAtPage<T>(this Document document) where T : Page, new()
+        public static bool IsAtPage<T>(this IDocument document) where T : Page, new()
         {
             return document.IsAtPage(typeof(T));
         }
 
-        public static bool IsAtPage(this Document document, Type pageType)
+        public static bool IsAtPage(this IDocument document, Type pageType)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(pageType);
 

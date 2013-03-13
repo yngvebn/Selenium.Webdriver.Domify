@@ -9,7 +9,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
     {
 
         private readonly bool _setupBeforeEachScenario;
-        private Document _document;
+        private IDocument _document;
         
         protected BrowserScenario()
             : this(true)
@@ -22,7 +22,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
             _setupBeforeEachScenario = setupBeforeEachScenario;
         }
 
-        public Document Document
+        public IDocument Document
         {
             get { return _document; }
         }
@@ -51,18 +51,19 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
             }
         }
 
+        private IWebDriver _driver;
         private void Initialize()
         {
-            IWebDriver driver = new ChromeDriver();
-            _document = new Document(driver);
+            _driver = new ChromeDriver();
+            _document = new Document(_driver);
 
         }
 
         [TestFixtureTearDown]
         public void KillBrowsers()
         {
-            _document.Driver.Close();
-            _document.Driver.Dispose();
+            _driver.Close();
+            _driver.Dispose();
         }
 
         protected abstract void Given();

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Diagnostics;
 using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify
@@ -41,14 +41,24 @@ namespace Selenium.Webdriver.Domify
             return element.GetCssValue("display") != "none";
         }
 
-        public static T Page<T>(this Document webDriver) where T : Page, new()
+        public static void WaitUntil<T>(this T element, Predicate<T> predicate, int timeOut = 30) where T : IWebElement
         {
-            var t = new T {Document = webDriver};
-            return t;
-        }
-        
-        public static void WaitUntil<T>(this T element, Predicate<T> predicate) where T : IWebElement
-        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while(true)
+            {
+                try
+                {
+                    if (predicate(element))
+                        break;
+                }
+                catch
+                {
+                    
+                }
+                if (stopwatch.Elapsed.TotalSeconds > timeOut)
+                    throw new TimeoutException(string.Format("Timed out after {0} seconds while waiting", stopwatch.Elapsed.TotalSeconds));
+            }
         }
     }
 }

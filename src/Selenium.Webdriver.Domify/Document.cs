@@ -7,7 +7,26 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
-    public class Document : ISearchContext//: InternetExplorerDriver
+    public interface IDocument: ISearchContext
+    {
+        Uri Uri { get; }
+        IWebElement Body { get; }
+        IWebDriver Driver { get; }
+        IList<Span> Spans { get; }
+        IList<Frame> Frames { get; }
+        IList<Div> Divs { get; }
+        IList<HyperLink> Links { get; }
+        IList<Table> Tables { get; }
+        IList<CheckBox> CheckBoxes { get; }
+        IEnumerable<IWebElement> ElementsWithTag(string tagName);
+        
+        object Eval(string javascript);
+        string PageSource { get; }
+        void ClearCache();
+
+    }
+
+    public class Document : IDocument
     {
         private readonly IWebDriver _driver;
 

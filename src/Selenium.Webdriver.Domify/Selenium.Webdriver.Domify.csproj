@@ -77,8 +77,8 @@
     <Compile Include="Page.cs" />
     <Compile Include="PageDescriptionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebBrowser.cs" />
-    <Compile Include="WebdriverExtensions.cs" />
+    <Compile Include="DocumentExtensions.cs" />
+    <Compile Include="WebDriverExtensions.cs" />
     <Compile Include="WebElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

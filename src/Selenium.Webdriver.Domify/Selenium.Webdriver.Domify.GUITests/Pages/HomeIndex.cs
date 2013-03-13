@@ -10,5 +10,10 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         {
             get { return Document.TextField("textbox"); }
         }
+
+        public TextField DelayedTextBox
+        {
+            get { return Document.TextField("delayedtextbox"); }
+        }
     }
 }
