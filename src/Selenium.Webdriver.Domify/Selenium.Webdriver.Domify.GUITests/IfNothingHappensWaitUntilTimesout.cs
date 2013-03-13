@@ -10,19 +10,19 @@ namespace Selenium.Webdriver.Domify.GUITests
     {
         protected override void Given()
         {
-            Document.GoTo<HomeIndex>();
+            Document.Navigation.GoTo<HomeIndex>();
         }
 
         protected override void When()
         {
-            Document.GetCurrentPage<HomeIndex>().DelayedTextBox.Value = "";
+            Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.Value = "";
         }
 
         [Then]
         [ExpectedException(typeof(TimeoutException))]
         public void TimeoutExceptionShouldBeThrown()
         {
-            Document.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value), 3);
+            Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value), 3);
         }
 
     }

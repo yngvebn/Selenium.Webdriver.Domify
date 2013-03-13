@@ -9,18 +9,18 @@ namespace Selenium.Webdriver.Domify.GUITests
     {
         protected override void Given()
         {
-            Document.GoTo<HomeIndex>();
+            Document.Navigation.GoTo<HomeIndex>();
         }
 
         protected override void When()
         {
-            Document.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value));
+            Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.WaitUntil(c => !string.IsNullOrEmpty(c.Value));
         }
 
         [Then]
         public void TheTextShouldBeDisplayed()
         {
-            Assert.That(Document.GetCurrentPage<HomeIndex>().DelayedTextBox.Value, Is.EqualTo("5 seconds elapsed"));
+            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().DelayedTextBox.Value, Is.EqualTo("5 seconds elapsed"));
         }
 
     }

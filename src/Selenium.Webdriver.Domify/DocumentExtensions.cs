@@ -6,9 +6,9 @@ namespace Selenium.Webdriver.Domify
 {
     public static class DocumentExtensions
     {
-        public static T Page<T>(this IDocument webDriver) where T : Page, new()
+        public static T Page<T>(this INavigationService webDriver) where T : Page, new()
         {
-            var t = new T { Document = webDriver };
+            var t = new T { Document = webDriver.Document };
             return t;
         }
         
@@ -18,7 +18,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GetCurrentPage<T>(this IDocument document) where T : Page, new()
+        public static T GetCurrentPage<T>(this INavigationService document) where T : Page, new()
         {
             return document.Page<T>();
         }
@@ -28,7 +28,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GoTo<T>(this IDocument document) where T : Page, new()
+        public static T GoTo<T>(this INavigationService document) where T : Page, new()
         {
             var navigationInfo = TryGetPageDescriptionAttribute<T>();
 
@@ -40,15 +40,15 @@ namespace Selenium.Webdriver.Domify
             return document.GetCurrentPage<T>();
         }
 
-        private static void GoToPageUrl(this IDocument document, Uri relativeUrl)
+        private static void GoToPageUrl(this INavigationService document, Uri relativeUrl)
         {
-            document.Driver.Navigate().GoToUrl(relativeUrl);
+            document.Document.Driver.Navigate().GoToUrl(relativeUrl);
         }
 
         /// <summary>
         /// Browses to the given Page with the current browser window
         /// </summary>
-        public static object GoTo(this IDocument document, Type t)
+        public static object GoTo(this INavigationService document, Type t)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(t);
 
@@ -62,7 +62,7 @@ namespace Selenium.Webdriver.Domify
 
         }
 
-        public static T GoTo<T>(this IDocument document, string appendToUrl) where T : Page, new()
+        public static T GoTo<T>(this INavigationService document, string appendToUrl) where T : Page, new()
         {
             var navigationInfo = TryGetPageDescriptionAttribute<T>();
 
@@ -80,19 +80,19 @@ namespace Selenium.Webdriver.Domify
             return uri;
         }
 
-        public static bool IsAtPage<T>(this IDocument document) where T : Page, new()
+        public static bool IsAtPage<T>(this INavigationService document) where T : Page, new()
         {
             return document.IsAtPage(typeof(T));
         }
 
-        public static bool IsAtPage(this IDocument document, Type pageType)
+        public static bool IsAtPage(this INavigationService document, Type pageType)
         {
             var navigationInfo = TryGetPageDescriptionAttribute(pageType);
 
             if (navigationInfo == null)
                 throw new InvalidOperationException("The page type does not specify its uri");
 
-            return String.Equals(navigationInfo.Url.ToString(), document.Uri.AbsolutePath, StringComparison.InvariantCultureIgnoreCase);
+            return String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.AbsolutePath, StringComparison.InvariantCultureIgnoreCase);
         }
 
 

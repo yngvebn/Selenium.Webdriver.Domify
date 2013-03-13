@@ -7,7 +7,7 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
-    public interface IDocument: ISearchContext
+    public interface IDocument : ISearchContext
     {
         Uri Uri { get; }
         IWebElement Body { get; }
@@ -19,11 +19,27 @@ namespace Selenium.Webdriver.Domify
         IList<Table> Tables { get; }
         IList<CheckBox> CheckBoxes { get; }
         IEnumerable<IWebElement> ElementsWithTag(string tagName);
-        
+
         object Eval(string javascript);
         string PageSource { get; }
+        INavigationService Navigation { get; }
         void ClearCache();
 
+    }
+
+    public interface INavigationService
+    {
+        IDocument Document { get; }
+    }
+
+    public class NavigationService : INavigationService
+    {
+        public IDocument Document { get; private set; }
+
+        internal NavigationService(IDocument document)
+        {
+            Document = document;
+        }
     }
 
     public class Document : IDocument
@@ -83,6 +99,14 @@ namespace Selenium.Webdriver.Domify
 
         }
 
+        public INavigationService Navigation
+        {
+            get
+            {
+                return new NavigationService(this);
+            }
+        }
+
         public IWebDriver Driver
         {
             get { return _driver; }
@@ -107,7 +131,7 @@ namespace Selenium.Webdriver.Domify
         public void GoTo(string url)
         {
             _driver.Navigate().GoToUrl(url);
-           
+
         }
 
         private void EnsureAllElementsHaveId()

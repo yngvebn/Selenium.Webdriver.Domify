@@ -9,11 +9,6 @@ namespace Selenium.Webdriver.Domify.GUITests
     {
         private const string TextToTypeIntoTextBox = "Hello world";
 
-        [Test]
-        public void CanTypeTextInTextField()
-        {
-        }
-
         [SetUp]
         public void SetupBrowser()
         {
@@ -22,17 +17,18 @@ namespace Selenium.Webdriver.Domify.GUITests
         [Then]
         public void TheTextBoxShouldHaveAValue()
         {
-            Assert.That(Document.GetCurrentPage<HomeIndex>().TextBox.Value, Is.EqualTo(TextToTypeIntoTextBox));
+            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().TextBox.Value, Is.EqualTo(TextToTypeIntoTextBox));
         }
 
         protected override void Given()
         {
-            Document.GoTo<HomeIndex>();
+            Document.Navigation.GoTo<HomeIndex>();
         }
 
         protected override void When()
         {
-            Document.GetCurrentPage<HomeIndex>().TextBox.TypeText(TextToTypeIntoTextBox);
+            
+            Document.Navigation.GetCurrentPage<HomeIndex>().TextBox.TypeText(TextToTypeIntoTextBox);
         }
     }
 }

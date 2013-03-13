@@ -22,17 +22,18 @@ namespace Selenium.Webdriver.Domify.GUITests
         [Then]
         public void TheTextBoxShouldHaveAValue()
         {
-            Assert.That(Document.GetCurrentPage<HomeIndex>().KnockoutTextBox.Value, Is.EqualTo(TextToTypeIntoTextBox));
+            
+            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().KnockoutTextBox.Value, Is.EqualTo(TextToTypeIntoTextBox));
         }
 
         protected override void Given()
         {
-            Document.GoTo<HomeIndex>();
+            Document.Navigation.GoTo<HomeIndex>();
         }
 
         protected override void When()
         {
-            Document.GetCurrentPage<HomeIndex>().KnockoutTextBox.TypeText(TextToTypeIntoTextBox);
+            Document.Navigation.GetCurrentPage<HomeIndex>().KnockoutTextBox.TypeText(TextToTypeIntoTextBox);
         }
     }
 }
