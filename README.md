@@ -1,12 +1,3 @@
-Selenium.Webdriver.Domify
-=========================
-
-https://nuget.org/packages/Selenium.Webdriver.Domify
-
-Adds a layer on top of Selenium.Webdriver for easier access to the DOM
-
-Documentation coming soon.
-
 # Domify for Selenium Webdriver
 Domify adds extensions to the Selenium Webdriver to make DOM-testing easier!
 
