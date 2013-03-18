@@ -119,7 +119,8 @@ namespace Selenium.Webdriver.Domify
             if (navigationInfo == null)
                 throw new InvalidOperationException("The page type does not specify its uri");
 
-            return String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.AbsolutePath, StringComparison.InvariantCultureIgnoreCase);
+            return String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.AbsolutePath, StringComparison.InvariantCultureIgnoreCase) ||
+                   String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.ToString(), StringComparison.InvariantCultureIgnoreCase);
         }
 
 
