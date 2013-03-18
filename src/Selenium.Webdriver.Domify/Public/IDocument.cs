@@ -57,6 +57,12 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         IList<CheckBox> CheckBoxes { get; }
 
+
+        /// <summary>
+        /// Gets a collection of DateFields in the current document
+        /// </summary>
+        IList<DateField> DateFields { get; }
+        
         /// <summary>
         /// Gets a collection of elements with the given tag
         /// </summary>
@@ -73,6 +79,6 @@ namespace Selenium.Webdriver.Domify
         /// Methods for Navigating the browser
         /// </summary>
         INavigationService Navigation { get; }
-
+        
     }
 }

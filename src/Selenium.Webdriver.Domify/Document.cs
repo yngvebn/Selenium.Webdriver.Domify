@@ -66,6 +66,10 @@ namespace Selenium.Webdriver.Domify
             get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("checkbox")).Select(CheckBox.Create).ToList(); }
         }
 
+        public IList<DateField> DateFields {
+        get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("date")).Select(DateField.Create).ToList(); }
+        }
+
         public string PageSource
         {
             get { return _driver.PageSource; }

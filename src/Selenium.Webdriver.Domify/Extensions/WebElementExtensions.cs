@@ -132,7 +132,15 @@ namespace Selenium.Webdriver.Domify
         {
             return driver.TextField(By.Id(id));
         }
+        public static DateField DateField(this ISearchContext driver, By constraint)
+        {
+            return Elements.DateField.Create(driver.FindElement(constraint));
+        }
 
+        public static DateField DateField(this ISearchContext driver, string id)
+        {
+            return driver.DateField(By.Id(id));
+        }
         public static Uri Uri(this IWebDriver webDriver)
         {
             return new Uri(webDriver.Url);
