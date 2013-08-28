@@ -27,10 +27,8 @@ namespace Selenium.Webdriver.Domify.Elements
             {
                 if (!string.IsNullOrEmpty(Id))
                 {
-                    Driver.ExecuteJavascript(string.Format("$('#{0}').focus();", Id));
                     Driver.ExecuteJavascript(string.Format("document.getElementById('{0}').value = '{1}'", Id, value));
-                    Driver.ExecuteJavascript(string.Format("$('#{0}').keyup();", Id));
-                    Driver.ExecuteJavascript(string.Format("$('#{0}').change();", Id));
+                    Driver.TriggerJavascriptChange(Id);
                 }
                 else
                     base.Text = value;

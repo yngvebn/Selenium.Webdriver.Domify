@@ -129,7 +129,7 @@ namespace Selenium.Webdriver.Domify.Elements
             {
                 if (!string.IsNullOrEmpty(Id))
                 {
-                    Driver.ExecuteJavascript(string.Format("$('#{0}').click();", Id));
+                    Driver.TriggerJavascriptEvent(Id, "click");
                 }
                 else
                 {
