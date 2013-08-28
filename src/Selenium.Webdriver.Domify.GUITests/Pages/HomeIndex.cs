@@ -23,12 +23,17 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         }
         public TextField KnockoutTextBox
         {
-            get { return Document.TextField(Knockout.ByValue("someValue")); }
+            get { return Document.TextField(Knockout.ByValue("text")); }
         }
 
         public HyperLink DelayedLink
         {
             get { return Document.Link("someLink"); }
+        }
+
+        public Span KnockoutSpan
+        {
+            get { return Document.Span(Knockout.ByText("text")); }
         }
     }
 }

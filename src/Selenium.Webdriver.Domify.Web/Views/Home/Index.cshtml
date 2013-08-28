@@ -8,6 +8,7 @@
             color: blue;
         }
     </style>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.debug.js"></script>
 </head>
 <body>
     <br />
@@ -20,9 +21,11 @@
 
     <input type="text" id="delayedtextbox" />
 
-    <input type="text" data-bind="value: someValue" />
-    
+   
     <input type="date" id="dateTimeField"/>
+    
+    <input type="text" id="knockoutText" data-bind="value: text"/>
+    <span data-bind="text: text"></span>
 </body>
 </html>
 <script type="text/javascript">
@@ -38,5 +41,11 @@
     link.innerHTML = "Link";
     document.getElementsByTagName("body")[0].appendChild(link);
     }, 5000);
+
+    var viewModel = {
+        text: ko.observable('knockout')
+    };
+
+    ko.applyBindings(viewModel);
 
 </script>

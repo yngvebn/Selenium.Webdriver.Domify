@@ -223,21 +223,11 @@ function Publish {
         Get-ChildItem *.nupkg | Where-Object { $_.Name.EndsWith(".symbols.nupkg") -eq $false } | ForEach-Object { 
 
             # Try to push package
-            $task = Create-Process .\NuGet.exe ("push " + $_.Name + " -Source " + $url)
-            $task.Start() | Out-Null
-            $task.WaitForExit()
+			Write-Log ".\Nuget.exe push $($_.FullName) -Source $url"
+			$arguments = "push $($_.FullName)  -Source $($url)  -ApiKey a9faea05-4505-4bb5-bbbb-1a7a3847ae4e"
+            $task = Start-Process -FilePath .\NuGet.exe -ArgumentList $arguments -NoNewWindow 
             
-            $output = ($task.StandardOutput.ReadToEnd() -Split '[\r\n]') |? {$_}
-            $error = (($task.StandardError.ReadToEnd() -Split '[\r\n]') |? {$_}) 
-            Write-Log $output
-            Write-Log $error Error
            
-            if ($task.ExitCode -gt 0) {
-                HandlePublishError
-            }
-            else {
-                $ExitCode = 0
-            }                
         }
     }
 }

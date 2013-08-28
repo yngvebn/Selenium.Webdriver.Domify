@@ -1,23 +1,26 @@
-﻿using NUnit.Framework;
+using System;
+using NUnit.Framework;
 using Selenium.Webdriver.Domify.GUITests.Core;
 using Selenium.Webdriver.Domify.GUITests.Pages;
 
 namespace Selenium.Webdriver.Domify.GUITests
 {
+    [Ignore("Will only work for HTML5-enabled browsers")]
     [TestFixture]
-    public class TextFieldTests : BrowserScenario
+    public class DateFieldTests : BrowserScenario
     {
-        private const string TextToTypeIntoTextBox = "Hello world";
+        private readonly DateTime _textToTypeIntoTextBox = new DateTime(2013,03,18);
 
         [SetUp]
         public void SetupBrowser()
         {
+
         }
 
         [Then]
         public void TheTextBoxShouldHaveAValue()
         {
-            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().TextBox.Value, Is.EqualTo(TextToTypeIntoTextBox));
+            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.Value, Is.EqualTo(_textToTypeIntoTextBox));
         }
 
         protected override void Given()
@@ -27,8 +30,8 @@ namespace Selenium.Webdriver.Domify.GUITests
 
         protected override void When()
         {
-            
-            Document.Navigation.GetCurrentPage<HomeIndex>().TextBox.TypeText(TextToTypeIntoTextBox);
+
+            Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.SetDate(_textToTypeIntoTextBox);
         }
     }
 }

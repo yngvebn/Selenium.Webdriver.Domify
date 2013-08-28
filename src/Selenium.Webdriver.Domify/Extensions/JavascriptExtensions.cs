@@ -14,6 +14,11 @@ namespace Selenium.Webdriver.Domify
         {
             return ((IJavaScriptExecutor)driver).ExecuteScript(script);
         }
+
+        public static void TriggerJavascriptChange(this IWebDriver driver, string elementId)
+        {
+            driver.ExecuteJavascript("var element = document.getElementById('"+elementId+"'); if ('createEvent' in document) { var evt = document.createEvent('HTMLEvents'); evt.initEvent('change', false, true);element.dispatchEvent(evt);}else element.fireEvent('onchange');");
+        }
     }
 
     
