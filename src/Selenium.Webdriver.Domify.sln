@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify", "Selenium.Webdriver.Domify.csproj", "{58219F29-CA4B-4BF2-A403-CA55CE3BC7CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify", "Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj", "{58219F29-CA4B-4BF2-A403-CA55CE3BC7CE}" 
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Nuget", "..\Selenium.Webdriver.Domify.Nuget\Selenium.Webdriver.Domify.Nuget.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Nuget", "Selenium.Webdriver.Domify.Nuget\Selenium.Webdriver.Domify.Nuget.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Web", "..\Selenium.Webdriver.Domify.Web\Selenium.Webdriver.Domify.Web.csproj", "{67BC0B7A-6847-4F00-B7B0-6D6AD278F83C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Web", "Selenium.Webdriver.Domify.Web\Selenium.Webdriver.Domify.Web.csproj", "{67BC0B7A-6847-4F00-B7B0-6D6AD278F83C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Unittests", "..\Selenium.Webdriver.Domify.Unittests\Selenium.Webdriver.Domify.Unittests.csproj", "{97230CAA-F746-4EA2-9FD1-1F2AB29D3C10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.Unittests", "Selenium.Webdriver.Domify.Unittests\Selenium.Webdriver.Domify.Unittests.csproj", "{97230CAA-F746-4EA2-9FD1-1F2AB29D3C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.GUITests", "..\Selenium.Webdriver.Domify.GUITests\Selenium.Webdriver.Domify.GUITests.csproj", "{D9D1A900-2762-452A-A9EF-626769BBC046}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium.Webdriver.Domify.GUITests", "Selenium.Webdriver.Domify.GUITests\Selenium.Webdriver.Domify.GUITests.csproj", "{D9D1A900-2762-452A-A9EF-626769BBC046}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
