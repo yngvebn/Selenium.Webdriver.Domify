@@ -9,5 +9,8 @@ Easily create acceptance and GUI test which tests a variety of browsers thanks t
 See the [documentation](https://github.com/yngvebn/Selenium.Webdriver.Domify/wiki)
 
 ## Get it on NuGet!
+[htps://www.nuget.org/packages/Selenium.Webdriver.Domify/](https://www.nuget.org/packages/Selenium.Webdriver.Domify/)
 
-    Install-Package Selenium.Webdriver.Domify - Pre
+    Install-Package Selenium.Webdriver.Domify 
+
+
