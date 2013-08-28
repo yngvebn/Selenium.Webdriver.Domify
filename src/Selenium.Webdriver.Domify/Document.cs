@@ -32,9 +32,9 @@ namespace Selenium.Webdriver.Domify
 
         public IDocumentSettings Settings { get; private set; }
 
-        public IWebElement Body
+        public Body Body
         {
-            get { return _driver.FindElement(By.TagName("Body")); }
+            get { return Body.Create(_driver.FindElement(By.TagName("body"))); }
         }
 
         public IList<Span> Spans
@@ -46,6 +46,7 @@ namespace Selenium.Webdriver.Domify
         {
             get { return _driver.FindElements(By.TagName("iframe")).Select(Frame.Create).ToList(); }
         }
+
         public IList<Div> Divs
         {
             get { return _driver.FindElements(By.TagName("div")).Select(Div.Create).ToList(); }
@@ -66,8 +67,14 @@ namespace Selenium.Webdriver.Domify
             get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("checkbox")).Select(CheckBox.Create).ToList(); }
         }
 
-        public IList<DateField> DateFields {
-        get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("date")).Select(DateField.Create).ToList(); }
+        public IList<SelectList> SelectLists
+        {
+            get { return _driver.FindElements(By.TagName("select")).Select(SelectList.Create).ToList(); }
+        }
+
+        public IList<DateField> DateFields
+        {
+            get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("date")).Select(DateField.Create).ToList(); }
         }
 
         public string PageSource
@@ -89,19 +96,24 @@ namespace Selenium.Webdriver.Domify
             get { return _driver; }
         }
 
-        public void ClearCache()
-        {
-
-        }
-
         public IEnumerable<IWebElement> ElementsWithTag(string tagName)
         {
             return _driver.FindElements(By.TagName(tagName));
         }
 
+        public T WaitUntilFound<T>(By find, TimeSpan timeout = default(TimeSpan))
+        {
+            return Driver.WaitUntilFound<T>(find, timeout);
+        }
+
         public void GoTo(string url)
         {
             _driver.Navigate().GoToUrl(url);
+        }
+
+        public void Refresh()
+        {
+            _driver.Navigate().Refresh();
         }
 
         public IWebElement FindElement(By @by)

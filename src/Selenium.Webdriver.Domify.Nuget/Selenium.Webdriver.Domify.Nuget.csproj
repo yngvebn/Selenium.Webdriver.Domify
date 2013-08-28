@@ -88,6 +88,7 @@ rem xcopy $(ProjectDir)*.nupkg C:\Users\yngven\Dropbox\Nuget\Selenium.Webdriver.
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>del $(ProjectDir)*.nupgk /Q
-del $(ProjectDir)*.bak /Q</PreBuildEvent>
+del $(ProjectDir)*.bak /Q
+xcopy $(SolutionDir)bin\$(ConfigurationName)\Selenium.Webdriver.Domify.dll $(ProjectDir)lib\net45\ /Y</PreBuildEvent>
   </PropertyGroup>
 </Project>

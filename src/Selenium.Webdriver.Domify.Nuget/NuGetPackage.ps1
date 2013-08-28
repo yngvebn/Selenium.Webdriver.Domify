@@ -268,7 +268,7 @@ Write-Log (Invoke-Command {.\NuGet.exe update -Self} -ErrorAction Stop)
 Write-Log " "
 Write-Log "Creating package..." -ForegroundColor Green
 Write-Host $WorkingPath
-$strPath = "$WorkingPath\lib\net45\Selenium.Webdriver.Domify.dll"
+$strPath = "$($WorkingPath)lib\net45\Selenium.Webdriver.Domify.dll"
 Write-Host $strPath
 $Assembly = [Reflection.Assembly]::Loadfile($strPath)
 
@@ -279,7 +279,7 @@ $path = "Package.nuspec"
 $file = New-Object xml
 $file.Load($path)
 
-$file.package.metadata.version = $Assemblyversion + "-alpha"
+$file.package.metadata.version = $Assemblyversion
 $file.Save($path)
 # Create symbols package if any .pdb files are located in the lib folder
 If ((Get-ChildItem *.pdb -Path .\lib -Recurse).Count -gt 0) {

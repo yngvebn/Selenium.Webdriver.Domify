@@ -6,7 +6,7 @@ namespace Selenium.Webdriver.Domify.Elements
 {
     public class TableRowCollection: IEnumerable<TableRow>
     {
-        public TableRowCollection(IEnumerable<TableRow> tableRows )
+        public TableRowCollection(IEnumerable<TableRow> tableRows)
         {
             _tableRows = tableRows.ToList();
         }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using OpenQA.Selenium;
@@ -32,26 +34,44 @@ namespace Selenium.Webdriver.Domify
             return new DataBoundConstraint(value, "foreach");
         }
 
+        public static DataBoundConstraint By(string value, string binding)
+        {
+            return new DataBoundConstraint(value, binding);
+        }
+
         public class DataBoundConstraint : By
         {
-            public DataBoundConstraint(string knockoutParam, string valueAccessor = "value")
+            public DataBoundConstraint(string value, string knockoutParameter = "value")
             {
+                string bindingExprWithSpace = knockoutParameter + ": " + value;
+                string bindingExprWithoutSpace = knockoutParameter + ":" + value;
 
-                string regex = valueAccessor + ":(.?)" + knockoutParam.Replace("$", "\\$");
                 FindElementMethod = context =>
                 {
-                    var element = context.FindElements(By.XPath(".//*[@data-bind]")).SingleOrDefault(d => Regex.IsMatch(d.GetAttribute("data-bind"), regex));
-                    if (string.IsNullOrEmpty(element.GetAttribute("id")))
+                    try
                     {
-                        var finder = string.Format("document.querySelector('[{0}=\"{1}\"]')", "data-bind", element.GetAttribute("data-bind"));
-
-                        string selId = "('id', '_id__'+(Math.floor(Math.random()*10000000)+1));";
-                        string js = finder + ".setAttribute" + selId + ";";
-                        ((IWrapsDriver)element).WrappedDriver.ExecuteJavascript(js);
+                        return context.FindElement(CssSelector(string.Format("[data-bind*=\"{0}\"]", bindingExprWithSpace)));
                     }
-                    return element;
+                    catch (NoSuchElementException)
+                    {
+                        return context.FindElement(CssSelector(string.Format("[data-bind*=\"{0}\"]", bindingExprWithoutSpace)));
+                    }
                 };
 
+                FindElementsMethod = context =>
+                {
+                    try
+                    {
+                        ReadOnlyCollection<IWebElement> result = context.FindElements(CssSelector(string.Format("[data-bind*=\"{0}\"]", bindingExprWithSpace)));
+
+                        if (result.Count > 0)
+                            return result;
+                    }
+                    catch (NoSuchElementException)
+                    {}
+
+                    return context.FindElements(CssSelector(string.Format("[data-bind*=\"{0}\"]", bindingExprWithoutSpace)));
+                };
             }
         }
     }

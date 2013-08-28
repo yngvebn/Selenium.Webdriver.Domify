@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify
 {

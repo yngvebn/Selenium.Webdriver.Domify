@@ -1,51 +1,54 @@
 ﻿using System;
-using System.Diagnostics;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
     public static class WebDriverExtensions
     {
-     
         public static Uri Uri(this IWebDriver webDriver)
         {
             return new Uri(webDriver.Url);
         }
 
-        public static bool ContainsText(this Document driver, string text)
+        public static bool ContainsText(this IDocument driver, string text)
         {
-            return driver.PageSource.Contains(text);
+            return driver.PageSource.Replace("&nbsp;", " ").Replace('\u00A0', ' ').Contains(text);
         }
 
         public static IDocument Document(this IWebDriver driver)
         {
             return new Document(driver);
         }
-        public static bool Exists(this IWebElement element)
+
+        public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
         {
-            return element.IsVisible();
+            if (timeout == default(TimeSpan))
+                timeout = TimeSpan.FromSeconds(30);
+
+            var wait = new WebDriverWait(driver, timeout);
+
+            IWebElement element = wait.Until(dr => dr.FindElement(find));
+
+            return element.As<T>();
         }
 
-        public static string InnerHtml(this IWebElement element)
+        public static void WaitUntil(this IDocument document, Predicate<IDocument> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null)
         {
-            return element.Text;
+            if (timeOut == default(TimeSpan))
+                timeOut = TimeSpan.FromSeconds(30);
+
+            TimeoutManager.Execute(timeOut, predicate, document, ignoredExceptionTypes);
         }
 
-        public static bool IsVisible(this IWebElement element)
+        public static void WaitForPageLoaded(this IDocument driver)
         {
-            if (!element.Displayed)
-                return false;
-
-            return element.GetCssValue("display") != "none";
-        }
-
-        public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan)) where T : IWebElement
-        {
-            
-
-            if (timeOut == default(TimeSpan)) timeOut = TimeSpan.FromSeconds(30);
-            TimeoutManager.Execute(timeOut, predicate, element);
-
+            WaitUntil(driver, document =>
+                {
+                    object result = driver.Driver.ExecuteJavascript("return document.readyState");
+                    return result.ToString() == "complete";
+                });
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Selenium.Webdriver.Domify.Elements
         }
 
         private readonly IList<TableBody> _tableBodies;
+
         public TableBody this[int index]
         {
             get { return _tableBodies[index]; }
@@ -25,6 +26,11 @@ namespace Selenium.Webdriver.Domify.Elements
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public int Count
+        {
+            get { return _tableBodies.Count; }
         }
     }
 }

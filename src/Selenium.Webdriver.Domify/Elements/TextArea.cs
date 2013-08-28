@@ -2,17 +2,16 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    public class TextField : WebElement
+    public class TextArea : WebElement
     {
-        public static TextField Create(IWebElement element)
+        public static TextArea Create(IWebElement element)
         {
-            return new TextField(element);
+            return new TextArea(element);
         }
 
-        private TextField(IWebElement element) :
+        public TextArea(IWebElement element) :
             base(element)
         {
-
         }
 
         public override string Text

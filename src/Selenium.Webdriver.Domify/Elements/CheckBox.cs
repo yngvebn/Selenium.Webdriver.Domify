@@ -15,9 +15,14 @@ namespace Selenium.Webdriver.Domify.Elements
 
         }
 
+        public void Select()
+        {
+            Checked = true;
+        }
+
         public bool Checked
         {
-            get { return base.GetAttribute("checked") != null; }
+            get { return GetAttribute("checked") != null; }
 
             set
             {

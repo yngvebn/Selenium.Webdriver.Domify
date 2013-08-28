@@ -6,7 +6,7 @@ namespace Selenium.Webdriver.Domify.Elements
 {
     public class UL : WebElement
     {
-        public ListItem this[int index]{
+        public LI this[int index]{
             get { return ListItems.ToList()[index]; }}
 
         public static UL Create(IWebElement element)
@@ -14,14 +14,14 @@ namespace Selenium.Webdriver.Domify.Elements
             return new UL(element);
         }
 
-        public IList<ListItem>  OwnListItems
+        public IList<LI>  OwnListItems
         {
             get { return ListItems.ToList(); }
         }
 
-        private IEnumerable<ListItem> ListItems
+        private IEnumerable<LI> ListItems
         {
-            get { return FindElements(By.TagName("li")).Select(ListItem.Create); }
+            get { return FindElements(By.TagName("li")).Select(LI.Create); }
         }
 
         private UL(IWebElement element) :

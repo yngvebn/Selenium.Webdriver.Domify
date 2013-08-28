@@ -26,10 +26,18 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return new TableBodyCollection(FindElements(By.TagName("tbody")).Select(TableBody.Create)); }
         }
 
-        public TableRowCollection OwnTableRows { get
+        public TableRowCollection OwnTableRows
         {
-            return new TableRowCollection(FindElements(By.TagName("tr")).Select(TableRow.Create));
-        }}
+            get
+            {
+                return new TableRowCollection(FindElements(By.TagName("tr")).Select(TableRow.Create));
+            }
+        }
+
+        public THead Head
+        {
+            get { return THead.Create(FindElement(By.TagName("thead"))); }
+        }
 
         public WebElement Parent { get { return null; } }
     }
