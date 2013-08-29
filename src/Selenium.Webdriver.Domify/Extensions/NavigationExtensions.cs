@@ -44,6 +44,7 @@ namespace Selenium.Webdriver.Domify
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
         }
 
+
         /// <summary>
         /// Browses to the given URI with the current browser window
         /// </summary>

@@ -13,5 +13,10 @@ namespace Selenium.Webdriver.Domify
         /// Indicates that we should always wait until the max timeout when looking for an element
         /// </summary>
         bool AlwaysWaitForElement { get; set; }
+
+        /// <summary>
+        /// Makes sure that all elements have Ids when a page is navigated to
+        /// </summary>
+        bool EnsureAllElementsHaveId { get; set; }
     }
 }

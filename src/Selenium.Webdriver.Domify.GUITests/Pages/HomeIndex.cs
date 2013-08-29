@@ -35,5 +35,11 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         {
             get { return Document.Span(Knockout.ByText("text")); }
         }
+
+        public TextField TextBoxWithoutId
+        {
+            get { return Document.TextField(By.ClassName("textboxwithoutid")); }
+            
+        }
     }
 }

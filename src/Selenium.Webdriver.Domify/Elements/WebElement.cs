@@ -23,14 +23,7 @@ namespace Selenium.Webdriver.Domify.Elements
         public string Id
         {
             get { return GetAttribute("id"); }
-            //set
-            //{
-            //    var finder = string.Format("document.querySelector('[{0}=\"{1}\"]')", "data-bind", element.GetAttribute("data-bind"));
-
-            //    string setId = "('id', '_id__'+(Math.floor(Math.random()*10000000)+1));";
-            //    string js = finder + ".setAttribute" + setId + ";";
-            //    Driver.ExecuteJavascript(js);
-            //}
+            set { Driver.SetIdForElementAtPoint(_element.Location, value); }
         }
 
         public string Name

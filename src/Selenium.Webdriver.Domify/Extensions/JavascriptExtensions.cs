@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Drawing;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 
 namespace Selenium.Webdriver.Domify
@@ -8,6 +9,12 @@ namespace Selenium.Webdriver.Domify
         public static object ExecuteJavascript(this IWebElement element, string script)
         {
             return ((IWrapsDriver)element).WrappedDriver.ExecuteJavascript(script);
+        }
+
+        public static void SetIdForElementAtPoint(this IWebDriver driver, Point location, string id)
+        {
+            string javascript = string.Format("document.elementFromPoint({0},{1}).id = '{2}'", location.X, location.Y, id);
+            driver.ExecuteJavascript(javascript);
         }
 
         public static object ExecuteJavascript(this IWebDriver driver, string script)
