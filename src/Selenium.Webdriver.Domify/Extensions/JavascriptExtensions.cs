@@ -55,6 +55,9 @@ namespace Selenium.Webdriver.Domify
 
         public static void TriggerJavascriptChange(this IWebDriver driver, string elementId)
         {
+            driver.TriggerJavascriptEvent(elementId, "keydown");
+            driver.TriggerJavascriptEvent(elementId, "keyup");
+            driver.TriggerJavascriptEvent(elementId, "keypress");
             driver.TriggerJavascriptEvent(elementId, "change");
         }
     }
