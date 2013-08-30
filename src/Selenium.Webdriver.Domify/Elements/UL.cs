@@ -16,12 +16,20 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public IList<LI>  OwnListItems
         {
-            get { return ListItems.ToList(); }
+            get
+            {
+                var xPath = Driver.GetElementXPath(this) + "/li";
+                return this.FindElements(By.XPath(xPath)).Select(LI.Create).ToList();
+            }
         }
 
         private IEnumerable<LI> ListItems
         {
-            get { return FindElements(By.TagName("li")).Select(LI.Create); }
+
+            get
+            {
+                return FindElements(By.TagName("li")).Select(LI.Create);
+            }
         }
 
         private UL(IWebElement element) :

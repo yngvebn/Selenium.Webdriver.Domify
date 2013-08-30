@@ -41,5 +41,10 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
             get { return Document.TextField(By.ClassName("textboxwithoutid")); }
             
         }
+
+        public UL NestedList
+        {
+            get { return Document.List("nestedList"); }
+        }
     }
 }

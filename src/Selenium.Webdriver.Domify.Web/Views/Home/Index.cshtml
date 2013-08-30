@@ -29,6 +29,19 @@
     
     <input type="text" id="knockoutText" data-bind="value: text"/>
     <span data-bind="text: text"></span>
+    
+    <ul id="nestedList">
+        <li>
+            Item 1 
+        </li>
+        <li>
+            Item 2
+            <ul id="innerLIst">
+                <li>Inner item 1</li>
+                <li>Inner item 2</li>
+            </ul>
+        </li>
+    </ul>
 </body>
 </html>
 <script type="text/javascript">

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Selenium.Webdriver.Domify</id>
-    <version>1.6.17509</version>
+    <version>1.7.22401</version>
     <title>Selenium.Webdriver.Domify</title>
     <authors>Yngve Bakken Nilsen</authors>
     <owners>
@@ -22,8 +22,8 @@
     <copyright>Copyright  2013</copyright>
     <dependencies>
       <group targetFramework="net40">
-        <dependency id="Selenium.Support" version="2.31.2" />
-        <dependency id="Selenium.WebDriver" version="2.31.2" />
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
       </group>
     </dependencies>
     <references>
