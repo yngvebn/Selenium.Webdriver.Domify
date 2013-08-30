@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Remote;
@@ -14,20 +15,20 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static string GetElementXPath(this IWebDriver driver, IWebElement element) {
-            string javascript = string.Format("document.elementFromPoint({0},{1})", element.Location.X, element.Location.Y);
-            var result = driver.ExecuteJavascript("gPt=function(c){	if(c.id!=='')	{		return'id(\"'+c.id+'\")'	}	if(c===document.body)	{		return c.tagName	}	var a=0;	var e=c.parentNode.childNodes;	for(var b=0;b<e.length;b++)	{		var d=e[b];		if(d===c)		{			return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'		}		if(d.nodeType===1&&d.tagName===c.tagName)		{			a++		}	}};return gPt("+javascript+");");
+            SetIdForElementAtPoint(driver, element.Location, GenerateRandomId());
+
+            var result = driver.ExecuteJavascript("gPt=function(c){	if(c.id!=='')	{		return'id(\"'+c.id+'\")'	}	if(c===document.body)	{		return 'HTML/'+c.tagName	}	var a=0;	var e=c.parentNode.childNodes;	for(var b=0;b<e.length;b++)	{		var d=e[b];		if(d===c)		{			return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'		}		if(d.nodeType===1&&d.tagName===c.tagName)		{			a++		}	}};return gPt(arguments[0]);", ((WebElement)element).SeleniumElement);
 
             return (string) result;
         }
 
-        public static string GetElementXPath(this IWebElement element)
+        private static string GenerateRandomId()
         {
-            string javascript = string.Format("document.elementFromPoint({0},{1})", element.Location.X, element.Location.Y);
-            var result = element.ExecuteJavascript("gPt=function(c){	if(c.id!=='')	{		return'id(\"'+c.id+'\")'	}	if(c===document.body)	{		return c.tagName	}	var a=0;	var e=c.parentNode.childNodes;	for(var b=0;b<e.length;b++)	{		var d=e[b];		if(d===c)		{			return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'		}		if(d.nodeType===1&&d.tagName===c.tagName)		{			a++		}	}};return gPt(" + javascript + ");");
-
-            return (string)result;
+            Random random = new Random();
+            var idNumber = random.Next(1000000);
+            string id = string.Format("___s_w_d_{0}", idNumber);
+            return id;
         }
-
 
         public static void SetIdForElementAtPoint(this IWebDriver driver, Point location, string id)
         {

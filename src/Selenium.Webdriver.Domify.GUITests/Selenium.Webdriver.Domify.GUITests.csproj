@@ -56,6 +56,7 @@
     <Compile Include="IfNothingHappensWaitUntilTimesout.cs" />
     <Compile Include="KnockoutTextFieldTests.cs" />
     <Compile Include="NavigationTests.cs" />
+    <Compile Include="OwnListItemsReturnsOnlyImmediateChildren.cs" />
     <Compile Include="Pages\HomeIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextFieldTests.cs" />

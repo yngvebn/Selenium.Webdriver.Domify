@@ -17,13 +17,13 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public IWebDriver Driver
         {
-            get { return ((IWrapsDriver)_element).WrappedDriver; }
+            get { return ((IWrapsDriver)SeleniumElement).WrappedDriver; }
         }
 
         public string Id
         {
             get { return GetAttribute("id"); }
-            set { Driver.SetIdForElementAtPoint(_element.Location, value); }
+            set { Driver.SetIdForElementAtPoint(SeleniumElement.Location, value); }
         }
 
         public string Name
@@ -63,27 +63,27 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public IWebElement FindElement(By @by)
         {
-            return _element.FindElement(@by);
+            return SeleniumElement.FindElement(@by);
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
-            return _element.FindElements(@by);
+            return SeleniumElement.FindElements(@by);
         }
 
         public void Clear()
         {
-            _element.Clear();
+            SeleniumElement.Clear();
         }
 
         public void SendKeys(string text)
         {
-            _element.SendKeys(text);
+            SeleniumElement.SendKeys(text);
         }
 
         public void Submit()
         {
-            _element.Submit();
+            SeleniumElement.Submit();
         }
 
         public void ClickAndWaitForNavigation(TimeSpan timeout = default(TimeSpan))
@@ -116,7 +116,7 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             try
             {
-                _element.Click();
+                SeleniumElement.Click();
             }
             catch (InvalidOperationException)
             {
@@ -185,42 +185,42 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public string GetAttribute(string attributeName)
         {
-            return _element.GetAttribute(attributeName);
+            return SeleniumElement.GetAttribute(attributeName);
         }
 
         public string GetCssValue(string propertyName)
         {
-            return _element.GetCssValue(propertyName);
+            return SeleniumElement.GetCssValue(propertyName);
         }
 
-        public string ClassName { get { return _element.GetAttribute("class"); } }
+        public string ClassName { get { return SeleniumElement.GetAttribute("class"); } }
 
-        public string TagName { get { return _element.TagName; } }
+        public string TagName { get { return SeleniumElement.TagName; } }
 
         public virtual string Text
         {
             get
             {
-                return _element.Text;
+                return SeleniumElement.Text;
             }
             set
             {
-                _element.Clear();
+                SeleniumElement.Clear();
 
                 if (!string.IsNullOrEmpty(value))
                     SendKeys(value);
             }
         }
 
-        public bool Enabled { get { return _element.Enabled; } }
+        public bool Enabled { get { return SeleniumElement.Enabled; } }
 
-        public bool Selected { get { return _element.Selected; } }
+        public bool Selected { get { return SeleniumElement.Selected; } }
 
-        public Point Location { get { return _element.Location; } }
+        public Point Location { get { return SeleniumElement.Location; } }
 
-        public Size Size { get { return _element.Size; } }
+        public Size Size { get { return SeleniumElement.Size; } }
 
-        public bool Displayed { get { return _element.Displayed; } }
+        public bool Displayed { get { return SeleniumElement.Displayed; } }
 
         public IList<Span> Spans
         {
@@ -281,6 +281,11 @@ namespace Selenium.Webdriver.Domify.Elements
             {
                 return new Style(this);
             }
+        }
+
+        public IWebElement SeleniumElement
+        {
+            get { return _element; }
         }
 
         private IEnumerable<IWebElement> FindElementsByTagName(string tagName)

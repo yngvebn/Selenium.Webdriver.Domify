@@ -46,5 +46,10 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         {
             get { return Document.List("nestedList"); }
         }
+
+        public UL NestedKnockoutList
+        {
+            get { return Document.List(Knockout.ByText("knockoutlist")); }
+        }
     }
 }
