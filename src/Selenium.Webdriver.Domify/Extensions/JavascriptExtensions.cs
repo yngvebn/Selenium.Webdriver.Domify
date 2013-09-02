@@ -9,13 +9,13 @@ namespace Selenium.Webdriver.Domify
 {
     public static class JavascriptExtensions
     {
-        public static object ExecuteJavascript(this IWebElement element, string script)
+        public static object ExecuteJavascript(this IWebElement element, string script, params object[] arguments)
         {
-            return ((IWrapsDriver)element).WrappedDriver.ExecuteJavascript(script);
+            return ((IWrapsDriver)element).WrappedDriver.ExecuteJavascript(script, arguments);
         }
 
         public static string GetElementXPath(this IWebDriver driver, IWebElement element) {
-            SetIdForElementAtPoint(driver, element.Location, GenerateRandomId());
+            SetIdForElement(element, GenerateRandomId());
 
             var result = driver.ExecuteJavascript("gPt=function(c){	if(c.id!=='')	{		return'id(\"'+c.id+'\")'	}	if(c===document.body)	{		return 'HTML/'+c.tagName	}	var a=0;	var e=c.parentNode.childNodes;	for(var b=0;b<e.length;b++)	{		var d=e[b];		if(d===c)		{			return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'		}		if(d.nodeType===1&&d.tagName===c.tagName)		{			a++		}	}};return gPt(arguments[0]);", ((WebElement)element).SeleniumElement);
 
@@ -30,10 +30,10 @@ namespace Selenium.Webdriver.Domify
             return id;
         }
 
-        public static void SetIdForElementAtPoint(this IWebDriver driver, Point location, string id)
+        public static void SetIdForElement(this IWebElement element, string id)
         {
-            string javascript = string.Format("document.elementFromPoint({0},{1}).id = '{2}'", location.X, location.Y, id);
-            driver.ExecuteJavascript(javascript);
+            string javascript = string.Format("sId=function(c) {{ c.id = '{0}'}}; sId(arguments[0]);", id);
+            ((WebElement)element).SeleniumElement.ExecuteJavascript(javascript, ((WebElement) element).SeleniumElement, id);
         }
 
         public static object ExecuteJavascript(this IWebDriver driver, string script, params object[] arguments)

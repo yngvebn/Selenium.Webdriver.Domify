@@ -23,7 +23,7 @@ namespace Selenium.Webdriver.Domify.Elements
         public string Id
         {
             get { return GetAttribute("id"); }
-            set { Driver.SetIdForElementAtPoint(SeleniumElement.Location, value); }
+            set { this.SetIdForElement(value); }
         }
 
         public string Name
