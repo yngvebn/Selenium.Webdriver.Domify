@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("option")]
     public class SelectListItem : WebElement
     {
         public static SelectListItem Create(IWebElement element)

@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.Webdriver.Domify.Elements
@@ -71,6 +72,9 @@ namespace Selenium.Webdriver.Domify.Elements
             return SeleniumElement.FindElements(@by);
         }
 
+
+        public WebElement Parent { get { return HtmlElement.Create(FindElement(By.XPath(Driver.GetElementXPath(this)+"/.."))); } }
+
         public void Clear()
         {
             SeleniumElement.Clear();
@@ -118,11 +122,19 @@ namespace Selenium.Webdriver.Domify.Elements
             {
                 SeleniumElement.Click();
             }
+            catch (ElementNotVisibleException)
+            {
+                this.TriggerJavascriptClick();
+            }
             catch (InvalidOperationException)
             {
                 if (!string.IsNullOrEmpty(Id))
                 {
                     Driver.TriggerJavascriptEvent(Id, "click");
+                }
+                else if (string.IsNullOrEmpty(Id))
+                {
+                    this.TriggerJavascriptClick();
                 }
                 else
                 {

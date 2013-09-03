@@ -34,17 +34,10 @@ namespace Selenium.Webdriver.Domify
             return element.As<T>();
         }
 
-        public static void WaitUntil(this IDocument document, Predicate<IDocument> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null)
-        {
-            if (timeOut == default(TimeSpan))
-                timeOut = TimeSpan.FromSeconds(30);
-
-            TimeoutManager.Execute(timeOut, predicate, document, ignoredExceptionTypes);
-        }
 
         public static void WaitForPageLoaded(this IDocument driver)
         {
-            WaitUntil(driver, document =>
+            driver.WaitUntil(document =>
                 {
                     object result = driver.Driver.ExecuteJavascript("return document.readyState");
                     return result.ToString() == "complete";

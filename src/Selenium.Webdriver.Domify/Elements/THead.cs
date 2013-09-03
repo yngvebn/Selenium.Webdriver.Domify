@@ -3,9 +3,8 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-// ReSharper disable InconsistentNaming
+    [DOMElement("thead")]
     public class THead : WebElement
-// ReSharper restore InconsistentNaming
     {
         public static THead Create(IWebElement element)
         {

@@ -2,6 +2,7 @@
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("p")]
     public class P : WebElement
     {
         public static P Create(IWebElement element)

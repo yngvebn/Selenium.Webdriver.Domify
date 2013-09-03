@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("ul")]
     public class UL : WebElement
     {
         public LI this[int index]{

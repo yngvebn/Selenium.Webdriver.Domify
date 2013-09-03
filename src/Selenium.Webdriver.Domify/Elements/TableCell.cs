@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("td")]
     public class TableCell : WebElement
     {
         public static TableCell Create(IWebElement element)

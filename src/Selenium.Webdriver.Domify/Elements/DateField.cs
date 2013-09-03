@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("input")]
     public class DateField: WebElement
     {
         public static DateField Create(IWebElement element)

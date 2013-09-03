@@ -2,6 +2,7 @@
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("h3")]
     public class H3 : WebElement
     {
         public static H3 Create(IWebElement element)

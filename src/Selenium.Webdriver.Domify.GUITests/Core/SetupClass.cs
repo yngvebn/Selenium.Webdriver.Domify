@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using Selenium.Webdriver.Domify.GUITests.Core;
 
@@ -8,7 +9,7 @@ public class SetupClass
     [SetUp]
     public void StartWebDriver()
     {
-        BrowserTestSettings.Driver = new InternetExplorerDriver();
+        BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\");
 
     }
 

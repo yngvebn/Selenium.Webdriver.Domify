@@ -10,7 +10,7 @@ namespace Selenium.Webdriver.Domify
     {
         public static Button Button(this ISearchContext driver, string id)
         {
-            return Elements.Button.Create(driver.Button(By.Id(id)));
+            return driver.Button(By.Id(id));
         }
 
         public static Button Button(this ISearchContext driver, By constraint)
@@ -63,10 +63,36 @@ namespace Selenium.Webdriver.Domify
             return Elements.Div.Create(driver.FindElement(By.TagName("div")));
         }
 
+
         public static IList<Div> Divs(this ISearchContext context)
         {
             return context.FindElements(By.TagName("div")).Select(Elements.Div.Create).ToList();
         }
+
+         public static IList<T> Find<T> (this IDocument driver, By by = null)
+            where T: WebElement
+        {
+            string tagName = GetElementTagNameFromDefinition(typeof (T));
+            if(string.IsNullOrEmpty(tagName))
+            {
+                throw new InvalidOperationException("Unable to look for elements of type "+typeof(T));
+            }
+             Func<IWebElement, T> create = element => typeof (T).GetMethod("Create").Invoke(null, new object[] {element}) as T;
+             By byExpression = By.TagName(tagName);
+
+             return driver.FindElements(byExpression).Select(create).ToList();
+        }
+
+
+         private static string GetElementTagNameFromDefinition(Type type)
+         {
+             var attribute = type.GetCustomAttributes(typeof(DOMElementAttribute), false).Cast<DOMElementAttribute>().SingleOrDefault();
+             if (attribute != null)
+             {
+                 return attribute.Tag;
+             }
+             return string.Empty;
+         }
 
         public static IList<Div> Divs(this ISearchContext context, By by)
         {
@@ -110,6 +136,8 @@ namespace Selenium.Webdriver.Domify
             return Elements.Form.Create(driver.FindElement(By.TagName("form")));
         }
 
+        
+
         public static H2 H2(this ISearchContext driver, By constraint)
         {
             return Elements.H2.Create(driver.FindElement(new CombineByWithTag("h2", constraint)));
@@ -119,6 +147,17 @@ namespace Selenium.Webdriver.Domify
         {
             return driver.H2(By.Id(id));
         }
+
+        public static H1 H1(this ISearchContext driver, By constraint)
+        {
+            return Elements.H1.Create(driver.FindElement(new CombineByWithTag("h1", constraint)));
+        }
+
+        public static H1 H1(this ISearchContext driver, string id)
+        {
+            return driver.H1(By.Id(id));
+        }
+
 
         public static H3 H3(this ISearchContext driver, By constraint)
         {
@@ -187,6 +226,17 @@ namespace Selenium.Webdriver.Domify
         {
             return driver.List(By.Id(id));
         }
+
+        public static FileUpload FileUpload(this ISearchContext driver, By constraint)
+        {
+            return Elements.FileUpload.Create(driver.FindElement(constraint));
+        }
+
+        public static FileUpload FileUpload(this ISearchContext driver, string id)
+        {
+            return driver.FileUpload(By.Id(id));
+        }
+
 
         public static LI ListItem(this ISearchContext driver, By constraint)
         {
@@ -277,7 +327,7 @@ namespace Selenium.Webdriver.Domify
             return driver.TextField(By.Id(id));
         }
 
-        public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null) where T : IWebElement
+        public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null) 
         {
             if (timeOut == default(TimeSpan))
                 timeOut = TimeSpan.FromSeconds(30);

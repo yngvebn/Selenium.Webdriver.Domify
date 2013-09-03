@@ -42,6 +42,11 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
             
         }
 
+        public FileUpload FileUpload
+        {
+            get { return Document.FileUpload("file"); }
+        }
+
         public UL NestedList
         {
             get { return Document.List("nestedList"); }
@@ -51,5 +56,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         {
             get { return Document.List(Knockout.ByText("knockoutlist")); }
         }
+
+        public Button InvisibleButton { get { return Document.Button("invisible"); } }
     }
 }

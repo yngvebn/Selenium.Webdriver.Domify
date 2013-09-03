@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("table")]
     public class Table : WebElement
     {
         public static Table Create(IWebElement element)
@@ -39,6 +40,6 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return THead.Create(FindElement(By.TagName("thead"))); }
         }
 
-        public WebElement Parent { get { return null; } }
+        
     }
 }

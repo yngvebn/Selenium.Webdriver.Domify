@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("li")]
     public class LI : WebElement
     {
         public static LI Create(IWebElement element)

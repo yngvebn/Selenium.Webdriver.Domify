@@ -43,12 +43,22 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebDriver">
+      <HintPath>..\Selenium.Webdriver.Domify\bin\Debug\WebDriver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllElementsMustHaveDOMElementAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj">
+      <Project>{58219F29-CA4B-4BF2-A403-CA55CE3BC7CE}</Project>
+      <Name>Selenium.Webdriver.Domify</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

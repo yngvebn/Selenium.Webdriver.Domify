@@ -2,9 +2,8 @@
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-// ReSharper disable InconsistentNaming
+    [DOMElement("th")]
     public class TH : WebElement
-// ReSharper restore InconsistentNaming
     {
         public static TH Create(IWebElement element)
         {

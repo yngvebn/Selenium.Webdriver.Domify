@@ -1,18 +1,17 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-        <style>
-            input[type=text] {
-                color: blue;
-            }
-        </style>
-        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.debug.js"></script>
-    </head>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        input[type=text] {
+            color: blue;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.debug.js"></script>
+</head>
 <body>
     <br />
     <br />
@@ -24,37 +23,40 @@
 
     <input type="text" id="delayedtextbox" />
 
-    <input type="text" class="textboxwithoutid" />
-    <input type="date" id="dateTimeField"/>
-    
-    <input type="text" id="knockoutText" data-bind="value: text"/>
+    <div id="parentContainer2">
+        <input type="text" class="textboxwithoutid" />
+    </div>
+    <input type="date" id="dateTimeField" />
+
+
+    <div id="parentContainer">
+        <input type="text" id="knockoutText" data-bind="value: text" />
+    </div>
     <span data-bind="text: text"></span>
-    
+
     <ul id="nestedList">
-        <li>
-            Item 1 
+        <li>Item 1 
         </li>
-        <li>
-            Item 2
+        <li>Item 2
             <ul id="innerLIst">
                 <li>Inner item 1</li>
                 <li>Inner item 2</li>
             </ul>
         </li>
     </ul>
-    
+
     <ul data-bind="text: knockoutlist">
-        <li>
-            Item 1 
+        <li>Item 1 
         </li>
-        <li>
-            Item 2
+        <li>Item 2
             <ul id="innerLIst">
                 <li>Inner item 1</li>
                 <li>Inner item 2</li>
             </ul>
         </li>
     </ul>
+    <button id="invisible" style="display: none;" data-bind="click: clicked">I'm invisible</button>
+    <input type="file" id="file" />
 </body>
 </html>
 <script type="text/javascript">
@@ -64,15 +66,19 @@
 
     setTimeout(function () {
 
-    var link = document.createElement('a');
-    link.setAttribute('href', 'mypage.htm');
-    link.setAttribute('id', 'someLink');
-    link.innerHTML = "Link";
-    document.getElementsByTagName("body")[0].appendChild(link);
+        var link = document.createElement('a');
+        link.setAttribute('href', 'mypage.htm');
+        link.setAttribute('id', 'someLink');
+        link.innerHTML = "Link";
+        document.getElementsByTagName("body")[0].appendChild(link);
     }, 5000);
 
     var viewModel = {
-        text: ko.observable('knockout')
+        text: ko.observable('knockout'),
+        knockoutlist: ko.observable('hello'),
+        clicked: function () {
+            viewModel.text('invisible clicked');
+        }
     };
 
     ko.applyBindings(viewModel);

@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("tr")]
     public class TableRow : WebElement
     {
         public static TableRow Create(IWebElement element)

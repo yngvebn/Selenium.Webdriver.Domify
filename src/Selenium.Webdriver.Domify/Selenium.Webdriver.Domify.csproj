@@ -57,9 +57,12 @@
     <Compile Include="ByValueDelegate.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DocumentSettings.cs" />
+    <Compile Include="DOMElementDefinition.cs" />
     <Compile Include="Elements\Body.cs" />
     <Compile Include="Elements\CreateExtensions.cs" />
     <Compile Include="Elements\DateField.cs" />
+    <Compile Include="Elements\FileUpload.cs" />
+    <Compile Include="Elements\H1.cs" />
     <Compile Include="Elements\H3.cs" />
     <Compile Include="Elements\HyperLink.cs" />
     <Compile Include="Elements\HtmlColor.cs" />

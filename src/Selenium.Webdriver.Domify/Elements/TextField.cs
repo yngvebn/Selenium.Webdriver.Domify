@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("input")]
     public class TextField : WebElement
     {
         public static TextField Create(IWebElement element)

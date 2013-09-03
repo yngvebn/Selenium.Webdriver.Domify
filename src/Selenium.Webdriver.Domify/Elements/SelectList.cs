@@ -4,6 +4,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("select")]
     public class SelectList : SelectElement
     {
         private readonly IWebElement _webElement;

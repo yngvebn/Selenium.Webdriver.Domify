@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("tbody")]
     public class TableBody: WebElement
     {
         public static TableBody Create(IWebElement element)

@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    [DOMElement("textarea")]
     public class TextArea : WebElement
     {
         public static TextArea Create(IWebElement element)
