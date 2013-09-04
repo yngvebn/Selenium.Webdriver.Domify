@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("input")]
+    [DOMElement("input", Type = "date")]
     public class DateField: WebElement
     {
         public static DateField Create(IWebElement element)
@@ -19,7 +19,7 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public void SetDate(DateTime date)
         {
-            Driver.ExecuteJavascript(string.Format("document.getElementById('{0}').value = '{1}'", Id, date.ToString("yyyy-MM-dd")));
+            this.SetAttribute("value", date.ToString("yyyy-MM-dd"));
         }
 
         public new DateTime Text

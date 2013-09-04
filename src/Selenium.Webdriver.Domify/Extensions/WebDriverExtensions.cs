@@ -37,11 +37,8 @@ namespace Selenium.Webdriver.Domify
 
         public static void WaitForPageLoaded(this IDocument driver)
         {
-            driver.WaitUntil(document =>
-                {
-                    object result = driver.Driver.ExecuteJavascript("return document.readyState");
-                    return result.ToString() == "complete";
-                });
+            driver.WaitUntil(document => document.IsPageLoaded);
+                
         }
     }
 }

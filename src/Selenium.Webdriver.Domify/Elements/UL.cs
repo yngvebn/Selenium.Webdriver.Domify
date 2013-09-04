@@ -19,18 +19,15 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get
             {
-                var xPath = Driver.GetElementXPath(this) + "/li";
-                return this.FindElements(By.XPath(xPath)).Select(LI.Create).ToList();
+                var xPath = this.GetElementXPath() + "/li";
+                return this.Find<LI>(By.XPath(xPath));
             }
         }
 
         private IEnumerable<LI> ListItems
         {
 
-            get
-            {
-                return FindElements(By.TagName("li")).Select(LI.Create);
-            }
+            get { return this.Find<LI>(); }
         }
 
         private UL(IWebElement element) :

@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("input")]
+    [DOMElement("input", Type = "checkbox")]
     public class CheckBox : WebElement
     {
         public static CheckBox Create(IWebElement element)

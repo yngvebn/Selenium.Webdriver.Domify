@@ -24,20 +24,20 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public TableBodyCollection OwnTableBodies
         {
-            get { return new TableBodyCollection(FindElements(By.TagName("tbody")).Select(TableBody.Create)); }
+            get { return new TableBodyCollection(this.Find<TableBody>()); }
         }
 
         public TableRowCollection OwnTableRows
         {
             get
             {
-                return new TableRowCollection(FindElements(By.TagName("tr")).Select(TableRow.Create));
+                return new TableRowCollection(this.Find<TableRow>());
             }
         }
 
         public THead Head
         {
-            get { return THead.Create(FindElement(By.TagName("thead"))); }
+            get { return this.Find<THead>().FirstOrDefault(); }
         }
 
         

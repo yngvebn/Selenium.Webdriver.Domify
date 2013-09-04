@@ -19,13 +19,12 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public TableRow OwnTableRow(By constraint)
         {
-
-            return TableRow.Create(FindElements(constraint).First(c => c.TagName == "tr"));
+            return this.Find<TableRow>(constraint).SingleOrDefault();
         }
 
         public TableRowCollection OwnTableRows
         {
-            get { return new TableRowCollection(FindElements(By.TagName("tr")).Select(TableRow.Create)); }
+            get { return new TableRowCollection(this.Find<TableRow>()); }
         }
     }
 

@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("input")]
+    [DOMElement("input", Type="file")]
     public class FileUpload : WebElement
     {
         public static FileUpload Create(IWebElement element)

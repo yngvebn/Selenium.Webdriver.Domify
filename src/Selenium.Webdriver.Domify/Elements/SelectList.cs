@@ -1,42 +1,50 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
     [DOMElement("select")]
-    public class SelectList : SelectElement
+    public class SelectList : WebElement
     {
-        private readonly IWebElement _webElement;
+        private readonly SelectElement _wrappedSelectElement;
 
         public static SelectList Create(IWebElement element)
         {
             return new SelectList(element);
         }
 
-        private RemoteWebElement RemoteWebElement
+        public IList<SelectListItem> Options
         {
-            get { return _webElement as RemoteWebElement; }
+            get { return Driver.SelectListItems(); }
         }
+
         private SelectList(IWebElement webElement)
             : base(webElement)
         {
-            _webElement = webElement;
+            _wrappedSelectElement = new SelectElement(webElement);
         }
 
-        public Document DomContainer { get { return RemoteWebElement.WrappedDriver as Document; } }
 
-        public string Id { get { return _webElement.GetAttribute("id"); }set{} }
 
-        public void Option(string textOfOptionToSelect)
+        public IWebElement SelectedOption
         {
-            
-            this.SelectByText(textOfOptionToSelect);
+            get { return _wrappedSelectElement.SelectedOption; }
         }
 
-        public IWebElement SelectedItem
+        public void SelectByText(string textOfOptionToSelect)
         {
-            get { return this.SelectedOption; }
+            _wrappedSelectElement.SelectByText(textOfOptionToSelect);
+        }
+
+        public void SelectByValue(string valueOfOptionToSelect)
+        {
+            _wrappedSelectElement.SelectByValue(valueOfOptionToSelect);
+        }
+        public void SelectByIndex(int indexOfOptionToSelect)
+        {
+            _wrappedSelectElement.SelectByIndex(indexOfOptionToSelect);
         }
     }
 }

@@ -1,119 +1,81 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Cache;
 using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
     public static class WebElementExtensions
     {
-        public static Button Button(this ISearchContext driver, string id)
+        public static Button Button(this ISearchContext context, string id)
         {
-            return driver.Button(By.Id(id));
+            return context.Button(By.Id(id));
         }
 
-        public static Button Button(this ISearchContext driver, By constraint)
+        public static Button Button(this ISearchContext context, By constraint)
         {
-            IWebElement button = driver.FindElements(new CombineByWithTag("button", constraint))
-                                       .Union(FindInputsOfType(driver, constraint, "button"))
-                                       .Union(FindInputsOfType(driver, constraint, "submit"))
-                                       .SingleOrThrowNotFoundException();
-
-            return Elements.Button.Create(button);
+            return context.Find<Button>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static Button Button(this ISearchContext driver, ByFirst constraint)
+        public static IList<Button> Buttons(this ISearchContext context, By constraint = null)
         {
-            return Elements.Button.Create(driver.FindElement(By.CssSelector("button")));
-        }
-
-        public static CheckBox CheckBox(this ISearchContext driver, string id)
-        {
-            return driver.CheckBox(By.Id(id));
-        }
-
-        public static CheckBox CheckBox(this ISearchContext driver, By constraint)
-        {
-            return Elements.CheckBox.Create(FindInputsOfType(driver, constraint, "checkbox").SingleOrThrowNotFoundException());
-        }
-
-        public static DateField DateField(this ISearchContext driver, By constraint)
-        {
-            return Elements.DateField.Create(FindInputsOfType(driver, constraint, "date").SingleOrThrowNotFoundException());
-        }
-
-        public static DateField DateField(this ISearchContext driver, string id)
-        {
-            return driver.DateField(By.Id(id));
-        }
-
-        public static Div Div(this ISearchContext driver, string id)
-        {
-            return driver.Div(By.Id(id));
-        }
-
-        public static Div Div(this ISearchContext driver, By constraint)
-        {
-            return Elements.Div.Create(driver.FindElement(new CombineByWithTag("div", constraint)));
-        }
-
-        public static Div Div(this ISearchContext driver, ByFirst constraint)
-        {
-            return Elements.Div.Create(driver.FindElement(By.TagName("div")));
+            return context.Find<Button>(constraint);
         }
 
 
-        public static IList<Div> Divs(this ISearchContext context)
+        public static CheckBox CheckBox(this ISearchContext context, string id)
         {
-            return context.FindElements(By.TagName("div")).Select(Elements.Div.Create).ToList();
+            return context.CheckBox(By.Id(id));
         }
 
-         public static IList<T> Find<T> (this IDocument driver, By by = null)
-            where T: WebElement
+        public static CheckBox CheckBox(this ISearchContext context, By constraint)
         {
-            string tagName = GetElementTagNameFromDefinition(typeof (T));
-            if(string.IsNullOrEmpty(tagName))
-            {
-                throw new InvalidOperationException("Unable to look for elements of type "+typeof(T));
-            }
-             Func<IWebElement, T> create = element => typeof (T).GetMethod("Create").Invoke(null, new object[] {element}) as T;
-             By byExpression = By.TagName(tagName);
-
-             return driver.FindElements(byExpression).Select(create).ToList();
+            return context.Find<CheckBox>(constraint).SingleOrThrowNotFoundException();
         }
 
-
-         private static string GetElementTagNameFromDefinition(Type type)
-         {
-             var attribute = type.GetCustomAttributes(typeof(DOMElementAttribute), false).Cast<DOMElementAttribute>().SingleOrDefault();
-             if (attribute != null)
-             {
-                 return attribute.Tag;
-             }
-             return string.Empty;
-         }
-
-        public static IList<Div> Divs(this ISearchContext context, By by)
+        public static DateField DateField(this ISearchContext context, By constraint)
         {
-            return context.FindElements(new CombineByWithTag("div", @by)).Select(Elements.Div.Create).ToList();
+            return context.Find<DateField>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static bool Exists(this ISearchContext driver, string id)
+        public static DateField DateField(this ISearchContext context, string id)
         {
-            return driver.FindElements(By.Id(id)).Count > 0;
+            return context.DateField(By.Id(id));
         }
 
-        public static bool Exists(this ISearchContext driver, By predicate)
+        public static Div Div(this ISearchContext context, string id)
         {
-            return driver.FindElements(predicate).Count > 0;
+            return context.Div(By.Id(id));
         }
 
-        public static bool Exists<T>(this IWebElement driver, Func<IWebElement, T> func) where T : WebElement
+        public static Div Div(this ISearchContext context, By constraint)
+        {
+            return context.Find<Div>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Div> Divs(this ISearchContext context, By constraint = null)
+        {
+            return context.Find<Div>(constraint);
+        }
+        
+        public static bool Exists(this ISearchContext context, string id)
+        {
+            return context.FindElements(By.Id(id)).Count > 0;
+        }
+
+        public static bool Exists(this ISearchContext context, By predicate)
+        {
+            return context.FindElements(predicate).Count > 0;
+        }
+
+        public static bool Exists<T>(this IWebElement context, Func<IWebElement, T> func) where T : WebElement
         {
             try
             {
-                return func(driver) != null;
+                return func(context) != null;
             }
             catch (NotFoundException)
             {
@@ -121,52 +83,44 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public static Form Form(this ISearchContext driver, string id)
+        public static Form Form(this ISearchContext context, string id)
         {
-            return driver.Form(By.Id(id));
+            return context.Form(By.Id(id));
         }
 
-        public static Form Form(this ISearchContext driver, By constraint)
+        public static Form Form(this ISearchContext context, By constraint)
         {
-            return Elements.Form.Create(driver.FindElement(new CombineByWithTag("form", constraint)));
+            return context.Find<Form>(constraint).SingleOrThrowNotFoundException();
         }
-
-        public static Form Form(this ISearchContext driver, ByFirst constraint)
-        {
-            return Elements.Form.Create(driver.FindElement(By.TagName("form")));
-        }
-
         
-
-        public static H2 H2(this ISearchContext driver, By constraint)
+        public static H2 H2(this ISearchContext context, By constraint)
         {
-            return Elements.H2.Create(driver.FindElement(new CombineByWithTag("h2", constraint)));
+            return context.Find<H2>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static H2 H2(this ISearchContext driver, string id)
+        public static H2 H2(this ISearchContext context, string id)
         {
-            return driver.H2(By.Id(id));
+            return context.H2(By.Id(id));
         }
 
-        public static H1 H1(this ISearchContext driver, By constraint)
+        public static H1 H1(this ISearchContext context, By constraint)
         {
-            return Elements.H1.Create(driver.FindElement(new CombineByWithTag("h1", constraint)));
+            return context.Find<H1>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static H1 H1(this ISearchContext driver, string id)
+        public static H1 H1(this ISearchContext context, string id)
         {
-            return driver.H1(By.Id(id));
+            return context.H1(By.Id(id));
         }
 
-
-        public static H3 H3(this ISearchContext driver, By constraint)
+        public static H3 H3(this ISearchContext context, By constraint)
         {
-            return Elements.H3.Create(driver.FindElement(new CombineByWithTag("h3", constraint)));
+            return context.Find<H3>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static H3 H3(this ISearchContext driver, string id)
+        public static H3 H3(this ISearchContext context, string id)
         {
-            return driver.H3(By.Id(id));
+            return context.H3(By.Id(id));
         }
 
         public static string InnerHtml(this IWebElement element)
@@ -174,20 +128,16 @@ namespace Selenium.Webdriver.Domify
             return element.Text;
         }
 
-        public static Input Input(this ISearchContext driver, string id)
+        public static Input Input(this ISearchContext context, string id)
         {
-            return Elements.Input.Create(driver.FindElement(By.Id(id)));
+            return context.Input(By.Id(id));
         }
 
-        public static Input Input(this ISearchContext driver, By constraint)
+        public static Input Input(this ISearchContext context, By constraint)
         {
-            return Elements.Input.Create(driver.FindElement(new CombineByWithTag("input", constraint)));
+            return context.Find<Input>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static Input Input(this ISearchContext driver, ByFirst constraint)
-        {
-            return Elements.Input.Create(driver.FindElement(By.CssSelector("input")));
-        }
 
         public static bool IsVisible(this IWebElement element)
         {
@@ -197,80 +147,76 @@ namespace Selenium.Webdriver.Domify
             return element.GetCssValue("display") != "none";
         }
 
-        public static HyperLink Link(this ISearchContext driver, ByFirst byFirst)
+
+        public static HyperLink Link(this ISearchContext context, By constraint)
         {
-            return HyperLink.Create(driver.FindElement(By.CssSelector("a")));
+            return context.Find<HyperLink>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static HyperLink Link(this ISearchContext driver, By constraint)
+        public static HyperLink Link(this ISearchContext context, string id)
         {
-            return HyperLink.Create(driver.FindElement(new CombineByWithTag("a", constraint)));
+            return context.Link(By.Id(id));
         }
 
-        public static HyperLink Link(this ISearchContext driver, string id)
+        public static UL List(this ISearchContext context, By constraint)
         {
-            return driver.Link(By.Id(id));
+            return context.Find<UL>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static UL List(this ISearchContext driver, By constraint)
+        public static UL List(this ISearchContext context, string id)
         {
-            return UL.Create(driver.FindElement(new CombineByWithTag("ul", constraint)));
+            return context.List(By.Id(id));
         }
 
-        public static UL List(this ISearchContext driver, ByFirst constraint)
+        public static FileUpload FileUpload(this ISearchContext context, By constraint)
         {
-            return UL.Create(driver.FindElement(By.CssSelector("ul")));
+            return context.Find<FileUpload>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static UL List(this ISearchContext driver, string id)
+        public static FileUpload FileUpload(this ISearchContext context, string id)
         {
-            return driver.List(By.Id(id));
-        }
-
-        public static FileUpload FileUpload(this ISearchContext driver, By constraint)
-        {
-            return Elements.FileUpload.Create(driver.FindElement(constraint));
-        }
-
-        public static FileUpload FileUpload(this ISearchContext driver, string id)
-        {
-            return driver.FileUpload(By.Id(id));
+            return context.FileUpload(By.Id(id));
         }
 
 
-        public static LI ListItem(this ISearchContext driver, By constraint)
+        public static LI ListItem(this ISearchContext context, By constraint)
         {
-            return LI.Create(driver.FindElement(new CombineByWithTag("li", constraint)));
+            return context.Find<LI>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static P P(this ISearchContext driver, By constraint)
+        public static P P(this ISearchContext context, By constraint)
         {
-            return Elements.P.Create(driver.FindElement(new CombineByWithTag("p", constraint)));
+            return context.Find<P>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static RadioButton RadioButton(this ISearchContext driver, By constraint)
+        public static RadioButton RadioButton(this ISearchContext context, By constraint)
         {
-            return Elements.RadioButton.Create(driver.FindElement(constraint));
+            return context.Find<RadioButton>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static RadioButton RadioButton(this ISearchContext driver, string id)
+        public static RadioButton RadioButton(this ISearchContext context, string id)
         {
-            return driver.RadioButton(By.Id(id));
+            return context.RadioButton(By.Id(id));
         }
 
-        public static SelectList SelectList(this ISearchContext driver, string id)
+        public static SelectList SelectList(this ISearchContext context, string id)
         {
-            return driver.SelectList(By.Id(id));
+            return context.SelectList(By.Id(id));
         }
 
-        public static SelectList SelectList(this ISearchContext driver, By constraint)
+        public static SelectList SelectList(this ISearchContext context, By constraint)
         {
-            return Elements.SelectList.Create(driver.FindElement(new CombineByWithTag("select", constraint)));
+            return context.Find<SelectList>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<SelectListItem> SelectListItems(this ISearchContext context, By constraint = null)
+        {
+            return context.Find<SelectListItem>(constraint).ToList();
         }
 
         public static Span Span(this ISearchContext context, By constraint)
         {
-            return Elements.Span.Create(context.FindElement(new CombineByWithTag("span", constraint)));
+            return context.Find<Span>(constraint).SingleOrThrowNotFoundException();
         }
 
         public static Span Span(this ISearchContext context, string id)
@@ -278,9 +224,9 @@ namespace Selenium.Webdriver.Domify
             return context.Span(By.Id(id));
         }
 
-        public static TH TH(this ISearchContext driver, By constraint)
+        public static TH TH(this ISearchContext context, By constraint)
         {
-            return Elements.TH.Create(driver.FindElement(new CombineByWithTag("th", constraint)));
+            return context.Find<TH>(constraint).SingleOrThrowNotFoundException();
         }
 
         public static Table Table(this ISearchContext element, string id)
@@ -288,57 +234,42 @@ namespace Selenium.Webdriver.Domify
             return element.Table(By.Id(id));
         }
 
-        public static Table Table(this ISearchContext driver, By constraint)
+        public static Table Table(this ISearchContext context, By constraint)
         {
-            return Elements.Table.Create(driver.FindElement(new CombineByWithTag("table", constraint)));
+            return context.Find<Table>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static Table Table(this ISearchContext driver, ByFirst constraint)
+        public static TableBody TableBody(this ISearchContext context, By constraint)
         {
-            return Elements.Table.Create(driver.FindElement(By.CssSelector("table")));
+            return context.Find<TableBody>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static TableBody TableBody(this ISearchContext driver, By constraint)
+        public static TextArea TextArea(this ISearchContext context, By constraint)
         {
-            return Elements.TableBody.Create(driver.FindElement(new CombineByWithTag("tbody", constraint)));
+            return context.Find<TextArea>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static TextArea TextArea(this ISearchContext driver, By constraint)
+        public static TextArea TextArea(this ISearchContext context, string id)
         {
-            return Elements.TextArea.Create(driver.FindElement(new CombineByWithTag("textarea", constraint)));
+            return context.TextArea(By.Id(id));
         }
 
-        public static TextArea TextArea(this ISearchContext driver, string id)
+        public static TextField TextField(this ISearchContext context, By constraint)
         {
-            return driver.TextArea(By.Id(id));
+            return context.Find<TextField>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static TextField TextField(this ISearchContext driver, By constraint)
+        public static TextField TextField(this ISearchContext context, string id)
         {
-            IEnumerable<IWebElement> textFields = FindInputsOfType(driver, constraint, "text")
-                .Union(FindInputsOfType(driver, constraint, "password"))
-                .Union(driver.FindElements(new CombineByWithTag("textarea", constraint)));
-
-            return Elements.TextField.Create(textFields.SingleOrThrowNotFoundException());
+            return context.TextField(By.Id(id));
         }
 
-        public static TextField TextField(this ISearchContext driver, string id)
-        {
-            return driver.TextField(By.Id(id));
-        }
-
-        public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null) 
+        public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null)
         {
             if (timeOut == default(TimeSpan))
                 timeOut = TimeSpan.FromSeconds(30);
 
             TimeoutManager.Execute(timeOut, predicate, element, ignoredExceptionTypes);
-        }
-
-        private static IEnumerable<IWebElement> FindInputsOfType(ISearchContext driver, By constraint, string type)
-        {
-            return driver.FindElements(new CombineByWithTag("input", constraint))
-                         .Where(element => element.GetAttribute("type") == type);
         }
 
         private static TSource SingleOrThrowNotFoundException<TSource>(this IEnumerable<TSource> source) where TSource : class
@@ -350,5 +281,48 @@ namespace Selenium.Webdriver.Domify
 
             return found;
         }
+
+        public static T Find<T>(this ISearchContext context, string id)
+           where T : WebElement
+        {
+            return context.Find<T>(By.Id(id)).SingleOrDefault();
+        }
+
+        public static IList<T> Find<T>(this ISearchContext context, By by = null)
+            where T : WebElement
+        {
+
+            var filterPredicate = CacheHolder.GetFilterPredicate<T>();
+            
+            if (filterPredicate == null)
+            {
+                throw new InvalidOperationException("Unable to look for elements of type " + typeof(T));
+            }
+
+            Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
+
+            IEnumerable<IWebElement> elements;
+          
+            if (by != null)
+            {
+                elements = context.FindElements(by).Where(filterPredicate);
+            }
+            else
+            {
+                var webElement = context as WebElement;
+                by = By.XPath("//*");
+                if(webElement != null)
+                {
+                    by = By.XPath(webElement.GetElementXPath() + "//*");
+                }
+                elements = context.FindElements(by).Where(filterPredicate);
+            }
+
+
+            return elements.Select(create).ToList();
+        }
+
+       
     }
+
 }

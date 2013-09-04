@@ -21,7 +21,7 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get
             {
-                return new THCollection(FindElements(By.TagName("th")).Select(TH.Create));
+                return new THCollection(this.Find<TH>());
             }
         }
 

@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify
 {
+
     public static class Find
     {
         public static By ByClass(string className)
@@ -26,9 +27,9 @@ namespace Selenium.Webdriver.Domify
             return new ByValueDelegate(valueMatcher);
         }
 
-        public static By By(string attr, string value)
+        public static By By(string attr, string value, string tagName = "*")
         {
-            return OpenQA.Selenium.By.XPath(string.Format(".//*[(@{0}='{1}')]", attr, value));
+            return OpenQA.Selenium.By.XPath(string.Format(".//{2}[(@{0}='{1}')]", attr, value, tagName));
         }
 
         public static By ByName(string nameValue)
@@ -51,9 +52,16 @@ namespace Selenium.Webdriver.Domify
             return OpenQA.Selenium.By.XPath(string.Format("./*[position()={0}]", index + 1));
         }
 
-        public static ByFirst First()
+        public static By First<T>()
+            where T: IWebElement
         {
-            return new ByFirst();
+            string xPath = "";
+            foreach(var expr in DOMElementXPathFactory.Get<T>())
+            {
+                xPath += string.Format(".//{0} | ", expr);
+            }
+            xPath = "(" + xPath.TrimEnd(' ', '|') + ")[1]";
+            return OpenQA.Selenium.By.XPath(xPath);
         }
     }
 }

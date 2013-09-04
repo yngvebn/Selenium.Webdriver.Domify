@@ -15,6 +15,5 @@ namespace Selenium.Webdriver.Domify.Elements
         {
 
         }
-         
     }
 }

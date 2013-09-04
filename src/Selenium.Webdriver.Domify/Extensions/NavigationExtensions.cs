@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using Selenium.Webdriver.Domify.Cache;
 
 namespace Selenium.Webdriver.Domify
 {
@@ -125,24 +126,14 @@ namespace Selenium.Webdriver.Domify
         }
 
 
-        private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Type t)
-        {
-            var customAttributes = t.GetCustomAttributes(true);
-
-            foreach (var customAttribute in customAttributes)
-            {
-                var navigationInfo = customAttribute as PageDescriptionAttribute;
-
-                if (navigationInfo != null)
-                    return navigationInfo;
-            }
-
-            return null;
-        }
+      private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Type t)
+      {
+          return CacheHolder.TryGetPageDescriptionAttribute(t);
+      }
 
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute<T>()
         {
-            return TryGetPageDescriptionAttribute(typeof(T));
+            return CacheHolder.TryGetPageDescriptionAttribute(typeof(T));
         }
 
 

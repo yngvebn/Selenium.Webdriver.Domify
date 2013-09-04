@@ -26,13 +26,8 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return GetAttribute("value"); }
             set
             {
-                if (!string.IsNullOrEmpty(Id))
-                {
-                    Driver.ExecuteJavascript(string.Format("document.getElementById('{0}').value = '{1}'", Id, value));
-                    Driver.TriggerJavascriptChange(Id);
-                }
-                else
-                    base.Text = value;
+                this.SetAttribute("value", value);
+                this.TriggerJavascriptChange();
             }
         }
     }

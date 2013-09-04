@@ -8,5 +8,15 @@ namespace Selenium.Webdriver.Domify.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Buttons()
+        {
+            return View();
+        }
+
+        public ActionResult Selectlists()
+        {
+            return View();
+        }
     }
 }

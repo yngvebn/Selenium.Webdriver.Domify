@@ -30,7 +30,7 @@
 
 
     <div id="parentContainer">
-        <input type="text" id="knockoutText" data-bind="value: text" />
+        <input type="text" id="knockoutText"  style="display: none" data-bind="value: text" />
     </div>
     <span data-bind="text: text"></span>
 
@@ -45,18 +45,17 @@
         </li>
     </ul>
 
-    <ul data-bind="text: knockoutlist">
-        <li>Item 1 
-        </li>
-        <li>Item 2
-            <ul id="innerLIst">
-                <li>Inner item 1</li>
-                <li>Inner item 2</li>
-            </ul>
-        </li>
+    <ul data-bind="foreach: knockoutlist">
+        <li data-bind="text: text"></li>
     </ul>
     <button id="invisible" style="display: none;" data-bind="click: clicked">I'm invisible</button>
+    
+    <input type="checkbox" name="check"/>
+    <input type="checkbox" name="check"/>
+    <input type="checkbox" name="check"/>
+    <input type="checkbox" name="check"/>
     <input type="file" id="file" />
+   
 </body>
 </html>
 <script type="text/javascript">
@@ -75,7 +74,7 @@
 
     var viewModel = {
         text: ko.observable('knockout'),
-        knockoutlist: ko.observable('hello'),
+        knockoutlist: ko.observableArray([{ text: 'hello'}, { text: 'hello2'}]),
         clicked: function () {
             viewModel.text('invisible clicked');
         }

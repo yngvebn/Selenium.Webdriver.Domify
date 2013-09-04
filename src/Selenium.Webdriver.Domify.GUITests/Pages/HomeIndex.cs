@@ -54,7 +54,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
 
         public UL NestedKnockoutList
         {
-            get { return Document.List(Knockout.ByText("knockoutlist")); }
+            get { return Document.List(Knockout.ByForeach("knockoutlist")); }
         }
 
         public Button InvisibleButton { get { return Document.Button("invisible"); } }

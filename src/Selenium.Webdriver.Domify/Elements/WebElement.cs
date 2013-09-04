@@ -12,7 +12,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    public abstract class WebElement : IWebElement
+    public abstract class WebElement : ListWebElements, IWebElement
     {
         private readonly IWebElement _element;
 
@@ -62,18 +62,18 @@ namespace Selenium.Webdriver.Domify.Elements
             return GetAttribute(title);
         }
 
-        public IWebElement FindElement(By @by)
+        public override IWebElement FindElement(By @by)
         {
             return SeleniumElement.FindElement(@by);
         }
 
-        public ReadOnlyCollection<IWebElement> FindElements(By @by)
+        public override ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
             return SeleniumElement.FindElements(@by);
         }
 
 
-        public WebElement Parent { get { return HtmlElement.Create(FindElement(By.XPath(Driver.GetElementXPath(this)+"/.."))); } }
+        public WebElement Parent { get { return HtmlElement.Create(FindElement(By.XPath(this.GetElementXPath() + "/.."))); } }
 
         public void Clear()
         {
@@ -128,15 +128,13 @@ namespace Selenium.Webdriver.Domify.Elements
             }
             catch (InvalidOperationException)
             {
-                if (!string.IsNullOrEmpty(Id))
-                {
-                    Driver.TriggerJavascriptEvent(Id, "click");
-                }
-                else if (string.IsNullOrEmpty(Id))
+
+                try
                 {
                     this.TriggerJavascriptClick();
+
                 }
-                else
+                catch
                 {
                     var timeOut = TimeSpan.FromSeconds(30);
 
@@ -217,6 +215,7 @@ namespace Selenium.Webdriver.Domify.Elements
             }
             set
             {
+
                 SeleniumElement.Clear();
 
                 if (!string.IsNullOrEmpty(value))
@@ -234,58 +233,7 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public bool Displayed { get { return SeleniumElement.Displayed; } }
 
-        public IList<Span> Spans
-        {
-            get { return FindElementsByTagName("span").Select(Span.Create).ToList(); }
-        }
-
-        public IList<Frame> Frames
-        {
-            get { return FindElementsByTagName("iframe").Select(Frame.Create).ToList(); }
-        }
-
-        public IList<UL> Lists
-        {
-            get { return FindElementsByTagName("ul").Select(UL.Create).ToList(); }
-        }
-
-        public IList<Div> Divs
-        {
-            get { return FindElementsByTagName("div").Select(Div.Create).ToList(); }
-        }
-
-        public IList<HyperLink> Links
-        {
-            get { return FindElementsByTagName("a").Select(HyperLink.Create).ToList(); }
-        }
-
-        public IList<Table> Tables
-        {
-            get { return FindElementsByTagName("table").Select(Table.Create).ToList(); }
-        }
-
-        public IList<TextArea> TextAreas
-        {
-            get { return FindElementsByTagName("textarea").Select(TextArea.Create).ToList(); }
-        }
-
-        public IList<TextField> TextFields
-        {
-            get { return FindElementsByTagName("input").Where(i => i.GetAttribute("type").Equals("text")).Select(TextField.Create).ToList(); }
-        }
-
-        public IList<Button> Buttons
-        {
-            get
-            {
-                var buttons = FindElementsByTagName("button").Select(Button.Create).ToList();
-                var inputs = FindElementsByTagName("input").Where(c => c.GetAttribute("type").Equals("button")).Select(Button.Create).ToList();
-                var allButtons = new List<Button>();
-                allButtons.AddRange(buttons);
-                allButtons.AddRange(inputs);
-                return allButtons;
-            }
-        }
+  
 
         public Style Style
         {
@@ -300,9 +248,14 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return _element; }
         }
 
-        private IEnumerable<IWebElement> FindElementsByTagName(string tagName)
+        protected void SetAttribute(string attributeName, string attributeValue)
         {
-            return FindElements(By.TagName(tagName));
+            this.SetElementAttribute(attributeName, attributeValue);
+        }
+
+        protected void SetText(string value)
+        {
+            this.SetElementText(value);
         }
     }
 }

@@ -2,7 +2,9 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("input")]
+    [DOMElement("input", Type = "text")]
+    [DOMElement("input", Type = "password")]
+    [DOMElement("input", Type = "search")]
     public class TextField : WebElement
     {
         public static TextField Create(IWebElement element)
@@ -27,14 +29,18 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return GetAttribute("value"); }
             set
             {
-                if (!string.IsNullOrEmpty(Id))
+                this.TriggerJavascriptEvent("click");
+                this.TriggerJavascriptEvent("focus");
+                this.ClearTextField();
+                try
                 {
-                  Driver.ExecuteJavascript(string.Format("document.getElementById('{0}').value = '{1}'", Id, value));
-                  Driver.TriggerJavascriptChange(Id);
-
+                    this.SendKeys(value);
                 }
-                else
-                    base.Text = value;
+                catch (ElementNotVisibleException)
+                {
+                    this.SetElementValue(value);
+                }
+                this.TriggerJavascriptChange();
             }
         }
     }

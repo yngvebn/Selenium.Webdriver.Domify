@@ -28,28 +28,4 @@ namespace Selenium.Webdriver.Domify.GUITests
             Assert.That(list.OwnListItems.Count, Is.EqualTo(2));
         }
     }
-
-    [TestFixture]
-    public class OwnListItemsWithoutIDReturnsOnlyImmediateChildren : BrowserScenario
-    {
-
-        protected override void Given()
-        {
-            Document.Navigation.GoTo<HomeIndex>();
-        }
-
-        private UL list;
-        protected override void When()
-        {
-            list = Document.Navigation.GetCurrentPage<HomeIndex>().NestedKnockoutList;
-        }
-
-
-        [Then]
-        public void TheTextBoxShouldHaveIdSet()
-        {
-
-            Assert.That(list.OwnListItems.Count, Is.EqualTo(2));
-        }
-    }
 }

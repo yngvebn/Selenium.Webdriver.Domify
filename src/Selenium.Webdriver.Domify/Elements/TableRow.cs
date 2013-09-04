@@ -18,24 +18,22 @@ namespace Selenium.Webdriver.Domify.Elements
 
         }
 
-        public IList<TableCell> TableCells{get { return FindElements(By.TagName("td")).Select(TableCell.Create).ToList(); }}
+        public IList<TableCell> TableCells
+        {
+            get
+            {
+                return this.Find<TableCell>();
+            }
+        }
 
         public IList<TableCell> OwnTableCells
         {
             get { return TableCells; }
         }
-
-        public IList<HtmlElement> Elements
-        {
-            get { return this.FindElements(By.XPath("./child::*")).Select(HtmlElement.Create).ToList(); }
-            
-        }
-
-        public int Index { get; set; }
-
+        
         public TableCell OwnTableCell(By constraint)
         {
-            return TableCell.Create(FindElements(constraint).First(c => c.TagName == "td"));
+            return this.Find<TableCell>(constraint).SingleOrDefault();
         }
     }
 }

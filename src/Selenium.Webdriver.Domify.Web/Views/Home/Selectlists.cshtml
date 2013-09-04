@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Selectlists";
+}
+
+<h2>Selectlists</h2>
+
+
+<select id="mainList">
+    <option>Option 1</option>
+    <option>Option 2</option>
+    <option>Option 3</option>
+    <option>Option 4</option>
+    <option>Option 5</option>
+    <option>Option 6</option>
+</select>
+
+<table id="table">
+        <thead>
+            <tr class="last">
+                <th style="width: 200px">Programinformasjon
+                </th>
+                <th style="width: 100px">Starttid
+                </th>
+                <th style="width: 100px">Pris
+                </th>
+                <th style="width: 30px;">Anbefalt
+                </th>
+                <th style="width: 140px"></th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach: activeLyntotos, dragAndDropSortable: { items: 'tr', onUpdate: saveSortIndex, sortIndex: 'sortIndex' }" class="ui-sortable">
+            <tr data-bind="highlightVisible: isNew" class="lyntoto-omgang" style="" id="___s_w_d_757394">
+                <td style="width: 200px" data-bind="text: raceDayName">V65 Jarlsberg 09.09.2011</td>
+                <td style="width: 100px" data-bind="text: startTime">19:35</td>
+                <td style="width: 100px" data-bind="text: price">10,90,190</td>
+
+                <td style="width: 30px">
+                    <a href="#" style="margin: 0 7px;" data-bind="click: recommendLyntoto, attr: { title: recommended() ? 'Fjern anbefaling' : 'Anbefal' }, css: { recommended: recommended() }" class="star" title="Anbefal"></a>
+                </td>
+                <td style="width: 140px">
+                    <button title="Endre" data-bind="click: $parent.editLyntoto">Endre</button>
+                    &nbsp;
+                    <a href="#" class="remove" title="Slett lyntoto-omgang" data-bind="click: $parent.confirmDeleteLyntoto">Slett</a>
+                </td>
+            </tr>
+        
+            <tr data-bind="highlightVisible: isNew" class="lyntoto-omgang" style="" id="___s_w_d_309435">
+                <td style="width: 200px" data-bind="text: raceDayName">V5A Biri 09.09.2011</td>
+                <td style="width: 100px" data-bind="text: startTime">18:30</td>
+                <td style="width: 100px" data-bind="text: price">10,30,100</td>
+
+                <td style="width: 30px">
+                    <a href="#" style="margin: 0 7px;" data-bind="click: recommendLyntoto, attr: { title: recommended() ? 'Fjern anbefaling' : 'Anbefal' }, css: { recommended: recommended() }" class="star" title="Anbefal"></a>
+                </td>
+                <td style="width: 140px">
+                    <button title="Endre" data-bind="click: $parent.editLyntoto">Endre</button>
+                    &nbsp;
+                    <a href="#" class="remove" title="Slett lyntoto-omgang" data-bind="click: $parent.confirmDeleteLyntoto">Slett</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>

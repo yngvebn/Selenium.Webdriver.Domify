@@ -4,10 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Javascript;
 
 namespace Selenium.Webdriver.Domify
 {
-    public class Document : IDocument
+    public class Document :ListWebElements, IDocument
     {
         private readonly IWebDriver _driver;
 
@@ -34,49 +35,10 @@ namespace Selenium.Webdriver.Domify
 
         public Body Body
         {
-            get { return Body.Create(_driver.FindElement(By.TagName("body"))); }
+            get { return this.Find<Body>().SingleOrDefault(); }
         }
 
-        public IList<Span> Spans
-        {
-            get { return _driver.FindElements(By.TagName("span")).Select(Span.Create).ToList(); }
-        }
-
-        public IList<Frame> Frames
-        {
-            get { return _driver.FindElements(By.TagName("iframe")).Select(Frame.Create).ToList(); }
-        }
-
-        public IList<Div> Divs
-        {
-            get { return _driver.FindElements(By.TagName("div")).Select(Div.Create).ToList(); }
-        }
-
-        public IList<HyperLink> Links
-        {
-            get { return _driver.FindElements(By.TagName("a")).Select(HyperLink.Create).ToList(); }
-        }
-
-        public IList<Table> Tables
-        {
-            get { return _driver.FindElements(By.TagName("table")).Select(Table.Create).ToList(); }
-        }
-
-        public IList<CheckBox> CheckBoxes
-        {
-            get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("checkbox")).Select(CheckBox.Create).ToList(); }
-        }
-
-        public IList<SelectList> SelectLists
-        {
-            get { return _driver.FindElements(By.TagName("select")).Select(SelectList.Create).ToList(); }
-        }
-
-        public IList<DateField> DateFields
-        {
-            get { return _driver.FindElements(By.TagName("input")).Where(i => i.GetAttribute("type").Equals("date")).Select(DateField.Create).ToList(); }
-        }
-
+       
         public string PageSource
         {
             get { return _driver.PageSource; }
@@ -91,17 +53,15 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
+        public bool IsPageLoaded { get
+        {
+            return Driver.ExecuteJavascript<string>(new GetDocumentReadyState()).Equals("complete", StringComparison.CurrentCultureIgnoreCase);
+        }}
+
         public IWebDriver Driver
         {
             get { return _driver; }
         }
-
-        public IEnumerable<IWebElement> ElementsWithTag(string tagName)
-        {
-            return _driver.FindElements(By.TagName(tagName));
-        }
-
-
 
         public T WaitUntilFound<T>(By find, TimeSpan timeout = default(TimeSpan))
         {
@@ -118,7 +78,7 @@ namespace Selenium.Webdriver.Domify
             _driver.Navigate().Refresh();
         }
 
-        public IWebElement FindElement(By @by)
+        public override IWebElement FindElement(By @by)
         {
             if (!Settings.AlwaysWaitForElement)
                 return _driver.FindElement(@by);
@@ -128,7 +88,7 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public ReadOnlyCollection<IWebElement> FindElements(By @by)
+        public override ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
             return _driver.FindElements(@by);
         }

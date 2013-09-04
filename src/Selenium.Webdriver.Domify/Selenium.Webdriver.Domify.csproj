@@ -55,9 +55,12 @@
   <ItemGroup>
     <Compile Include="ByFirst.cs" />
     <Compile Include="ByValueDelegate.cs" />
+    <Compile Include="Cache\CacheHolder.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DocumentSettings.cs" />
     <Compile Include="DOMElementDefinition.cs" />
+    <Compile Include="DOMElementFilterFactory.cs" />
+    <Compile Include="DOMElementXPathFactory.cs" />
     <Compile Include="Elements\Body.cs" />
     <Compile Include="Elements\CreateExtensions.cs" />
     <Compile Include="Elements\DateField.cs" />
@@ -95,13 +98,25 @@
     <Compile Include="Elements\THead.cs" />
     <Compile Include="Elements\UL.cs" />
     <Compile Include="Elements\WebElement.cs" />
-    <Compile Include="Extensions\CombineByWithTag.cs" />
+    <Compile Include="Extensions\ByExtensions.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
     <Compile Include="Find.cs" />
     <Compile Include="IDocument.cs" />
     <Compile Include="IDocumentSettings.cs" />
+    <Compile Include="IListWebElements.cs" />
     <Compile Include="INavigationService.cs" />
+    <Compile Include="Javascript\GenericJavascript.cs" />
+    <Compile Include="Javascript\GetDocumentReadyState.cs" />
+    <Compile Include="Javascript\GetElementXPath.cs" />
+    <Compile Include="Javascript\IJavascript.cs" />
+    <Compile Include="Javascript\Javascript.cs" />
+    <Compile Include="Javascript\SetElementAttribute.cs" />
+    <Compile Include="Javascript\SetElementText.cs" />
+    <Compile Include="Javascript\SetElementValue.cs" />
+    <Compile Include="Javascript\TriggerJavascriptClick.cs" />
+    <Compile Include="Javascript\TriggerJavascriptEvent.cs" />
     <Compile Include="Knockout.cs" />
+    <Compile Include="ListWebElements.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="PageDescriptionAttribute.cs" />
@@ -110,10 +125,12 @@
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
     <Compile Include="TimeoutManager.cs" />
+    <Compile Include="XPath\XPathConstructor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
