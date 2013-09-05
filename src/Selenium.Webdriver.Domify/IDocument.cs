@@ -15,7 +15,7 @@ namespace Selenium.Webdriver.Domify
         /// <summary>
         /// Gets or sets the common settings for the Document
         /// </summary>
-        IDocumentSettings Settings { get; }
+        //IDocumentSettings Settings { get; }
 
         /// <summary>
         /// Returns the Body element

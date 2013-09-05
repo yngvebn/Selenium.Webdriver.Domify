@@ -224,7 +224,7 @@ function Publish {
 
             # Try to push package
 			Write-Log ".\Nuget.exe push $($_.FullName) -Source $url"
-			$arguments = "push $($_.FullName)  -Source $($url)  -ApiKey a9faea05-4505-4bb5-bbbb-1a7a3847ae4e"
+			$arguments = "push $($_.FullName)  -Source $($url)  -ApiKey "
             $task = Start-Process -FilePath .\NuGet.exe -ArgumentList $arguments -NoNewWindow 
             
            

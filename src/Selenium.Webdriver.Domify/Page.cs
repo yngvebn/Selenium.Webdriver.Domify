@@ -1,12 +1,13 @@
 namespace Selenium.Webdriver.Domify
 {
-    public class Page
+    public abstract class Page
     {
-        public Page()
+        protected Page()
         {
 
         }
-        public Page(IDocument driver)
+
+        protected Page(IDocument driver)
         {
             Document = driver;
         }
