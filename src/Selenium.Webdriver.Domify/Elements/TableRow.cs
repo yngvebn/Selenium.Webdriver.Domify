@@ -30,7 +30,9 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get { return TableCells; }
         }
-        
+
+        public int Index { get; internal set; }
+
         public TableCell OwnTableCell(By constraint)
         {
             return this.Find<TableCell>(constraint).SingleOrDefault();

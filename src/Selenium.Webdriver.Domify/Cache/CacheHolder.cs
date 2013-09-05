@@ -7,9 +7,12 @@ namespace Selenium.Webdriver.Domify.Cache
 {
     internal static class CacheHolder
     {
-        internal static Func<IWebElement, bool> GetFilterPredicate<T>()
+
+        
+        internal static Func<IWebElement, bool> GetFilterPredicate<T>(bool nocache = false)
            where T : WebElement
         {
+            if (nocache) LocalFilterPredicateCache.Remove(typeof (T));
             if (LocalFilterPredicateCache.ContainsKey(typeof(T))) return LocalFilterPredicateCache[typeof(T)];
 
             var filterPredicate = DOMElementFilterFactory.Get<T>();

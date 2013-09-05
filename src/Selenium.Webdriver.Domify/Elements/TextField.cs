@@ -5,6 +5,7 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("input", Type = "text")]
     [DOMElement("input", Type = "password")]
     [DOMElement("input", Type = "search")]
+    [DOMElement("textarea")]
     public class TextField : WebElement
     {
         public static TextField Create(IWebElement element)
@@ -29,12 +30,18 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return GetAttribute("value"); }
             set
             {
-                this.TriggerJavascriptEvent("click");
-                this.TriggerJavascriptEvent("focus");
+                this.TriggerJavascriptEvent("click", "focus");
                 this.ClearTextField();
                 try
                 {
-                    this.SendKeys(value);
+                    if (this.SeleniumElement.Displayed)
+                    {
+                        this.SendKeys(value);
+                    }
+                    else
+                    {
+                        this.SetElementValue(value);
+                    }
                 }
                 catch (ElementNotVisibleException)
                 {

@@ -60,7 +60,7 @@ namespace Selenium.Webdriver.Domify
             {
                 xPath += string.Format(".//{0} | ", expr);
             }
-            xPath = "(" + xPath.TrimEnd(' ', '|') + ")[1]";
+            xPath = "("+xPath.TrimEnd(' ', '|')+")[1]";
             return OpenQA.Selenium.By.XPath(xPath);
         }
     }

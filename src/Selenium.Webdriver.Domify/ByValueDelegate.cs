@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace Selenium.Webdriver.Domify
 {
-    public class ByValueDelegate : By
+    public class ByValueDelegate : OpenQA.Selenium.By
     {
         public ByValueDelegate(Func<string, bool> finder)
         {

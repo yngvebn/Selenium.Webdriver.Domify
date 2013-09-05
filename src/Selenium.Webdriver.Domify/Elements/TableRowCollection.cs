@@ -8,7 +8,14 @@ namespace Selenium.Webdriver.Domify.Elements
     {
         public TableRowCollection(IEnumerable<TableRow> tableRows)
         {
+            int index = 0;
             _tableRows = tableRows.ToList();
+            foreach (var row in _tableRows)
+            {
+                row.Index = index;
+                index++;
+            }
+                
         }
 
         private readonly IList<TableRow> _tableRows;

@@ -11,10 +11,11 @@ namespace Selenium.Webdriver.Domify
     public static class JavascriptExtensions
     {
 
-        public static object ExecuteJavascript(this IWebDriver driver, string script)
+        public static object ExecuteJavascript(this IWebDriver driver, string script, IWebElement element = null)
         {
-            return new GenericJavascript(script).Execute<object>(driver);
+            return new GenericJavascript(script).Execute<object>(driver, element);
         }
+
 
         public static T ExecuteJavascript<T>(this IWebDriver driver, IJavascript javascript, params object[] arguments)
         {
@@ -76,9 +77,9 @@ namespace Selenium.Webdriver.Domify
             element.ExecuteJavascript(new SetElementValue(value));
         }
 
-        public static void TriggerJavascriptEvent(this IWebElement element, string eventName)
+        public static void TriggerJavascriptEvent(this IWebElement element, params object[] eventName)
         {
-            element.ExecuteJavascript(new TriggerJavascriptEvent(eventName));
+            element.ExecuteJavascript(new TriggerJavascriptEvents(eventName));
         }
 
         public static void ClearTextField(this IWebElement element)
@@ -88,11 +89,7 @@ namespace Selenium.Webdriver.Domify
 
         public static void TriggerJavascriptChange(this IWebElement element)
         {
-            element.TriggerJavascriptEvent("keydown");
-            element.TriggerJavascriptEvent("keyup");
-            element.TriggerJavascriptEvent("keypress");
-            element.TriggerJavascriptEvent("change");
-            element.TriggerJavascriptEvent("blur");
+            element.TriggerJavascriptEvent("keydown", "keyup", "keypress", "change", "blur");
         }
     }
 }

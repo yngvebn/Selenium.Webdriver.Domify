@@ -12,6 +12,8 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<Span>(); }
         }
 
+        public IList<Fieldset> Fieldsets { get { return this.Find<Fieldset>(); } }
+
         public IList<Frame> Frames
         {
             get { return this.Find<Frame>(); }
@@ -107,8 +109,8 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<RadioButton>(); }
         }
 
-        public abstract IWebElement FindElement(By @by);
+        public abstract IWebElement FindElement(OpenQA.Selenium.By @by);
 
-        public abstract ReadOnlyCollection<IWebElement> FindElements(By @by);
+        public abstract ReadOnlyCollection<IWebElement> FindElements(OpenQA.Selenium.By @by);
     }
 }

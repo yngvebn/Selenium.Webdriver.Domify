@@ -22,9 +22,20 @@ namespace Selenium.Webdriver.Domify
 
         internal bool IsMatch(IWebElement element)
         {
-            if((!string.IsNullOrEmpty(Type) && element.GetAttribute("type") != null) && !element.GetAttribute("type").Equals(Type)) return false;
+            if ((!string.IsNullOrEmpty(Type) && element.GetAttribute("type") != null) && !element.GetAttribute("type").Equals(Type)) return false;
             return element.TagName.Equals(Tag, StringComparison.InvariantCultureIgnoreCase);
         }
 
+     public string GetCSS()
+        {
+            if (string.IsNullOrEmpty(Type))
+            {
+                return Tag;
+            }
+            else
+            {
+                return String.Format("{0}[type={1}]", Tag, Type);
+            }
+        }
     }
 }

@@ -106,6 +106,7 @@ namespace Selenium.Webdriver.Domify
                 {
                     lastException = CommonExceptionHandling(ignoredExceptionTypes, e);
                 }
+                System.Threading.Thread.Sleep(50);
             }
         }
 

@@ -17,5 +17,11 @@ namespace Selenium.Webdriver.Domify.GUITests
         {
             Assert.That(CurrentPage.Table.OwnTableBodies.First().OwnTableRows.Count(), Is.EqualTo(2));
         }
+
+        [Then]
+        public void TableCellsShouldReturnAllChildren()
+        {
+            Assert.That(CurrentPage.Table.TableCells.Count(), Is.GreaterThan(0));
+        }
     }
 }

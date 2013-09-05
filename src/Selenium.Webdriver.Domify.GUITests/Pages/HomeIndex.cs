@@ -28,7 +28,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
 
         public HyperLink DelayedLink
         {
-            get { return Document.Link("someLink"); }
+            get { return Document.WaitUntilFound<HyperLink>(By.Id("someLink")); }
         }
 
         public Span KnockoutSpan

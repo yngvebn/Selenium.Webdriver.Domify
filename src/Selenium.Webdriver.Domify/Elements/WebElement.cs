@@ -62,12 +62,12 @@ namespace Selenium.Webdriver.Domify.Elements
             return GetAttribute(title);
         }
 
-        public override IWebElement FindElement(By @by)
+        public override IWebElement FindElement(OpenQA.Selenium.By @by)
         {
             return SeleniumElement.FindElement(@by);
         }
 
-        public override ReadOnlyCollection<IWebElement> FindElements(By @by)
+        public override ReadOnlyCollection<IWebElement> FindElements(OpenQA.Selenium.By @by)
         {
             return SeleniumElement.FindElements(@by);
         }
@@ -116,11 +116,18 @@ namespace Selenium.Webdriver.Domify.Elements
             TimeoutManager.Execute(timeout, navigationHasOccured, new[] { typeof(StaleElementReferenceException) });
         }
 
-        public void Click()
+        public void Click(bool forceJavascriptClick)
         {
             try
             {
-                SeleniumElement.Click();
+                if (SeleniumElement.Displayed && !forceJavascriptClick)
+                {
+                    SeleniumElement.Click();
+                }
+                else
+                {
+                    this.TriggerJavascriptClick();
+                }
             }
             catch (ElementNotVisibleException)
             {
@@ -152,6 +159,11 @@ namespace Selenium.Webdriver.Domify.Elements
                     }, this);
                 }
             }
+        }
+
+        public void Click()
+        {
+            Click(true);
         }
 
         public bool HasClass(string className)
@@ -233,7 +245,7 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public bool Displayed { get { return SeleniumElement.Displayed; } }
 
-  
+
 
         public Style Style
         {

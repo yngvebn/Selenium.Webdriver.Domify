@@ -153,6 +153,9 @@
   <ItemGroup>
     <Content Include="Views\Home\Selectlists.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\SpanTest.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

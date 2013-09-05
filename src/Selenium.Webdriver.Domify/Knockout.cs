@@ -24,6 +24,11 @@ namespace Selenium.Webdriver.Domify
             return new DataBoundConstraint(value, "text");
         }
 
+        public static By ByWith(string value)
+        {
+            return new DataBoundConstraint(value, "with");
+        }
+        
         public static By ByChecked(string value)
         {
             return new DataBoundConstraint(value, "checked");

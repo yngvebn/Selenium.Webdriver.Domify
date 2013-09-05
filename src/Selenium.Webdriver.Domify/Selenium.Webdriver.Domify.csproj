@@ -115,6 +115,7 @@
     <Compile Include="Javascript\SetElementValue.cs" />
     <Compile Include="Javascript\TriggerJavascriptClick.cs" />
     <Compile Include="Javascript\TriggerJavascriptEvent.cs" />
+    <Compile Include="Javascript\TriggerJavascriptEvents.cs" />
     <Compile Include="Knockout.cs" />
     <Compile Include="ListWebElements.cs" />
     <Compile Include="NavigationService.cs" />

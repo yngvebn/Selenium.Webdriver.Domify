@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Cache;
@@ -15,14 +16,30 @@ namespace Selenium.Webdriver.Domify
             return context.Button(By.Id(id));
         }
 
-        public static Button Button(this ISearchContext context, By constraint)
+        public static Button Button(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Button>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static IList<Button> Buttons(this ISearchContext context, By constraint = null)
+        public static IList<Button> Buttons(this ISearchContext context, OpenQA.Selenium.By constraint = null)
         {
             return context.Find<Button>(constraint);
+        }
+
+        public static Fieldset Fieldset(this ISearchContext context, string id)
+        {
+            return context.Fieldset(By.Id(id));
+        }
+
+
+        public static Fieldset Fieldset(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Fieldset>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Fieldset> Fieldsets(this ISearchContext context, OpenQA.Selenium.By constraint = null)
+        {
+            return context.Find<Fieldset>(constraint);
         }
 
 
@@ -31,12 +48,12 @@ namespace Selenium.Webdriver.Domify
             return context.CheckBox(By.Id(id));
         }
 
-        public static CheckBox CheckBox(this ISearchContext context, By constraint)
+        public static CheckBox CheckBox(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<CheckBox>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static DateField DateField(this ISearchContext context, By constraint)
+        public static DateField DateField(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<DateField>(constraint).SingleOrThrowNotFoundException();
         }
@@ -51,12 +68,12 @@ namespace Selenium.Webdriver.Domify
             return context.Div(By.Id(id));
         }
 
-        public static Div Div(this ISearchContext context, By constraint)
+        public static Div Div(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Div>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static IList<Div> Divs(this ISearchContext context, By constraint = null)
+        public static IList<Div> Divs(this ISearchContext context, OpenQA.Selenium.By constraint = null)
         {
             return context.Find<Div>(constraint);
         }
@@ -88,12 +105,12 @@ namespace Selenium.Webdriver.Domify
             return context.Form(By.Id(id));
         }
 
-        public static Form Form(this ISearchContext context, By constraint)
+        public static Form Form(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Form>(constraint).SingleOrThrowNotFoundException();
         }
         
-        public static H2 H2(this ISearchContext context, By constraint)
+        public static H2 H2(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<H2>(constraint).SingleOrThrowNotFoundException();
         }
@@ -103,7 +120,7 @@ namespace Selenium.Webdriver.Domify
             return context.H2(By.Id(id));
         }
 
-        public static H1 H1(this ISearchContext context, By constraint)
+        public static H1 H1(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<H1>(constraint).SingleOrThrowNotFoundException();
         }
@@ -113,7 +130,7 @@ namespace Selenium.Webdriver.Domify
             return context.H1(By.Id(id));
         }
 
-        public static H3 H3(this ISearchContext context, By constraint)
+        public static H3 H3(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<H3>(constraint).SingleOrThrowNotFoundException();
         }
@@ -133,7 +150,7 @@ namespace Selenium.Webdriver.Domify
             return context.Input(By.Id(id));
         }
 
-        public static Input Input(this ISearchContext context, By constraint)
+        public static Input Input(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Input>(constraint).SingleOrThrowNotFoundException();
         }
@@ -148,7 +165,7 @@ namespace Selenium.Webdriver.Domify
         }
 
 
-        public static HyperLink Link(this ISearchContext context, By constraint)
+        public static HyperLink Link(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<HyperLink>(constraint).SingleOrThrowNotFoundException();
         }
@@ -158,7 +175,7 @@ namespace Selenium.Webdriver.Domify
             return context.Link(By.Id(id));
         }
 
-        public static UL List(this ISearchContext context, By constraint)
+        public static UL List(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<UL>(constraint).SingleOrThrowNotFoundException();
         }
@@ -168,7 +185,7 @@ namespace Selenium.Webdriver.Domify
             return context.List(By.Id(id));
         }
 
-        public static FileUpload FileUpload(this ISearchContext context, By constraint)
+        public static FileUpload FileUpload(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<FileUpload>(constraint).SingleOrThrowNotFoundException();
         }
@@ -179,17 +196,17 @@ namespace Selenium.Webdriver.Domify
         }
 
 
-        public static LI ListItem(this ISearchContext context, By constraint)
+        public static LI ListItem(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<LI>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static P P(this ISearchContext context, By constraint)
+        public static P P(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<P>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static RadioButton RadioButton(this ISearchContext context, By constraint)
+        public static RadioButton RadioButton(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<RadioButton>(constraint).SingleOrThrowNotFoundException();
         }
@@ -199,22 +216,34 @@ namespace Selenium.Webdriver.Domify
             return context.RadioButton(By.Id(id));
         }
 
+
+        public static TableCell TableCell(this ISearchContext context, string id)
+        {
+            return context.TableCell(By.Id(id));
+        }
+
+        public static TableCell TableCell(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<TableCell>(constraint).SingleOrThrowNotFoundException();
+        }
+
+
         public static SelectList SelectList(this ISearchContext context, string id)
         {
             return context.SelectList(By.Id(id));
         }
 
-        public static SelectList SelectList(this ISearchContext context, By constraint)
+        public static SelectList SelectList(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<SelectList>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static IList<SelectListItem> SelectListItems(this ISearchContext context, By constraint = null)
+        public static IList<SelectListItem> SelectListItems(this ISearchContext context, OpenQA.Selenium.By constraint = null)
         {
             return context.Find<SelectListItem>(constraint).ToList();
         }
 
-        public static Span Span(this ISearchContext context, By constraint)
+        public static Span Span(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Span>(constraint).SingleOrThrowNotFoundException();
         }
@@ -224,7 +253,7 @@ namespace Selenium.Webdriver.Domify
             return context.Span(By.Id(id));
         }
 
-        public static TH TH(this ISearchContext context, By constraint)
+        public static TH TH(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<TH>(constraint).SingleOrThrowNotFoundException();
         }
@@ -234,17 +263,17 @@ namespace Selenium.Webdriver.Domify
             return element.Table(By.Id(id));
         }
 
-        public static Table Table(this ISearchContext context, By constraint)
+        public static Table Table(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Table>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static TableBody TableBody(this ISearchContext context, By constraint)
+        public static TableBody TableBody(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<TableBody>(constraint).SingleOrThrowNotFoundException();
         }
 
-        public static TextArea TextArea(this ISearchContext context, By constraint)
+        public static TextArea TextArea(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<TextArea>(constraint).SingleOrThrowNotFoundException();
         }
@@ -254,7 +283,7 @@ namespace Selenium.Webdriver.Domify
             return context.TextArea(By.Id(id));
         }
 
-        public static TextField TextField(this ISearchContext context, By constraint)
+        public static TextField TextField(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<TextField>(constraint).SingleOrThrowNotFoundException();
         }
@@ -288,10 +317,24 @@ namespace Selenium.Webdriver.Domify
             return context.Find<T>(By.Id(id)).SingleOrDefault();
         }
 
-        public static IList<T> Find<T>(this ISearchContext context, By by = null)
+        public static IList<T> Find<T>(this ISearchContext context)
+              where T: WebElement
+        {
+                        string xPath = "";
+            foreach(var expr in DOMElementXPathFactory.Get<T>())
+            {
+                xPath += string.Format(".//{0} | ", expr);
+            }
+            xPath = "(" + xPath.TrimEnd(' ', '|') + ")";
+            Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
+
+
+            return context.FindElements(OpenQA.Selenium.By.XPath(xPath)).Select(create).ToList();
+        }
+
+        private static IList<T> Find<T>(this ISearchContext context, By by, bool nocache)
             where T : WebElement
         {
-
             var filterPredicate = CacheHolder.GetFilterPredicate<T>();
             
             if (filterPredicate == null)
@@ -317,9 +360,20 @@ namespace Selenium.Webdriver.Domify
                 }
                 elements = context.FindElements(by).Where(filterPredicate);
             }
-
-
             return elements.Select(create).ToList();
+        }
+
+        public static IList<T> Find<T>(this ISearchContext context, OpenQA.Selenium.By by)
+            where T : WebElement
+        {
+            try
+            {
+                return context.Find<T>(by, false);
+            }
+            catch(StaleElementReferenceException)
+            {
+                return context.Find<T>(by, true);
+            }
         }
 
        

@@ -10,8 +10,9 @@ public class SetupClass
     [SetUp]
     public void StartWebDriver()
     {
-        //BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\");
-        BrowserTestSettings.Driver = new PhantomJSDriver("..\\..\\..\\..\\Drivers\\");
+        BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\");
+        
+        //BrowserTestSettings.Driver = new PhantomJSDriver("..\\..\\..\\..\\Drivers\\");
 
     }
 

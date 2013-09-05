@@ -35,8 +35,8 @@ namespace Selenium.Webdriver.Domify
         INavigationService Navigation { get; }
 
         bool IsPageLoaded { get; }
-        
-        T WaitUntilFound<T>(By find, TimeSpan timeout = default(TimeSpan));
+
+        T WaitUntilFound<T>(OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan));
         void Refresh();
     }
 }

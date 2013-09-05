@@ -30,7 +30,7 @@ namespace Selenium.Webdriver.Domify.Javascript
         /// <returns></returns>
         public T Execute<T>(IWebElement element)
         {
-            var driver = ((IWrapsDriver) element).WrappedDriver;
+            var driver = ((IWrapsDriver)element).WrappedDriver;
             return Execute<T>(driver, element);
         }
 
@@ -53,8 +53,7 @@ namespace Selenium.Webdriver.Domify.Javascript
 
         private string GenerateMethodName()
         {
-            Random r = new Random();
-            return string.Format("f{0}", r.Next(1000));
+            return string.Format("domify_{0}", GetType().Name);
         }
     }
 }

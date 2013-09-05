@@ -6,6 +6,7 @@ namespace Selenium.Webdriver.Domify
     public interface IListWebElements
     {
         IList<Span> Spans { get; }
+        IList<Fieldset> Fieldsets { get; }
         IList<Frame> Frames { get; }
         IList<UL> Lists { get; }
         IList<Div> Divs { get; }

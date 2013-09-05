@@ -16,7 +16,7 @@ namespace Selenium.Webdriver.Domify.GUITests
 
         protected override void When()
         {
-            Document.Navigation.GetCurrentPage<HomeIndex>().WaitUntil(doc => doc.DelayedLink != null);
+            
         }
 
         [Then]

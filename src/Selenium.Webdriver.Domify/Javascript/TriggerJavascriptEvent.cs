@@ -1,6 +1,5 @@
 namespace Selenium.Webdriver.Domify.Javascript
 {
-
     public class TriggerJavascriptEvent : Javascript
     {
         public TriggerJavascriptEvent(string eventName)

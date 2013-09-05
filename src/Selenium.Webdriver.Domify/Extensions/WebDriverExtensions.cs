@@ -22,7 +22,7 @@ namespace Selenium.Webdriver.Domify
             return new Document(driver);
         }
 
-        public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
+        public static T WaitUntilFound<T>(this IWebDriver driver, OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan))
         {
             if (timeout == default(TimeSpan))
                 timeout = TimeSpan.FromSeconds(30);
