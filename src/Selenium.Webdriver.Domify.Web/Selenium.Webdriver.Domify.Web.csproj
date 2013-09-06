@@ -115,8 +115,12 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.35.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ElementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HtmlController.cs" />
     <Compile Include="Global.asax.cs">
@@ -128,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\tags.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -139,7 +144,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +174,16 @@
     <Content Include="Views\Html\FormsWithValues.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Element\AllElements.cshtml" />
+    <Content Include="Views\Element\DisplayTemplates\HtmlElementModel.cshtml" />
+    <Content Include="Views\Element\DisplayTemplates\AttributeViewModel.cshtml" />
     <None Include="Views\Html\FormsWithNames.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj">
+      <Project>{58219F29-CA4B-4BF2-A403-CA55CE3BC7CE}</Project>
+      <Name>Selenium.Webdriver.Domify</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
