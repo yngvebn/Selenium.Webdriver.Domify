@@ -5,6 +5,7 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("button")]
     [DOMElement("input", Type = "submit")]
     [DOMElement("input", Type = "button")]
+    [DOMElement("input", Type = "image")]
     [DOMElement("input", Type = "reset")]
     public class Button : WebElement
     {

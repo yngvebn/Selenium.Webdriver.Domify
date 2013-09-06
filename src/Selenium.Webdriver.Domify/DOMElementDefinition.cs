@@ -26,7 +26,7 @@ namespace Selenium.Webdriver.Domify
             return element.TagName.Equals(Tag, StringComparison.InvariantCultureIgnoreCase);
         }
 
-     public string GetCSS()
+        public string GetCSS()
         {
             if (string.IsNullOrEmpty(Type))
             {

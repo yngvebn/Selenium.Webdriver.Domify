@@ -62,11 +62,13 @@
     <Compile Include="DOMElementFilterFactory.cs" />
     <Compile Include="DOMElementXPathFactory.cs" />
     <Compile Include="Elements\Body.cs" />
+    <Compile Include="Elements\ColorInput.cs" />
     <Compile Include="Elements\CreateExtensions.cs" />
     <Compile Include="Elements\DateField.cs" />
     <Compile Include="Elements\FileUpload.cs" />
     <Compile Include="Elements\H1.cs" />
     <Compile Include="Elements\H3.cs" />
+    <Compile Include="Elements\Hidden.cs" />
     <Compile Include="Elements\HyperLink.cs" />
     <Compile Include="Elements\HtmlColor.cs" />
     <Compile Include="Elements\Button.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Elements\LI.cs" />
     <Compile Include="Elements\P.cs" />
     <Compile Include="Elements\RadioButton.cs" />
+    <Compile Include="Elements\Range.cs" />
     <Compile Include="Elements\SelectList.cs" />
     <Compile Include="Elements\SelectListItem.cs" />
     <Compile Include="Elements\Span.cs" />
@@ -98,7 +101,6 @@
     <Compile Include="Elements\THead.cs" />
     <Compile Include="Elements\UL.cs" />
     <Compile Include="Elements\WebElement.cs" />
-    <Compile Include="Extensions\ByExtensions.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
     <Compile Include="Find.cs" />
     <Compile Include="IDocument.cs" />

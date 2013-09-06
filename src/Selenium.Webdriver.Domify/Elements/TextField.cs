@@ -5,6 +5,16 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("input", Type = "text")]
     [DOMElement("input", Type = "password")]
     [DOMElement("input", Type = "search")]
+    [DOMElement("input", Type = "datetime-local")]
+    [DOMElement("input", Type = "datetime")]
+    [DOMElement("input", Type = "email")]
+    [DOMElement("input", Type = "month")]
+    [DOMElement("input", Type = "number")]
+    [DOMElement("input", Type = "search")]
+    [DOMElement("input", Type = "tel")]
+    [DOMElement("input", Type = "time")]
+    [DOMElement("input", Type = "url")]
+    [DOMElement("input", Type = "week")]
     [DOMElement("textarea")]
     public class TextField : WebElement
     {

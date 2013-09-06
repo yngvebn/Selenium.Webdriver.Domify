@@ -12,6 +12,26 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+    public abstract class WebElement<T>: WebElement
+        where T: IWebElement
+    {
+        protected WebElement(T element): base(element)
+        {
+            var filter = DOMElementFilterFactory.Get<T>();
+            if (!filter(element))
+                throw new InvalidWebElement("Not a valid element of type {0}", typeof (T));
+        }
+    }
+
+    public class InvalidWebElement : Exception
+    {
+        public InvalidWebElement(string message, params object[] args)
+            : base(string.Format(message, args))
+        {
+
+        }
+    }
+
     public abstract class WebElement : ListWebElements, IWebElement
     {
         private readonly IWebElement _element;
@@ -45,6 +65,8 @@ namespace Selenium.Webdriver.Domify.Elements
 
         protected WebElement(IWebElement element)
         {
+            
+
             if (element == null)
                 throw new ArgumentNullException("element");
 

@@ -49,7 +49,7 @@ namespace Selenium.Webdriver.Domify
 
         public static By ByIndex(int index)
         {
-            return OpenQA.Selenium.By.XPath(string.Format("./*[position()={0}]", index + 1));
+            return OpenQA.Selenium.By.XPath(string.Format("./*[{0}]", index + 1));
         }
 
         public static By First<T>()

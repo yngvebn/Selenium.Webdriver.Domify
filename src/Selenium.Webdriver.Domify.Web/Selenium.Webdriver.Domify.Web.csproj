@@ -158,7 +158,19 @@
     <Content Include="Views\Home\SpanTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Html\Forms.cshtml" />
+    <Content Include="Views\Html\FormsWithId.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Html\FormsWithClasses.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Html\FormsWithCss.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Html\FormsWithValues.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Html\FormsWithNames.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
