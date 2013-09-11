@@ -1,7 +1,9 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
+
     [DOMElement("input", Type = "checkbox")]
     public class CheckBox : WebElement
     {

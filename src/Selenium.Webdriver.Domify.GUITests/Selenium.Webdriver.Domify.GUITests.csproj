@@ -68,6 +68,7 @@
     <Compile Include="NavigationTests.cs" />
     <Compile Include="OwnListItemsReturnsOnlyImmediateChildren.cs" />
     <Compile Include="OwnListItemsWithoutIDReturnsOnlyImmediateChildren.cs" />
+    <Compile Include="Pages\GenericElementPage.cs" />
     <Compile Include="Pages\HomeButtons.cs" />
     <Compile Include="Pages\HomeIndex.cs" />
     <Compile Include="Pages\HomeSelectLists.cs" />
@@ -78,7 +79,10 @@
     <Compile Include="SetButtonTexts.cs" />
     <Compile Include="SetIdOnTextBox.cs" />
     <Compile Include="SpanClickTest.cs" />
-    <Compile Include="TableTests.cs" />
+    <Compile Include="Tests\Elements\TableTests.cs" />
+    <Compile Include="Tests\Elements\GetAllElements.cs" />
+    <Compile Include="Tests\Elements\SelectLists.cs" />
+    <Compile Include="Tests\Elements\SetTextToHiddenTextBox.cs" />
     <Compile Include="Tests\Finders\BySelectors.cs" />
     <Compile Include="TextFieldTests.cs" />
     <Compile Include="Core\ThenAttribute.cs" />

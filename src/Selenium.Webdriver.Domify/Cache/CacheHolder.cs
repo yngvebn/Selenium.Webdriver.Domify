@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.Cache
@@ -10,7 +11,7 @@ namespace Selenium.Webdriver.Domify.Cache
 
         
         internal static Func<IWebElement, bool> GetFilterPredicate<T>(bool nocache = false)
-           where T : WebElement
+           where T : BaseWebElement
         {
             if (nocache) LocalFilterPredicateCache.Remove(typeof (T));
             if (LocalFilterPredicateCache.ContainsKey(typeof(T))) return LocalFilterPredicateCache[typeof(T)];

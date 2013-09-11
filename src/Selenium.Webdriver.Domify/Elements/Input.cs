@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {

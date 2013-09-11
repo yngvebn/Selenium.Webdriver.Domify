@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -42,7 +43,7 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get
             {
-                return new TableRowCollection(this.Find<TableRow>());
+                return new TableRowCollection(this.Find<TableRow>(false));
             }
         }
 

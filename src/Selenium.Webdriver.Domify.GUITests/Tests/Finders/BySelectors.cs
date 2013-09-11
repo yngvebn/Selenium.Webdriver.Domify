@@ -213,7 +213,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         
         public static object ExecuteStaticGenericMethod(this Type objType, Type typeArgument, string method, params object[] arguments)
         {
-            return objType.GetMethods().Where(d => d.GetParameters().Count() == 2).Single(m => m.Name.Equals(method) && m.ReturnType.Name.Equals("IList`1")).MakeGenericMethod(typeArgument).Invoke(null, arguments);
+            return objType.GetMethods().Where(d => d.GetParameters().Any(c => c.ParameterType == typeof(By)) && d.GetParameters().Count() == 2).Single(m => m.Name.Equals(method) && m.ReturnType.Name.Equals("IList`1")).MakeGenericMethod(typeArgument).Invoke(null, arguments);
         }
     }
 }

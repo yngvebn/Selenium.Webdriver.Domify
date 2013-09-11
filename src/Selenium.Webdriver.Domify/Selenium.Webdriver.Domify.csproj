@@ -56,8 +56,10 @@
     <Compile Include="ByFirst.cs" />
     <Compile Include="ByValueDelegate.cs" />
     <Compile Include="Cache\CacheHolder.cs" />
+    <Compile Include="Core\WebElement.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DocumentSettings.cs" />
+    <Compile Include="DOMElementCssFactory.cs" />
     <Compile Include="DOMElementDefinition.cs" />
     <Compile Include="DOMElementFilterFactory.cs" />
     <Compile Include="DOMElementXPathFactory.cs" />
@@ -100,7 +102,6 @@
     <Compile Include="Elements\THCollection.cs" />
     <Compile Include="Elements\THead.cs" />
     <Compile Include="Elements\UL.cs" />
-    <Compile Include="Elements\WebElement.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
     <Compile Include="Find.cs" />
     <Compile Include="IDocument.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Javascript\IJavascript.cs" />
     <Compile Include="Javascript\Javascript.cs" />
     <Compile Include="Javascript\SetElementAttribute.cs" />
+    <Compile Include="Javascript\SetElementCss.cs" />
     <Compile Include="Javascript\SetElementText.cs" />
     <Compile Include="Javascript\SetElementValue.cs" />
     <Compile Include="Javascript\TriggerJavascriptClick.cs" />

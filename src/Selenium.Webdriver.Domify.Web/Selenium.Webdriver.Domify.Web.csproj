@@ -178,6 +178,8 @@
     <Content Include="Views\Element\DisplayTemplates\HtmlElementModel.cshtml" />
     <Content Include="Views\Element\DisplayTemplates\AttributeViewModel.cshtml" />
     <None Include="Views\Html\FormsWithNames.cshtml" />
+    <Content Include="Views\Shared\_layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj">

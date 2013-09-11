@@ -1,9 +1,10 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
     [DOMElement("td")]
-    public class TableCell : WebElement
+    public class TableCell : WebElement<TableRow>
     {
         public static TableCell Create(IWebElement element)
         {
@@ -14,11 +15,6 @@ namespace Selenium.Webdriver.Domify.Elements
             base(element)
         {
 
-        }
-
-        public string CellText()
-        {
-            return Text;
         }
     }
 }

@@ -109,6 +109,19 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<RadioButton>(); }
         }
 
+        public IList<Hidden> Hiddens
+        {
+            get { return this.Find<Hidden>(); }
+        }
+        public IList<Range> RangeInputs
+        {
+            get { return this.Find<Range>(); }
+        }
+        public IList<ColorInput> ColorInputs
+        {
+            get { return this.Find<ColorInput>(); }
+        }
+
         public abstract IWebElement FindElement(OpenQA.Selenium.By @by);
 
         public abstract ReadOnlyCollection<IWebElement> FindElements(OpenQA.Selenium.By @by);

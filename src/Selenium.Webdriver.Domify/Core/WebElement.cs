@@ -1,38 +1,46 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using Selenium.Webdriver.Domify.Elements;
 
-namespace Selenium.Webdriver.Domify.Elements
+namespace Selenium.Webdriver.Domify.Core
 {
-    public abstract class WebElement<T>: WebElement
-        where T: IWebElement
+    public abstract class WebElement: WebElement<HtmlElement>
     {
-        protected WebElement(T element): base(element)
+        protected WebElement(IWebElement element)
+            :base(element)
         {
-            var filter = DOMElementFilterFactory.Get<T>();
-            if (!filter(element))
-                throw new InvalidWebElement("Not a valid element of type {0}", typeof (T));
+            
         }
     }
 
-    public class InvalidWebElement : Exception
+
+    public abstract class WebElement<TParent> : BaseWebElement
+        where TParent : BaseWebElement
     {
-        public InvalidWebElement(string message, params object[] args)
-            : base(string.Format(message, args))
+        protected WebElement(IWebElement element) :
+            base(element)
         {
 
         }
+
+        public TParent Parent
+        {
+            get
+            {
+                var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
+                return typeof (TParent).GetMethod("Create").Invoke(null, new object[] {parentElement}) as TParent;
+            }
+        }
+
     }
 
-    public abstract class WebElement : ListWebElements, IWebElement
+
+    public abstract class BaseWebElement : ListWebElements, IWebElement
     {
         private readonly IWebElement _element;
 
@@ -52,7 +60,7 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return GetAttribute("name"); }
         }
 
-        public T FindNextSibling<T>() where T : WebElement
+        public T FindNextSibling<T>() where T : BaseWebElement
         {
             IWebElement findElement = Driver.FindElement(By.CssSelector(string.Format("#{0} + {1}", Id, typeof(T).Name)));
 
@@ -63,9 +71,9 @@ namespace Selenium.Webdriver.Domify.Elements
             return (T)methodInfo.Invoke(null, new object[] { findElement });
         }
 
-        protected WebElement(IWebElement element)
+        protected BaseWebElement(IWebElement element)
         {
-            
+
 
             if (element == null)
                 throw new ArgumentNullException("element");
@@ -73,11 +81,6 @@ namespace Selenium.Webdriver.Domify.Elements
             _element = element;
         }
 
-        public HtmlElement Element(By by)
-        {
-            var element = FindElement(by);
-            return HtmlElement.Create(element);
-        }
 
         public string GetAttributeValue(string title)
         {
@@ -95,7 +98,6 @@ namespace Selenium.Webdriver.Domify.Elements
         }
 
 
-        public WebElement Parent { get { return HtmlElement.Create(FindElement(By.XPath(this.GetElementXPath() + "/.."))); } }
 
         public void Clear()
         {
@@ -208,7 +210,7 @@ namespace Selenium.Webdriver.Domify.Elements
             return false;
         }
 
-        public T WaitUntilFound<T>(Func<IWebElement, T> func, TimeSpan timeOut = default(TimeSpan)) where T : WebElement
+        public T WaitUntilFound<T>(Func<IWebElement, T> func, TimeSpan timeOut = default(TimeSpan)) where T : BaseWebElement
         {
             if (timeOut == default(TimeSpan))
                 timeOut = TimeSpan.FromSeconds(30);

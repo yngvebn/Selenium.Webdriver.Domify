@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Cache;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
@@ -77,7 +78,7 @@ namespace Selenium.Webdriver.Domify
         {
             return context.Find<Div>(constraint);
         }
-        
+
         public static bool Exists(this ISearchContext context, string id)
         {
             return context.FindElements(By.Id(id)).Count > 0;
@@ -88,7 +89,7 @@ namespace Selenium.Webdriver.Domify
             return context.FindElements(predicate).Count > 0;
         }
 
-        public static bool Exists<T>(this IWebElement context, Func<IWebElement, T> func) where T : WebElement
+        public static bool Exists<T>(this IWebElement context, Func<IWebElement, T> func) where T : BaseWebElement
         {
             try
             {
@@ -109,7 +110,7 @@ namespace Selenium.Webdriver.Domify
         {
             return context.Find<Form>(constraint).SingleOrThrowNotFoundException();
         }
-        
+
         public static H2 H2(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<H2>(constraint).SingleOrThrowNotFoundException();
@@ -156,12 +157,12 @@ namespace Selenium.Webdriver.Domify
         }
 
 
-        public static bool IsVisible(this IWebElement element)
+        public static bool IsVisible(this BaseWebElement element)
         {
             if (!element.Displayed)
                 return false;
 
-            return element.GetCssValue("display") != "none";
+            return element.Style.Display != "none";
         }
 
 
@@ -312,18 +313,39 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static T Find<T>(this ISearchContext context, string id)
-           where T : WebElement
+           where T : BaseWebElement
         {
             return context.Find<T>(By.Id(id)).SingleOrDefault();
         }
 
-        public static IList<T> Find<T>(this ISearchContext context)
-              where T: WebElement
+        public static IList<T> Find<T>(this ISearchContext context, bool deep = true)
+              where T : BaseWebElement
         {
-                        string xPath = "";
-            foreach(var expr in DOMElementXPathFactory.Get<T>())
+            return deep ? GetByXPath<T>(context) : GetByCSS<T>(context);
+        }
+
+        private static IList<T> GetByCSS<T>(ISearchContext context)
+            where T : BaseWebElement
+        {
+            string css = "";
+            var element = (WebElement) context;
+            var id = string.IsNullOrEmpty(element.Id) ?  element.GenerateIdForElement() : element.Id;
+            foreach(var expr in DOMElementCssFactory.Get<T>())
             {
-                xPath += string.Format(".//{0} | ", expr);
+                css += string.Format(":root #{0} > {1}, ", id, expr);
+            }
+            css = css.TrimEnd(',', ' ');
+            return context.Find<T>(By.CssSelector(css));
+        }
+
+        private static IList<T> GetByXPath<T>(ISearchContext context)
+             where T : BaseWebElement
+        {
+            string xPath = "";
+            string start = ".//";
+            foreach (var expr in DOMElementXPathFactory.Get<T>())
+            {
+                xPath += string.Format("{1}{0} | ", expr, start);
             }
             xPath = "(" + xPath.TrimEnd(' ', '|') + ")";
             Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
@@ -333,10 +355,10 @@ namespace Selenium.Webdriver.Domify
         }
 
         private static IList<T> Find<T>(this ISearchContext context, By by, bool nocache)
-            where T : WebElement
+            where T : BaseWebElement
         {
             var filterPredicate = CacheHolder.GetFilterPredicate<T>();
-            
+
             if (filterPredicate == null)
             {
                 throw new InvalidOperationException("Unable to look for elements of type " + typeof(T));
@@ -345,7 +367,7 @@ namespace Selenium.Webdriver.Domify
             Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
 
             IEnumerable<IWebElement> elements;
-          
+
             if (by != null)
             {
                 elements = context.FindElements(by).Where(filterPredicate);
@@ -354,7 +376,7 @@ namespace Selenium.Webdriver.Domify
             {
                 var webElement = context as WebElement;
                 by = By.XPath("//*");
-                if(webElement != null)
+                if (webElement != null)
                 {
                     by = By.XPath(webElement.GetElementXPath() + "//*");
                 }
@@ -364,19 +386,19 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static IList<T> Find<T>(this ISearchContext context, OpenQA.Selenium.By by)
-            where T : WebElement
+            where T : BaseWebElement
         {
             try
             {
                 return context.Find<T>(by, false);
             }
-            catch(StaleElementReferenceException)
+            catch (StaleElementReferenceException)
             {
                 return context.Find<T>(by, true);
             }
         }
 
-       
+
     }
 
 }

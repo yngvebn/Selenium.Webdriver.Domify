@@ -25,6 +25,10 @@ namespace Selenium.Webdriver.Domify
         IList<H3> H3s{ get; }
         IList<P> Ps { get; }
         IList<HtmlElement> Elements { get; }
-        IList<RadioButton> RadioButtons { get; } 
+        IList<RadioButton> RadioButtons { get; }
+        IList<Hidden> Hiddens { get;  }
+        IList<Range> RangeInputs { get;  }
+        IList<ColorInput> ColorInputs { get;  } 
+
     }
 }
