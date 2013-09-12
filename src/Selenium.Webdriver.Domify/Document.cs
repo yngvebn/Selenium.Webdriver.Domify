@@ -33,11 +33,6 @@ namespace Selenium.Webdriver.Domify
 
         public IDocumentSettings Settings { get; private set; }
 
-        public Body Body
-        {
-            get { return this.Find<Body>().SingleOrDefault(); }
-        }
-
        
         public string PageSource
         {

@@ -17,11 +17,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         //IDocumentSettings Settings { get; }
 
-        /// <summary>
-        /// Returns the Body element
-        /// </summary>
-        Body Body { get; }
-
+        
         IWebDriver Driver { get; }
 
         /// <summary>

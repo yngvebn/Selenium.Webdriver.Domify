@@ -42,7 +42,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
             
         }
 
-        public FileUpload FileUpload
+        public InputFile InputFile
         {
             get { return Document.FileUpload("file"); }
         }

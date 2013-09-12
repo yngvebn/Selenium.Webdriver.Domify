@@ -13,6 +13,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         public IList<Fieldset> Fieldsets { get { return this.Find<Fieldset>(); } }
+        public IList<Legend> Legends { get { return this.Find<Legend>(); } }
 
         public IList<Frame> Frames
         {
@@ -69,9 +70,9 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<Button>(); }
         }
 
-        public IList<FileUpload> FileUploads
+        public IList<InputFile> FileUploads
         {
-            get { return this.Find<FileUpload>(); }
+            get { return this.Find<InputFile>(); }
         }
 
         public IList<Form> Forms
@@ -107,6 +108,19 @@ namespace Selenium.Webdriver.Domify
         public IList<RadioButton> RadioButtons
         {
             get { return this.Find<RadioButton>(); }
+        }
+
+        public IList<Hidden> Hiddens
+        {
+            get { return this.Find<Hidden>(); }
+        }
+        public IList<Range> RangeInputs
+        {
+            get { return this.Find<Range>(); }
+        }
+        public IList<ColorInput> ColorInputs
+        {
+            get { return this.Find<ColorInput>(); }
         }
 
         public abstract IWebElement FindElement(OpenQA.Selenium.By @by);

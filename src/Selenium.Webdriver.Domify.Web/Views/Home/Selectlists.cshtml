@@ -6,59 +6,119 @@
 
 
 <select id="mainList">
-    <option>Option 1</option>
-    <option>Option 2</option>
-    <option>Option 3</option>
-    <option>Option 4</option>
-    <option>Option 5</option>
-    <option>Option 6</option>
+    <option value="option_1">Option 1</option>
+    <option value="option_2">Option 2</option>
+    <option value="option_3">Option 3</option>
+    <option value="option_4">Option 4</option>
+    <option value="option_5">Option 5</option>
+    <option value="option_6">Option 6</option>
 </select>
 
+<select id="delayedList" data-bind="options: items">
+</select>
+
+
+<table id="tableWithMultipleBodies">
+    <thead>
+        <tr>
+            <th>Head</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Cell</td>
+        </tr>
+        <tr>
+            <td>Cell</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td>Cell</td>
+        </tr>
+        <tr>
+            <td>Cell</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table id="tableWithPlainRows">
+    <tr>
+        <td>Cell</td>
+    </tr>
+    <tr>
+        <td>Cell</td>
+    </tr>
+    <tr>
+        <td>Cell</td>
+    </tr>
+    <tr>
+        <td>Cell</td>
+    </tr>
+</table>
+
+
 <table id="table">
-        <thead>
-            <tr class="last">
-                <th style="width: 200px">Programinformasjon
-                </th>
-                <th style="width: 100px">Starttid
-                </th>
-                <th style="width: 100px">Pris
-                </th>
-                <th style="width: 30px;">Anbefalt
-                </th>
-                <th style="width: 140px"></th>
-            </tr>
-        </thead>
+    <thead>
+        <tr class="last">
+            <th style="width: 200px">Programinformasjon
+            </th>
+            <th style="width: 100px">Starttid
+            </th>
+            <th style="width: 100px">Pris
+            </th>
+            <th style="width: 30px;">Anbefalt
+            </th>
+            <th style="width: 140px"></th>
+        </tr>
+    </thead>
 
-        <tbody data-bind="foreach: activeLyntotos, dragAndDropSortable: { items: 'tr', onUpdate: saveSortIndex, sortIndex: 'sortIndex' }" class="ui-sortable">
-            <tr data-bind="highlightVisible: isNew" class="lyntoto-omgang" style="" id="___s_w_d_757394">
-                <td style="width: 200px" data-bind="text: raceDayName">V65 Jarlsberg 09.09.2011</td>
-                <td style="width: 100px" data-bind="text: startTime">19:35</td>
-                <td style="width: 100px" data-bind="text: price">10,90,190</td>
+    <tbody class="ui-sortable">
+        <tr style="" id="___s_w_d_757394">
+            <td style="width: 200px">V65 Jarlsberg 09.09.2011</td>
+            <td class="special" style="width: 100px">The special cell</td>
+            <td style="width: 100px">10,90,190</td>
 
-                <td style="width: 30px">
-                    <a href="#" style="margin: 0 7px;" data-bind="click: recommendLyntoto, attr: { title: recommended() ? 'Fjern anbefaling' : 'Anbefal' }, css: { recommended: recommended() }" class="star" title="Anbefal"></a>
-                </td>
-                <td style="width: 140px">
-                    <button title="Endre" data-bind="click: $parent.editLyntoto">Endre</button>
-                    &nbsp;
-                    <a href="#" class="remove" title="Slett lyntoto-omgang" data-bind="click: $parent.confirmDeleteLyntoto">Slett</a>
-                </td>
-            </tr>
-        
-            <tr data-bind="highlightVisible: isNew" class="lyntoto-omgang" style="" id="___s_w_d_309435">
-                <td style="width: 200px" data-bind="text: raceDayName">V5A Biri 09.09.2011</td>
-                <td style="width: 100px" data-bind="text: startTime">18:30</td>
-                <td style="width: 100px" data-bind="text: price">10,30,100</td>
+            <td style="width: 30px">
+                <a href="#" style="margin: 0 7px;" class="star" title="Anbefal"></a>
+            </td>
+            <td style="width: 140px">
+                <button title="Endre">Endre</button>
+                &nbsp;
+                <a href="#" class="remove" title="Slett lyntoto-omgang">Slett</a>
+            </td>
+        </tr>
 
-                <td style="width: 30px">
-                    <a href="#" style="margin: 0 7px;" data-bind="click: recommendLyntoto, attr: { title: recommended() ? 'Fjern anbefaling' : 'Anbefal' }, css: { recommended: recommended() }" class="star" title="Anbefal"></a>
-                </td>
-                <td style="width: 140px">
-                    <button title="Endre" data-bind="click: $parent.editLyntoto">Endre</button>
-                    &nbsp;
-                    <a href="#" class="remove" title="Slett lyntoto-omgang" data-bind="click: $parent.confirmDeleteLyntoto">Slett</a>
-                </td>
-            </tr>
-        </tbody>
+        <tr class="lyntoto-omgang" style="" id="___s_w_d_309435">
+            <td style="width: 200px">V5A Biri 09.09.2011</td>
+            <td style="width: 100px">18:30</td>
+            <td style="width: 100px">10,30,100</td>
 
-    </table>
+            <td style="width: 30px">
+                <a href="#" style="margin: 0 7px;" class="star" title="Anbefal"></a>
+            </td>
+            <td style="width: 140px">
+                <button title="Endre">Endre</button>
+                &nbsp;
+                <a href="#" class="remove" title="Slett lyntoto-omgang">Slett</a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+@section scripts{
+
+    <script type="text/javascript">
+
+        var viewModel = {
+            items: ko.observableArray(['item1', 'item2', 'item3', 'item4'])
+        };
+        setTimeout(function () {
+            ko.applyBindings(viewModel);
+        }, 5000);
+
+
+
+    </script>
+}

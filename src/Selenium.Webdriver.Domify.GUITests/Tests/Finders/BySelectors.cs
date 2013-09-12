@@ -33,7 +33,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase("css-datetime", typeof(TextField))]
         [TestCase("css-datetime-local", typeof(TextField))]
         [TestCase("css-email", typeof(TextField))]
-        [TestCase("css-file", typeof(FileUpload))]
+        [TestCase("css-file", typeof(InputFile))]
         [TestCase("css-hidden", typeof(Hidden))]
         [TestCase("css-image", typeof(Button))]
         [TestCase("css-month", typeof(TextField))]
@@ -63,7 +63,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase("id-datetime", typeof(TextField))]
         [TestCase("id-datetime-local", typeof(TextField))]
         [TestCase("id-email", typeof(TextField))]
-        [TestCase("id-file", typeof(FileUpload))]
+        [TestCase("id-file", typeof(InputFile))]
         [TestCase("id-hidden", typeof(Hidden))]
         [TestCase("id-image", typeof(Button))]
         [TestCase("id-month", typeof(TextField))]
@@ -94,7 +94,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase("name-datetime", typeof(TextField))]
         [TestCase("name-datetime-local", typeof(TextField))]
         [TestCase("name-email", typeof(TextField))]
-        [TestCase("name-file", typeof(FileUpload))]
+        [TestCase("name-file", typeof(InputFile))]
         [TestCase("name-hidden", typeof(Hidden))]
         [TestCase("name-image", typeof(Button))]
         [TestCase("name-month", typeof(TextField))]
@@ -124,7 +124,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase(4, typeof(TextField))]
         [TestCase(5, typeof(TextField))]
         [TestCase(6, typeof(TextField))]
-        [TestCase(7, typeof(FileUpload))]
+        [TestCase(7, typeof(InputFile))]
         [TestCase(8, typeof(Hidden))]
         [TestCase(9, typeof(Button))]
         [TestCase(10, typeof(TextField))]
@@ -154,7 +154,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase("css", "datetime", typeof(TextField))]
         [TestCase("css", "datetime-local", typeof(TextField))]
         [TestCase("css", "email", typeof(TextField))]
-        [TestCase("css", "file", typeof(FileUpload))]
+        [TestCase("css", "file", typeof(InputFile))]
         [TestCase("css", "hidden", typeof(Hidden))]
         [TestCase("css", "image", typeof(Button))]
         [TestCase("css", "month", typeof(TextField))]
@@ -184,7 +184,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         [TestCase("datetime", typeof(TextField))]
         [TestCase("datetime-local", typeof(TextField))]
         [TestCase("email", typeof(TextField))]
-        [TestCase("file", typeof(FileUpload))]
+        [TestCase("file", typeof(InputFile))]
         [TestCase("hidden", typeof(Hidden))]
         [TestCase("image", typeof(Button))]
         [TestCase("month", typeof(TextField))]
@@ -213,7 +213,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         
         public static object ExecuteStaticGenericMethod(this Type objType, Type typeArgument, string method, params object[] arguments)
         {
-            return objType.GetMethods().Where(d => d.GetParameters().Count() == 2).Single(m => m.Name.Equals(method) && m.ReturnType.Name.Equals("IList`1")).MakeGenericMethod(typeArgument).Invoke(null, arguments);
+            return objType.GetMethods().Where(d => d.GetParameters().Any(c => c.ParameterType == typeof(By)) && d.GetParameters().Count() == 2).Single(m => m.Name.Equals(method) && m.ReturnType.Name.Equals("IList`1")).MakeGenericMethod(typeArgument).Invoke(null, arguments);
         }
     }
 }

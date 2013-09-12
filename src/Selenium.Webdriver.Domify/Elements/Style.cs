@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Javascript;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -23,7 +24,12 @@ namespace Selenium.Webdriver.Domify.Elements
         // Summary:
         //     Retrieves wheter the object is rendered.
         //
-        public string Display { get { return _element.GetCssValue("display"); } }
+        public string Display { get { return _element.GetCssValue("display"); }
+            set
+            {
+                _element.ExecuteJavascript(new SetElementCss("display", value));
+            }
+        }
         //
         // Summary:
         //     Retrieves the name of the font used for text in the element.

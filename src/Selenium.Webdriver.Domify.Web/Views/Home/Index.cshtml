@@ -1,85 +1,78 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <style>
-        input[type=text] {
-            color: blue;
-        }
-    </style>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.debug.js"></script>
-</head>
-<body>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <h2>Index</h2>
-    <input type="text" id="textbox" />
 
-    <input type="text" id="delayedtextbox" />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>Index</h2>
+<input type="text" id="textbox" />
 
-    <div id="parentContainer2">
-        <input type="text" class="textboxwithoutid" />
-    </div>
-    <input type="date" id="dateTimeField" />
+<input type="text" id="delayedtextbox" />
+
+<div id="parentContainer2">
+    <input type="text" class="textboxwithoutid" />
+</div>
+<input type="date" id="dateTimeField" />
 
 
-    <div id="parentContainer">
-        <input type="text" id="knockoutText"  style="display: none" data-bind="value: text" />
-    </div>
-    <span data-bind="text: text"></span>
+<div id="parentContainer">
+    <input type="text" id="knockoutText" style="display: none" data-bind="value: text" />
+</div>
+<span data-bind="text: text"></span>
 
-    <ul id="nestedList">
-        <li>Item 1 
-        </li>
-        <li>Item 2
+<ul id="nestedList">
+    <li>Item 1 
+    </li>
+    <li>Item 2
             <ul id="innerLIst">
                 <li>Inner item 1</li>
                 <li>Inner item 2</li>
             </ul>
-        </li>
-    </ul>
+    </li>
+</ul>
 
-    <ul data-bind="foreach: knockoutlist">
-        <li data-bind="text: text"></li>
-    </ul>
-    <button id="invisible" style="display: none;" data-bind="click: clicked">I'm invisible</button>
-    
-    <input type="checkbox" name="check"/>
-    <input type="checkbox" name="check"/>
-    <input type="checkbox" name="check"/>
-    <input type="checkbox" name="check"/>
-    <input type="file" id="file" />
-   
-</body>
-</html>
-<script type="text/javascript">
-    setTimeout(function () {
-        document.getElementById("delayedtextbox").value = '5 seconds elapsed';
-    }, 5000);
+<ul data-bind="foreach: knockoutlist">
+    <li data-bind="text: text"></li>
+</ul>
+<button id="invisible" style="display: none;" data-bind="click: clicked">I'm invisible</button>
 
-    setTimeout(function () {
+<input type="checkbox" name="check" />
+<input type="checkbox" name="check" />
+<input type="checkbox" name="check" />
+<input type="checkbox" name="check" />
+<input type="file" id="file" />
 
-        var link = document.createElement('a');
-        link.setAttribute('href', 'mypage.htm');
-        link.setAttribute('id', 'someLink');
-        link.innerHTML = "Link";
-        document.getElementsByTagName("body")[0].appendChild(link);
-    }, 5000);
 
-    var viewModel = {
-        text: ko.observable('knockout'),
-        knockoutlist: ko.observableArray([{ text: 'hello'}, { text: 'hello2'}]),
-        clicked: function () {
-            viewModel.text('invisible clicked');
-        }
-    };
+@section scripts{
 
-    ko.applyBindings(viewModel);
 
-</script>
+    <script type="text/javascript">
+        setTimeout(function () {
+            document.getElementById("delayedtextbox").value = '5 seconds elapsed';
+        }, 5000);
+
+        setTimeout(function () {
+
+            var link = document.createElement('a');
+            link.setAttribute('href', 'mypage.htm');
+            link.setAttribute('id', 'someLink');
+            link.innerHTML = "Link";
+            document.getElementsByTagName("body")[0].appendChild(link);
+        }, 5000);
+
+        var viewModel = {
+            text: ko.observable('knockout'),
+            knockoutlist: ko.observableArray([{ text: 'hello' }, { text: 'hello2' }]),
+            clicked: function () {
+                viewModel.text('invisible clicked');
+            }
+        };
+
+        ko.applyBindings(viewModel);
+
+    </script>
+}
+

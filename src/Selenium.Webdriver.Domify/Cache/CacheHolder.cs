@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify.Cache
 {
@@ -10,7 +12,7 @@ namespace Selenium.Webdriver.Domify.Cache
 
         
         internal static Func<IWebElement, bool> GetFilterPredicate<T>(bool nocache = false)
-           where T : WebElement
+           where T : BaseWebElement
         {
             if (nocache) LocalFilterPredicateCache.Remove(typeof (T));
             if (LocalFilterPredicateCache.ContainsKey(typeof(T))) return LocalFilterPredicateCache[typeof(T)];
@@ -47,19 +49,19 @@ namespace Selenium.Webdriver.Domify.Cache
             if (PageDescriptionAttribute.ContainsKey(t)) return PageDescriptionAttribute[t];
 
             var customAttributes = t.GetCustomAttributes(true);
-
+            PageDescriptionAttribute navigationInfo = null;
             foreach (var customAttribute in customAttributes)
             {
-                var navigationInfo = customAttribute as PageDescriptionAttribute;
+                navigationInfo = customAttribute as PageDescriptionAttribute;
 
                 if (navigationInfo != null)
                 {
                     PageDescriptionAttribute.Add(t, navigationInfo);
-                    return navigationInfo;
+                    break;
                 }
             }
 
-            return null;
+            return navigationInfo;
         }
 
     }

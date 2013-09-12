@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Specialized;
 using OpenQA.Selenium;
 
-namespace Selenium.Webdriver.Domify
+namespace Selenium.Webdriver.Domify.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class DOMElementAttribute : Attribute
@@ -15,7 +14,7 @@ namespace Selenium.Webdriver.Domify
             return XPath.XPathConstructor.Construct(Tag, string.IsNullOrEmpty(Type) ? "" : "type", Type);
         }
 
-        internal DOMElementAttribute(string tag)
+        public DOMElementAttribute(string tag)
         {
             Tag = tag;
         }
