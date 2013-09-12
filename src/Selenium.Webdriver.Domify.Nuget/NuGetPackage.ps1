@@ -263,7 +263,7 @@ Write-Host $strPath
 $Assembly = [Reflection.Assembly]::Loadfile($strPath)
 
 $AssemblyName = $Assembly.GetName()
-$Assemblyversion =  $AssemblyName.version.Major.ToString() +"." +$AssemblyName.version.Minor.ToString() +"."+$AssemblyName.version.Build.ToString()
+$Assemblyversion =  $AssemblyName.version.Major.ToString() +"." +$AssemblyName.version.Minor.ToString() +"."+$AssemblyName.version.Revision.ToString()
 
 $path = "Package.nuspec"
 $file = New-Object xml
