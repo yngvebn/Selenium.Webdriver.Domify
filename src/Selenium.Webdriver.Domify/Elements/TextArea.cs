@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -23,10 +25,11 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public string Value
         {
-            get { return GetAttribute("value"); }
+            get { return this.GetAttribute("value"); }
             set
             {
-                this.SetAttribute("value", value);
+                this.SetElementValue("value");
+                base.Text = value;
                 this.TriggerJavascriptChange();
             }
         }

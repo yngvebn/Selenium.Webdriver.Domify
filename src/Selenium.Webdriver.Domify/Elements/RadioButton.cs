@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -16,11 +18,6 @@ namespace Selenium.Webdriver.Domify.Elements
 
         }
 
-        public void Select()
-        {
-            Click();
-        }
-
         public bool Checked
         {
             get { return base.GetAttribute("checked") != null; }
@@ -28,7 +25,6 @@ namespace Selenium.Webdriver.Domify.Elements
             set
             {
                 if (value && !Checked) Click();
-                if (!value && Checked) Click();
             }
         }
     }

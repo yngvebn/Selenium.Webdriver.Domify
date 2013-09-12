@@ -1,16 +1,18 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
     [DOMElement("option")]
-    public class SelectListItem : WebElement
+    public class Option : WebElement
     {
-        public static SelectListItem Create(IWebElement element)
+        public static Option Create(IWebElement element)
         {
-            return new SelectListItem(element);
+            return new Option(element);
         }
 
-        private SelectListItem(IWebElement element) :
+        private Option(IWebElement element) :
             base(element)
         {
         }

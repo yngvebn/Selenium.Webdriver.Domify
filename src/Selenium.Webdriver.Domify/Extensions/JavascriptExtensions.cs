@@ -3,6 +3,7 @@ using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Remote;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
 using Selenium.Webdriver.Domify.Javascript;
 
@@ -49,7 +50,7 @@ namespace Selenium.Webdriver.Domify
             element.ExecuteJavascript(new SetElementText(text));
         }
 
-        public static void SetElementAttribute(this IWebElement element, string attributeName, string attributeValue)
+        public static void SetElementAttribute(this IWebElement element, string attributeName, object attributeValue)
         {
             element.ExecuteJavascript(new SetElementAttribute( attributeName, attributeValue));
         }
@@ -59,6 +60,13 @@ namespace Selenium.Webdriver.Domify
             Random random = new Random();
             var idNumber = random.Next(1000000);
             string id = string.Format("___s_w_d_{0}", idNumber);
+            return id;
+        }
+
+        public static string GenerateIdForElement(this IWebElement element)
+        {
+            string id = GenerateRandomId();
+            element.SetIdForElement(id);
             return id;
         }
 

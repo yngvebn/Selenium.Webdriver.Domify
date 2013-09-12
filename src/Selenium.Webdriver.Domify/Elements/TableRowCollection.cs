@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    public class TableRowCollection: IEnumerable<TableRow>
+    public class TableRowCollection: IEnumerable<TR>
     {
-        public TableRowCollection(IEnumerable<TableRow> tableRows)
+        public TableRowCollection(IEnumerable<TR> tableRows)
         {
             int index = 0;
             _tableRows = tableRows.ToList();
@@ -18,8 +18,8 @@ namespace Selenium.Webdriver.Domify.Elements
                 
         }
 
-        private readonly IList<TableRow> _tableRows;
-        public TableRow this[int index]
+        private readonly IList<TR> _tableRows;
+        public TR this[int index]
         {
             get { return _tableRows[index]; }
         }
@@ -29,7 +29,7 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return _tableRows.Count; }
         }
 
-        public IEnumerator<TableRow> GetEnumerator()
+        public IEnumerator<TR> GetEnumerator()
         {
             return _tableRows.GetEnumerator();
         }

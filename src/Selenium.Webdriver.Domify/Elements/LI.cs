@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -14,11 +16,6 @@ namespace Selenium.Webdriver.Domify.Elements
             base(element)
         {
 
-        }
-
-        public string CellText()
-        {
-            return Text;
         }
 
         

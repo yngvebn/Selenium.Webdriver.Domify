@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    public class TableBodyCollection: IEnumerable<TableBody>
+    public class TableBodyCollection: IEnumerable<TBody>
     {
-        public TableBodyCollection(IEnumerable<TableBody> tableBodies )
+        public TableBodyCollection(IEnumerable<TBody> tableBodies )
         {
             _tableBodies = tableBodies.ToList();
         }
 
-        private readonly IList<TableBody> _tableBodies;
+        private readonly IList<TBody> _tableBodies;
 
-        public TableBody this[int index]
+        public TBody this[int index]
         {
             get { return _tableBodies[index]; }
         }
 
-        public IEnumerator<TableBody> GetEnumerator()
+        public IEnumerator<TBody> GetEnumerator()
         {
             return _tableBodies.GetEnumerator();
         }

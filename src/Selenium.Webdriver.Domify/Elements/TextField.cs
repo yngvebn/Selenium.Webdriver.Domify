@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -42,18 +44,11 @@ namespace Selenium.Webdriver.Domify.Elements
             {
                 this.TriggerJavascriptEvent("click", "focus");
                 this.ClearTextField();
-                try
+                if (this.SeleniumElement.Displayed)
                 {
-                    if (this.SeleniumElement.Displayed)
-                    {
-                        this.SendKeys(value);
-                    }
-                    else
-                    {
-                        this.SetElementValue(value);
-                    }
+                    this.SendKeys(value);
                 }
-                catch (ElementNotVisibleException)
+                else
                 {
                     this.SetElementValue(value);
                 }

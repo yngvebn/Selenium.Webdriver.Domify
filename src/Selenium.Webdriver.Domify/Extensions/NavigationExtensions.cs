@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Selenium.Webdriver.Domify.Cache;
 
 namespace Selenium.Webdriver.Domify
@@ -21,6 +22,37 @@ namespace Selenium.Webdriver.Domify
         public static T GetCurrentPage<T>(this INavigationService document) where T : Page, new()
         {
             return document.Page<T>();
+        }
+
+        public static T GoTo<T>(this INavigationService document, object arguments) where T: Page, new()
+        {
+            PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute<T>();
+
+        
+
+            if (navigationInfo != null)
+            {
+                    var url = ProcessUrlArguments(navigationInfo.Url, arguments);
+                    document.GoToPageUrl(url);
+            }
+            else
+                throw new InvalidOperationException(
+                    "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
+
+            return document.GetCurrentPage<T>();
+        }
+
+        private static Uri ProcessUrlArguments(Uri uri, object routeValues)
+        {
+            if (routeValues == null) return uri;
+            string url = uri.ToString();
+            string regexPattern = "{{{0}.*?}}";
+            foreach (var property in routeValues.GetType().GetProperties())
+            {
+                url = Regex.Replace(url, string.Format(regexPattern, property.Name), property.GetValue(routeValues, null).ToString(), RegexOptions.IgnoreCase);
+            }
+            url = Regex.Replace(url, string.Format(regexPattern, ""), "");
+            return new Uri(url);
         }
 
         /// <summary>
