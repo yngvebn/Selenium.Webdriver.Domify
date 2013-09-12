@@ -25,7 +25,6 @@ namespace Selenium.Webdriver.Domify.Elements
             set
             {
                 if (value && !Checked) Click();
-                if (!value && Checked) Click();
             }
         }
     }

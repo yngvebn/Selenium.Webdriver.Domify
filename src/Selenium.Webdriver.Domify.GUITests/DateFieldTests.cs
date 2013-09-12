@@ -5,7 +5,6 @@ using Selenium.Webdriver.Domify.GUITests.Pages;
 
 namespace Selenium.Webdriver.Domify.GUITests
 {
-    [Ignore("Will only work for HTML5-enabled browsers")]
     [TestFixture]
     public class DateFieldTests : BrowserScenario
     {
@@ -20,7 +19,7 @@ namespace Selenium.Webdriver.Domify.GUITests
         [Then]
         public void TheTextBoxShouldHaveAValue()
         {
-            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.Value, Is.EqualTo(_textToTypeIntoTextBox));
+            Assert.That(Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.Text, Is.EqualTo(_textToTypeIntoTextBox));
         }
 
         protected override void Given()
@@ -31,7 +30,8 @@ namespace Selenium.Webdriver.Domify.GUITests
         protected override void When()
         {
 
-            Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.SetDate(_textToTypeIntoTextBox);
+            Document.Navigation.GetCurrentPage<HomeIndex>().DateBox.Text = _textToTypeIntoTextBox;
+
         }
     }
 }

@@ -23,8 +23,22 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
             string type = element.Attribute.Type ?? "";
 
             Document.Navigation.GoTo<GenericElementPage>(new { tag = tag, type = type, text = "Some element text", id = "element_id" });
+            TheElementShouldExists("element_id", element.Element);
 
             WeShouldFindTheElementOnTheCurrentPage("element_id", element.Element);
+            WeShouldFindTheElementOnTheCurrentPageAsSingleElement("element_id", element.Element);
+
+        }
+
+        private void TheElementShouldExists(string elementId, Type element)
+        {
+            Assert.That(Document.Exists(elementId), Is.True);
+        }
+
+        private void WeShouldFindTheElementOnTheCurrentPageAsSingleElement(string elementId, Type element)
+        {
+            dynamic el = typeof (WebElementExtensions).GetMethods().Where(d => d.GetParameters().Any(c => c.ParameterType == typeof (string)) && d.GetParameters().Count() == 2).Single(m => m.ReturnType == element).Invoke(null, new object[] {Document, elementId});
+            Assert.That(el.GetType(), Is.EqualTo(element));
         }
 
         private void WeShouldFindTheElementOnTheCurrentPage(string elementId, Type elementType)
@@ -58,7 +72,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
         {
             foreach (var element in typeof(H1).Module.GetTypes().Where(t => t.BaseType == typeof(WebElement)))
             {
-                if (element == typeof(Body) ||
+                if (
                    element == typeof(Option) ||
                    element == typeof(TBody) ||
                    element == typeof(TR) ||

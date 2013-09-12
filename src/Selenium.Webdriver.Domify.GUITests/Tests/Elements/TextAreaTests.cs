@@ -26,7 +26,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
 
 
         [Then]
-        public void CanGetListItemAtSpecificIndex()
+        public void TheTextShouldReflectTheChange()
         {
             Assert.That(element.Text, Is.EqualTo(text));
         }

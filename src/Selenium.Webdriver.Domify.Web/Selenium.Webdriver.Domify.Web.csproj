@@ -178,6 +178,7 @@
     <Content Include="Views\Element\AllElements.cshtml" />
     <Content Include="Views\Element\DisplayTemplates\HtmlElementModel.cshtml" />
     <Content Include="Views\Element\DisplayTemplates\AttributeViewModel.cshtml" />
+    <Content Include="Views\Home\RadioButtons.cshtml" />
     <None Include="Views\Html\FormsWithNames.cshtml" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />

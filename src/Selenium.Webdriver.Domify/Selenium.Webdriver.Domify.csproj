@@ -53,11 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\DOMElementManipulator.cs" />
     <Compile Include="ByFirst.cs" />
     <Compile Include="ByValueDelegate.cs" />
     <Compile Include="Cache\CacheHolder.cs" />
-    <Compile Include="Core\IManipulateWebElement.cs" />
     <Compile Include="Core\WebElement.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DocumentSettings.cs" />
@@ -67,7 +65,6 @@
     <Compile Include="Attributes\DOMElementAttribute.cs" />
     <Compile Include="Factories\DOMElementFilterFactory.cs" />
     <Compile Include="Factories\DOMElementXPathFactory.cs" />
-    <Compile Include="Elements\Body.cs" />
     <Compile Include="Elements\ColorInput.cs" />
     <Compile Include="Elements\CreateExtensions.cs" />
     <Compile Include="Elements\DateField.cs" />

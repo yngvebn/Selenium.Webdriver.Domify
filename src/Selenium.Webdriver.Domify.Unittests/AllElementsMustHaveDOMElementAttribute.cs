@@ -13,6 +13,14 @@ namespace Selenium.Webdriver.Domify.Unittests
     public class DOMElementAttributeTests
     {
         [Test, TestCaseSource(typeof(ElementTestCaseData), "GetElements")]
+        public void AllElementsShouldHaveSingleAccessor(Type element)
+        {
+            var method = typeof(WebElementExtensions).GetMethods().Where(d => d.GetParameters().Any(c => c.ParameterType == typeof(string)) && d.GetParameters().Count() == 2).SingleOrDefault(m => m.ReturnType == element);
+            Assert.That(method, Is.Not.Null, string.Format("Missing getter for {0}", element.Name));
+          
+        }
+
+        [Test, TestCaseSource(typeof(ElementTestCaseData), "GetElements")]
         public void AllElementsMustHaveDOMElementAttribute(Type element)
         {
             var attribute = GetAttribute<DOMElementAttribute>(element);
@@ -24,8 +32,7 @@ namespace Selenium.Webdriver.Domify.Unittests
         public void DocumentShouldImplementAllElementsAccessors(Type element)
         {
             // ignore elements that are obsolete or requires a parent.
-            if (element == typeof(Body) ||
-                  element == typeof(Option) ||
+            if (element == typeof(Option) ||
                   element == typeof(TBody) ||
                   element == typeof(TR) ||
                   element == typeof(TD) ||

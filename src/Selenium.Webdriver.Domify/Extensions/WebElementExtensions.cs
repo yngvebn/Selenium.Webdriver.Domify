@@ -33,12 +33,134 @@ namespace Selenium.Webdriver.Domify
             return context.Fieldset(By.Id(id));
         }
 
+        public static Hidden Hidden(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Hidden>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static Hidden Hidden(this ISearchContext context, string id)
+        {
+            return context.Hidden(By.Id(id));
+        }
+
+        public static ColorInput ColorInput(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<ColorInput>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static ColorInput ColorInput(this ISearchContext context, string id)
+        {
+            return context.ColorInput(By.Id(id));
+        }
+
+
+        public static TBody TBody(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<TBody>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static TBody TBody(this ISearchContext context, string id)
+        {
+            return context.TBody(By.Id(id));
+        }
+
+        public static TR TR(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<TR>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static TR TR(this ISearchContext context, string id)
+        {
+            return context.TR(By.Id(id));
+        }
+        public static LI LI(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<LI>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static LI LI(this ISearchContext context, string id)
+        {
+            return context.LI(By.Id(id));
+        }
+
+
+        public static THead THead(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<THead>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static THead THead(this ISearchContext context, string id)
+        {
+            return context.THead(By.Id(id));
+        }
+
+        public static Option Option(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Option>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static Option Option(this ISearchContext context, string id)
+        {
+            return context.Option(By.Id(id));
+        }
+
+        public static TH TH(this ISearchContext context, string id)
+        {
+            return context.TH(By.Id(id));
+        }
+
+        public static Range Range(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Range>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static Range Range(this ISearchContext context, string id)
+        {
+            return context.Range(By.Id(id));
+        }
+
+        public static P P(this ISearchContext context, string id)
+        {
+            return context.P(By.Id(id));
+        }
+
+        public static Legend Legend(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Legend>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static Legend Legend(this ISearchContext context, string id)
+        {
+            return context.Legend(By.Id(id));
+        }
+
+
+        public static HtmlElement HtmlElement(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<HtmlElement>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static HtmlElement HtmlElement(this ISearchContext context, string id)
+        {
+            return context.HtmlElement(By.Id(id));
+        }
+
+
+        public static Frame Frame(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Frame>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static Frame Frame(this ISearchContext context, string id)
+        {
+            return context.Frame(By.Id(id));
+        }
+
 
         public static Fieldset Fieldset(this ISearchContext context, OpenQA.Selenium.By constraint)
         {
             return context.Find<Fieldset>(constraint).SingleOrThrowNotFoundException();
         }
-
         public static IList<Fieldset> Fieldsets(this ISearchContext context, OpenQA.Selenium.By constraint = null)
         {
             return context.Find<Fieldset>(constraint);
