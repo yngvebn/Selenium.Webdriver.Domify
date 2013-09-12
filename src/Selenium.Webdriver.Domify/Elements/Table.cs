@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
@@ -26,24 +27,24 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public TableBodyCollection OwnTableBodies
         {
-            get { return new TableBodyCollection(this.Find<TableBody>()); }
+            get { return new TableBodyCollection(this.Find<TBody>()); }
         }
 
-        public IList<TableCell> TableCells
+        public IList<TD> TableCells
         {
-            get { return this.Find<TableCell>(); }
+            get { return this.Find<TD>(); }
         }
 
-        public IList<TableRow> TableRows
+        public IList<TR> TableRows
         {
-            get { return this.Find<TableRow>(); }
+            get { return this.Find<TR>(); }
         } 
 
         public TableRowCollection OwnTableRows
         {
             get
             {
-                return new TableRowCollection(this.Find<TableRow>(false));
+                return new TableRowCollection(this.Find<TR>(false));
             }
         }
 

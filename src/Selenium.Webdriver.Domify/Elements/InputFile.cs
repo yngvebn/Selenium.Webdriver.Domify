@@ -1,17 +1,18 @@
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
     [DOMElement("input", Type="file")]
-    public class FileUpload : WebElement
+    public class InputFile : WebElement
     {
-        public static FileUpload Create(IWebElement element)
+        public static InputFile Create(IWebElement element)
         {
-            return new FileUpload(element);
+            return new InputFile(element);
         }
 
-        private FileUpload(IWebElement element):
+        private InputFile(IWebElement element):
             base(element)
         {
             

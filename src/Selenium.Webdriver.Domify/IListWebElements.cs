@@ -7,6 +7,7 @@ namespace Selenium.Webdriver.Domify
     {
         IList<Span> Spans { get; }
         IList<Fieldset> Fieldsets { get; }
+        IList<Legend> Legends { get; }
         IList<Frame> Frames { get; }
         IList<UL> Lists { get; }
         IList<Div> Divs { get; }
@@ -18,7 +19,7 @@ namespace Selenium.Webdriver.Domify
         IList<TextArea> TextAreas { get; }
         IList<TextField> TextFields { get; }
         IList<Button> Buttons { get; }
-        IList<FileUpload> FileUploads { get; }
+        IList<InputFile> FileUploads { get; }
         IList<Form> Forms { get; }
         IList<H1> H1s { get; }
         IList<H2> H2s{ get; }

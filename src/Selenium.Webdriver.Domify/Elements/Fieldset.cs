@@ -1,25 +1,11 @@
 using System;
+using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("*")]
-    [Obsolete("Will be removed in v2.0")]
-    public class Element : WebElement
-    {
-        public static Element Create(IWebElement element)
-        {
-            return new Element(element);
-        }
-
-        private Element(IWebElement element) :
-            base(element)
-        {
-
-        }
-    }
-
     [DOMElement("fieldset")]
     public class Fieldset : WebElement
     {
@@ -32,6 +18,11 @@ namespace Selenium.Webdriver.Domify.Elements
             base(element)
         {
 
+        }
+
+        public Legend Legend
+        {
+            get { return this.Find<Legend>().SingleOrDefault(); }
         }
     }
 }

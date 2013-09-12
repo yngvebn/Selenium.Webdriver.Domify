@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
@@ -20,8 +21,7 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get
             {
-                var xPath = this.GetElementXPath() + "/li";
-                return this.Find<LI>(By.XPath(xPath));
+                return this.Find<LI>(false);
             }
         }
 

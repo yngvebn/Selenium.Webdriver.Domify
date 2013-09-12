@@ -1,7 +1,7 @@
 ﻿@model Selenium.Webdriver.Domify.Web.Controllers.HtmlElementModel
 
 
-@if (string.IsNullOrEmpty(Model.Text))
+@if (string.IsNullOrEmpty(Model.Text) && !Model.Children.Any())
 {
     <@(Model.TagName) @(Html.DisplayFor(m => m.Attributes))/>
 }
@@ -10,7 +10,8 @@ else
 <text>@Html.Raw(string.Format("<{0}", Model.TagName))</text>
 <text>@Html.DisplayFor(m => m.Attributes)</text>
     <text>@Html.Raw(string.Format(">"))</text>
-       <text>@Model.Text</text>
+<text>@Model.Text</text>
+<text>@Html.DisplayFor(m => m.Children)</text>
 <text>@Html.Raw(String.Format("</{0}>", Model.TagName))</text>
 
 }

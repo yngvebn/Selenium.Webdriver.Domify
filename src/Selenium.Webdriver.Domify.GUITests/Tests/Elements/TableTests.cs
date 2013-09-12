@@ -67,6 +67,29 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
             Assert.That(CurrentPage.Table.TableRows.Count(),Is.EqualTo(3));
         }
 
+
+        [Then]
+        public void CanGetSpecificTableCellFromTableRow()
+        {
+            Assert.That(CurrentPage.Table.TableBodies[0].OwnTableRows[0].TableCell(By.ClassName("special")).Text, Is.EqualTo("The special cell"));
+            Assert.That(CurrentPage.Table.TableBodies[0].OwnTableRows[0].OwnTableCell(By.ClassName("special")).Text, Is.EqualTo("The special cell"));
+        }
+
+        [Then]
+        public void CanGetTableCellsFromTableRow()
+        {
+            Assert.That(CurrentPage.Table.TableBodies[0].OwnTableRows[0].TableCells.Count(), Is.GreaterThan(0));
+            Assert.That(CurrentPage.Table.TableBodies[0].OwnTableRows[0].OwnTableCells.Count(), Is.GreaterThan(0));
+        }
+
+
+        [Then]
+        public void CanGetTableHeaderByIndex()
+        {
+            Assert.That(CurrentPage.Table.Head.OwnTableHeaderColumns[0], Is.Not.Null);
+            Assert.That(CurrentPage.Table.Head.OwnTableHeaderColumns.Count, Is.GreaterThan(0));
+        }
+
         [Then]
         public void TableCellsShouldReturnAllChildren()
         {

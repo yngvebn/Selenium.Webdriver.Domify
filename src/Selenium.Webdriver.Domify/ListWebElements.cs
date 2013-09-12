@@ -13,6 +13,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         public IList<Fieldset> Fieldsets { get { return this.Find<Fieldset>(); } }
+        public IList<Legend> Legends { get { return this.Find<Legend>(); } }
 
         public IList<Frame> Frames
         {
@@ -69,9 +70,9 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<Button>(); }
         }
 
-        public IList<FileUpload> FileUploads
+        public IList<InputFile> FileUploads
         {
-            get { return this.Find<FileUpload>(); }
+            get { return this.Find<InputFile>(); }
         }
 
         public IList<Form> Forms

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify
 {

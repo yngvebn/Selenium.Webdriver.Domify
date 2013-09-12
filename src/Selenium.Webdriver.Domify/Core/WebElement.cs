@@ -253,7 +253,7 @@ namespace Selenium.Webdriver.Domify.Core
             {
 
                 SeleniumElement.Clear();
-
+                
                 if (!string.IsNullOrEmpty(value))
                     SendKeys(value);
             }

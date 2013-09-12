@@ -51,6 +51,7 @@ namespace Selenium.Webdriver.Domify
             {
                 url = Regex.Replace(url, string.Format(regexPattern, property.Name), property.GetValue(routeValues, null).ToString(), RegexOptions.IgnoreCase);
             }
+            url = Regex.Replace(url, string.Format(regexPattern, ""), "");
             return new Uri(url);
         }
 

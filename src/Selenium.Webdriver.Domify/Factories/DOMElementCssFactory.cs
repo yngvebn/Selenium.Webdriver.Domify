@@ -1,18 +1,17 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 
-namespace Selenium.Webdriver.Domify
+namespace Selenium.Webdriver.Domify.Factories
 {
-    
-    public class DOMElementFilterFactory
+    public class DOMElementCssFactory
     {
-        public static Func<IWebElement, bool> Get<T>()
-            where T: IWebElement
+        public static string[] Get<T>()
+            where T : IWebElement
         {
             IEnumerable<DOMElementAttribute> attributes = GetDomElementAttributes<T>();
-            return element => attributes.Any(attribute => attribute.IsMatch(element));
+            return attributes.Select(att => att.GetCSS()).ToArray();
         }
 
         private static IEnumerable<DOMElementAttribute> GetDomElementAttributes<T>()

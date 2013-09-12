@@ -18,13 +18,13 @@ namespace Selenium.Webdriver.Domify.GUITests
 
         protected override void When()
         {
-            Document.Navigation.GetCurrentPage<HomeIndex>().FileUpload.File = (file);
+            Document.Navigation.GetCurrentPage<HomeIndex>().InputFile.File = (file);
         }
 
         [Then]
         public void TheFileShouldBeSetCorrectly()
         {
-            Assert.That(Path.GetFileName(Document.Navigation.GetCurrentPage<HomeIndex>().FileUpload.File.ToLower()), Is.EqualTo(Path.GetFileName(file.ToLower())));
+            Assert.That(Path.GetFileName(Document.Navigation.GetCurrentPage<HomeIndex>().InputFile.File.ToLower()), Is.EqualTo(Path.GetFileName(file.ToLower())));
         }
     }
 }

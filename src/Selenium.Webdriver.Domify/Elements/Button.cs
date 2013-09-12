@@ -1,5 +1,9 @@
+using System;
+using System.Linq.Expressions;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
+using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
@@ -25,6 +29,7 @@ namespace Selenium.Webdriver.Domify.Elements
         {
             get
             {
+
                 if(TagName.Equals("button")) return base.Text;
                 else
                 {

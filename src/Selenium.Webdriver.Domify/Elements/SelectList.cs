@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
@@ -16,7 +17,7 @@ namespace Selenium.Webdriver.Domify.Elements
             return new SelectList(element);
         }
 
-        public IList<SelectListItem> Options
+        public IList<Option> Options
         {
             get { return this.SelectListItems(); }
         }

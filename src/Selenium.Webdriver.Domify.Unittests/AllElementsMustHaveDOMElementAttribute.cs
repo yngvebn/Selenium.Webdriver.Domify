@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Selenium.Webdriver.Domify.Attributes;
 using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
 
@@ -24,12 +25,10 @@ namespace Selenium.Webdriver.Domify.Unittests
         {
             // ignore elements that are obsolete or requires a parent.
             if (element == typeof(Body) ||
-                element == typeof(Element) ||
-                element == typeof(Input) ||
-                  element == typeof(SelectListItem) ||
-                  element == typeof(TableBody) ||
-                  element == typeof(TableRow) ||
-                  element == typeof(TableCell) ||
+                  element == typeof(Option) ||
+                  element == typeof(TBody) ||
+                  element == typeof(TR) ||
+                  element == typeof(TD) ||
                   element == typeof(TH) ||
                   element == typeof(THead) ||
                 element == typeof(LI)) Assert.Ignore("Body and Element does not count.");

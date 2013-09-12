@@ -79,10 +79,13 @@
     <Compile Include="SetButtonTexts.cs" />
     <Compile Include="SetIdOnTextBox.cs" />
     <Compile Include="SpanClickTest.cs" />
+    <Compile Include="Tests\Elements\FieldSetTests.cs" />
+    <Compile Include="Tests\Elements\ListTests.cs" />
     <Compile Include="Tests\Elements\TableTests.cs" />
     <Compile Include="Tests\Elements\GetAllElements.cs" />
     <Compile Include="Tests\Elements\SelectLists.cs" />
     <Compile Include="Tests\Elements\SetTextToHiddenTextBox.cs" />
+    <Compile Include="Tests\Elements\TextAreaTests.cs" />
     <Compile Include="Tests\Finders\BySelectors.cs" />
     <Compile Include="TextFieldTests.cs" />
     <Compile Include="Core\ThenAttribute.cs" />

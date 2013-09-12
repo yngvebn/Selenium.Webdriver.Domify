@@ -50,7 +50,7 @@ namespace Selenium.Webdriver.Domify
             element.ExecuteJavascript(new SetElementText(text));
         }
 
-        public static void SetElementAttribute(this IWebElement element, string attributeName, string attributeValue)
+        public static void SetElementAttribute(this IWebElement element, string attributeName, object attributeValue)
         {
             element.ExecuteJavascript(new SetElementAttribute( attributeName, attributeValue));
         }

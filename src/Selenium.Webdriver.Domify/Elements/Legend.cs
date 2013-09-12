@@ -4,15 +4,15 @@ using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("span")]
-    public class Span : WebElement
+    [DOMElement("legend")]
+    public class Legend : WebElement
     {
-        public static Span Create(IWebElement element)
+        public static Legend Create(IWebElement element)
         {
-            return new Span(element);
+            return new Legend (element);
         }
 
-        private Span(IWebElement element) :
+        private Legend(IWebElement element) :
             base(element)
         {
 

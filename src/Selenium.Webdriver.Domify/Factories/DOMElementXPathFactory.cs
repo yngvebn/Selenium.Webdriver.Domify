@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Attributes;
 
-namespace Selenium.Webdriver.Domify
+namespace Selenium.Webdriver.Domify.Factories
 {
     public class DOMElementXPathFactory
     {

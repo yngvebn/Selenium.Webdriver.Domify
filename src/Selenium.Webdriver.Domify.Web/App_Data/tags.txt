@@ -16,3 +16,4 @@ textarea
 p
 option
 table
+legend
