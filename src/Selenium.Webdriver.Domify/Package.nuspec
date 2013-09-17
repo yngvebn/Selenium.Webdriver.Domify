@@ -25,6 +25,10 @@
         <dependency id="Selenium.Support" version="2.35.0" />
         <dependency id="Selenium.WebDriver" version="2.35.0" />
       </group>
+      <group targetFramework="net45">
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
+      </group>
     </dependencies>
     <references>
     </references>
