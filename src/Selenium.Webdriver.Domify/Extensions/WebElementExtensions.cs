@@ -212,7 +212,7 @@ namespace Selenium.Webdriver.Domify
             return context.FindElements(predicate).Count > 0;
         }
 
-        public static bool Exists<T>(this IWebElement context, Func<IWebElement, T> func) where T : BaseWebElement
+        public static bool Exists<T>(this IWebElement context, Func<IWebElement, T> func) where T : WebElement
         {
             try
             {
@@ -269,7 +269,7 @@ namespace Selenium.Webdriver.Domify
             return element.Text;
         }
 
-        public static bool IsVisible(this BaseWebElement element)
+        public static bool IsVisible(this WebElement element)
         {
             if (!element.Displayed)
                 return false;
@@ -425,19 +425,19 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static T Find<T>(this ISearchContext context, string id)
-           where T : BaseWebElement
+           where T : WebElement
         {
             return context.Find<T>(By.Id(id)).SingleOrDefault();
         }
 
         public static IList<T> Find<T>(this ISearchContext context, bool deep = true)
-              where T : BaseWebElement
+              where T : WebElement
         {
             return deep ? GetByXPath<T>(context) : GetByCSS<T>(context);
         }
 
         private static IList<T> GetByCSS<T>(ISearchContext context)
-            where T : BaseWebElement
+            where T : WebElement
         {
             string css = "";
             var element = (WebElement) context;
@@ -451,7 +451,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         private static IList<T> GetByXPath<T>(ISearchContext context)
-             where T : BaseWebElement
+             where T : WebElement
         {
             string xPath = "";
             string start = ".//";
@@ -467,7 +467,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         private static IList<T> Find<T>(this ISearchContext context, By by, bool nocache)
-            where T : BaseWebElement
+            where T : WebElement
         {
             var filterPredicate = CacheHolder.GetFilterPredicate<T>();
 
@@ -498,7 +498,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static IList<T> Find<T>(this ISearchContext context, OpenQA.Selenium.By by)
-            where T : BaseWebElement
+            where T : WebElement
         {
             try
             {

@@ -9,38 +9,7 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.Core
 {
-    public abstract class WebElement: WebElement<HtmlElement>
-    {
-        protected WebElement(IWebElement element)
-            :base(element)
-        {
-            
-        }
-    }
-
-
-    public abstract class WebElement<TParent> : BaseWebElement
-        where TParent : BaseWebElement
-    {
-        protected WebElement(IWebElement element) :
-            base(element)
-        {
-
-        }
-
-        public TParent Parent
-        {
-            get
-            {
-                var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
-                return typeof (TParent).GetMethod("Create").Invoke(null, new object[] {parentElement}) as TParent;
-            }
-        }
-
-    }
-
-
-    public abstract class BaseWebElement : ListWebElements, IWebElement
+    public abstract class WebElement : ListWebElements, IWebElement
     {
         private readonly IWebElement _element;
 
@@ -60,7 +29,7 @@ namespace Selenium.Webdriver.Domify.Core
             get { return GetAttribute("name"); }
         }
 
-        public T FindNextSibling<T>() where T : BaseWebElement
+        public T FindNextSibling<T>() where T : WebElement
         {
             IWebElement findElement = Driver.FindElement(By.CssSelector(string.Format("#{0} + {1}", Id, typeof(T).Name)));
 
@@ -71,7 +40,7 @@ namespace Selenium.Webdriver.Domify.Core
             return (T)methodInfo.Invoke(null, new object[] { findElement });
         }
 
-        protected BaseWebElement(IWebElement element)
+        protected WebElement(IWebElement element)
         {
 
 
@@ -210,7 +179,7 @@ namespace Selenium.Webdriver.Domify.Core
             return false;
         }
 
-        public T WaitUntilFound<T>(Func<IWebElement, T> func, TimeSpan timeOut = default(TimeSpan)) where T : BaseWebElement
+        public T WaitUntilFound<T>(Func<IWebElement, T> func, TimeSpan timeOut = default(TimeSpan)) where T : WebElement
         {
             if (timeOut == default(TimeSpan))
                 timeOut = TimeSpan.FromSeconds(30);

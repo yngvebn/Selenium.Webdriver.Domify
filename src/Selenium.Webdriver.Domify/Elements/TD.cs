@@ -5,7 +5,7 @@ using Selenium.Webdriver.Domify.Core;
 namespace Selenium.Webdriver.Domify.Elements
 {
     [DOMElement("td")]
-    public class TD : WebElement<TR>
+    public class TD : WebElement
     {
         public static TD Create(IWebElement element)
         {
