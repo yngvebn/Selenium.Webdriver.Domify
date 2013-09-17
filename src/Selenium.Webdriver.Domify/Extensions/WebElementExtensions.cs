@@ -269,12 +269,12 @@ namespace Selenium.Webdriver.Domify
             return element.Text;
         }
 
-        public static bool IsVisible(this WebElement element)
+        public static bool IsVisible(this IWebElement element)
         {
             if (!element.Displayed)
                 return false;
 
-            return element.Style.Display != "none";
+            return (element as WebElement).Style.Display != "none";
         }
 
 
