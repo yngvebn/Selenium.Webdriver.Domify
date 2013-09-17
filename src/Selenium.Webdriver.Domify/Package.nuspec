@@ -21,10 +21,6 @@
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright  2013</copyright>
     <dependencies>
-      <group targetFramework="net40">
-        <dependency id="Selenium.Support" version="2.35.0" />
-        <dependency id="Selenium.WebDriver" version="2.35.0" />
-      </group>
       <group targetFramework="net45">
         <dependency id="Selenium.Support" version="2.35.0" />
         <dependency id="Selenium.WebDriver" version="2.35.0" />
