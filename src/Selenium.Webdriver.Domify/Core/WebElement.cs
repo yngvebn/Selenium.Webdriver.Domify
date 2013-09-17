@@ -9,6 +9,37 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.Core
 {
+    //public abstract class WebElement: WebElement<HtmlElement>
+    //{
+    //    protected WebElement(IWebElement element)
+    //        :base(element)
+    //    {
+            
+    //    }
+    //}
+
+
+    //public abstract class WebElement<TParent> : BaseWebElement
+    //    where TParent : BaseWebElement
+    //{
+    //    protected WebElement(IWebElement element) :
+    //        base(element)
+    //    {
+
+    //    }
+
+    //    public TParent Parent
+    //    {
+    //        get
+    //        {
+    //            var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
+    //            return typeof (TParent).GetMethod("Create").Invoke(null, new object[] {parentElement}) as TParent;
+    //        }
+    //    }
+
+    //}
+
+
     public abstract class WebElement : ListWebElements, IWebElement
     {
         private readonly IWebElement _element;
@@ -67,6 +98,14 @@ namespace Selenium.Webdriver.Domify.Core
         }
 
 
+        public WebElement Parent
+        {
+            get
+            {
+                var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
+                return typeof(HtmlElement).GetMethod("Create").Invoke(null, new object[] { parentElement }) as HtmlElement;
+            }
+        }
 
         public void Clear()
         {
