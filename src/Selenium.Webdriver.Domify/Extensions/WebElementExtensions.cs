@@ -274,7 +274,7 @@ namespace Selenium.Webdriver.Domify
             if (!element.Displayed)
                 return false;
 
-            return (element as WebElement).Style.Display != "none";
+            return (Elements.HtmlElement.Create(element)).Style.Display != "none";
         }
 
 
