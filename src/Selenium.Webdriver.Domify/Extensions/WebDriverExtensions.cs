@@ -40,7 +40,6 @@ namespace Selenium.Webdriver.Domify
         public static void WaitForPageLoaded(this IDocument driver)
         {
             driver.WaitUntil(document => document.IsPageLoaded);
-                
         }
     }
 }
