@@ -10,25 +10,17 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("select")]
     public class SelectList : WebElement
     {
-        private readonly SelectElement _wrappedSelectElement;
-
-        public static SelectList Create(IWebElement element)
-        {
-            return new SelectList(element);
-        }
+        private SelectElement _wrappedSelectElement;
 
         public IList<Option> Options
         {
             get { return this.SelectListItems(); }
         }
 
-        private SelectList(IWebElement webElement)
-            : base(webElement)
+        protected override void Created(IWebElement element)
         {
-            _wrappedSelectElement = new SelectElement(webElement);
+            _wrappedSelectElement = new SelectElement(element);
         }
-
-
 
         public IWebElement SelectedOption
         {

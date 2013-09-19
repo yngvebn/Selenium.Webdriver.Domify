@@ -8,17 +8,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("tbody")]
     public class TBody: WebElement
     {
-        public static TBody Create(IWebElement element)
-        {
-            return new TBody(element);
-        }
-
-        private TBody(IWebElement element) :
-            base(element)
-        {
-
-        }
-
         public TR OwnTableRow(By constraint)
         {
             return this.Find<TR>(constraint).SingleOrDefault();

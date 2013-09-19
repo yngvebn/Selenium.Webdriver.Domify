@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using OpenQA.Selenium;
-using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Javascript;
 
 namespace Selenium.Webdriver.Domify
@@ -18,8 +16,7 @@ namespace Selenium.Webdriver.Domify
             Settings = new DocumentSettings()
                 {
                     WaitTimeout = TimeSpan.FromSeconds(30),
-                    AlwaysWaitForElement = true,
-                    EnsureAllElementsHaveId = true
+                    AlwaysWaitForElement = false,
                 };
         }
 
@@ -58,7 +55,8 @@ namespace Selenium.Webdriver.Domify
             get { return _driver; }
         }
 
-        public T WaitUntilFound<T>(OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan))
+        public T WaitUntilFound<T>(By find, TimeSpan timeout = default(TimeSpan))
+            where T: WebElement, new()
         {
             return Driver.WaitUntilFound<T>(find, timeout);
         }
@@ -73,7 +71,7 @@ namespace Selenium.Webdriver.Domify
             _driver.Navigate().Refresh();
         }
 
-        public override IWebElement FindElement(OpenQA.Selenium.By @by)
+        public override IWebElement FindElement(By @by)
         {
             if (!Settings.AlwaysWaitForElement)
                 return _driver.FindElement(@by);
@@ -83,7 +81,7 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public override ReadOnlyCollection<IWebElement> FindElements(OpenQA.Selenium.By @by)
+        public override ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
             return _driver.FindElements(@by);
         }

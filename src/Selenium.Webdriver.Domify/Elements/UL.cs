@@ -12,10 +12,6 @@ namespace Selenium.Webdriver.Domify.Elements
         public LI this[int index]{
             get { return ListItems.ToList()[index]; }}
 
-        public static UL Create(IWebElement element)
-        {
-            return new UL(element);
-        }
 
         public IList<LI>  OwnListItems
         {
@@ -31,10 +27,5 @@ namespace Selenium.Webdriver.Domify.Elements
             get { return this.Find<LI>(); }
         }
 
-        private UL(IWebElement element) :
-            base(element)
-        {
-
-        }
     }
 }

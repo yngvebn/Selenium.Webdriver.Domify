@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using OpenQA.Selenium;
-using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify
 {
@@ -32,7 +31,7 @@ namespace Selenium.Webdriver.Domify
 
         bool IsPageLoaded { get; }
 
-        T WaitUntilFound<T>(OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan));
+        T WaitUntilFound<T>(OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan)) where T: WebElement,new() ;
         void Refresh();
     }
 }

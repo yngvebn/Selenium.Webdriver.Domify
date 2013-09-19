@@ -9,16 +9,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("input", Type = "date")]
     public class DateField: WebElement
     {
-        public static DateField Create(IWebElement element)
-        {
-            return new DateField(element);
-        }
-
-        private DateField(IWebElement element): base(element)
-        {
-            
-        }
-
         public void SetDate(DateTime date)
         {
             this.SetAttribute("value", date.ToString("yyyy-MM-dd"));

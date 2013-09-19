@@ -274,7 +274,7 @@ namespace Selenium.Webdriver.Domify
             if (!element.Displayed)
                 return false;
 
-            return (Elements.HtmlElement.Create(element)).Style.Display != "none";
+            return (Core.WebElement.Create<HtmlElement>(element)).Style.Display != "none";
         }
 
 
@@ -425,19 +425,19 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static T Find<T>(this ISearchContext context, string id)
-           where T : WebElement
+           where T : WebElement, new()
         {
             return context.Find<T>(By.Id(id)).SingleOrDefault();
         }
 
         public static IList<T> Find<T>(this ISearchContext context, bool deep = true)
-              where T : WebElement
+              where T : WebElement, new()
         {
             return deep ? GetByXPath<T>(context) : GetByCSS<T>(context);
         }
 
         private static IList<T> GetByCSS<T>(ISearchContext context)
-            where T : WebElement
+            where T : WebElement, new()
         {
             string css = "";
             var element = (WebElement) context;
@@ -451,7 +451,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         private static IList<T> GetByXPath<T>(ISearchContext context)
-             where T : WebElement
+             where T : WebElement, new()
         {
             string xPath = "";
             string start = ".//";
@@ -460,14 +460,14 @@ namespace Selenium.Webdriver.Domify
                 xPath += string.Format("{1}{0} | ", expr, start);
             }
             xPath = "(" + xPath.TrimEnd(' ', '|') + ")";
-            Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
+            Func<IWebElement, T> create = WebElement.Create<T>;
 
 
             return context.FindElements(OpenQA.Selenium.By.XPath(xPath)).Select(create).ToList();
         }
 
         private static IList<T> Find<T>(this ISearchContext context, By by, bool nocache)
-            where T : WebElement
+            where T : WebElement, new()
         {
             var filterPredicate = CacheHolder.GetFilterPredicate<T>();
 
@@ -476,8 +476,8 @@ namespace Selenium.Webdriver.Domify
                 throw new InvalidOperationException("Unable to look for elements of type " + typeof(T));
             }
 
-            Func<IWebElement, T> create = element => typeof(T).GetMethod("Create").Invoke(null, new object[] { element }) as T;
-
+            Func<IWebElement, T> create = WebElement.Create<T>;
+            
             IEnumerable<IWebElement> elements;
 
             if (by != null)
@@ -498,7 +498,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static IList<T> Find<T>(this ISearchContext context, OpenQA.Selenium.By by)
-            where T : WebElement
+            where T : WebElement, new()
         {
             try
             {

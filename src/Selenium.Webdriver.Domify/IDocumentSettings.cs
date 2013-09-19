@@ -14,9 +14,5 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         bool AlwaysWaitForElement { get; set; }
 
-        /// <summary>
-        /// Makes sure that all elements have Ids when a page is navigated to
-        /// </summary>
-        bool EnsureAllElementsHaveId { get; set; }
     }
 }

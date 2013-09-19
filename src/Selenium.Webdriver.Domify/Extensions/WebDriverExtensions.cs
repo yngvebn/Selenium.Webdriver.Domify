@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
@@ -22,7 +23,8 @@ namespace Selenium.Webdriver.Domify
             return new Document(driver);
         }
 
-        public static T WaitUntilFound<T>(this IWebDriver driver, OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan))
+        public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
+            where T: WebElement, new()
         {
             if (timeout == default(TimeSpan))
                 timeout = TimeSpan.FromSeconds(30);

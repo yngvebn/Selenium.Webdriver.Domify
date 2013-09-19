@@ -7,16 +7,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("textarea")]
     public class TextArea : WebElement
     {
-        public static TextArea Create(IWebElement element)
-        {
-            return new TextArea(element);
-        }
-
-        public TextArea(IWebElement element) :
-            base(element)
-        {
-        }
-
         public override string Text
         {
             get { return Value; }

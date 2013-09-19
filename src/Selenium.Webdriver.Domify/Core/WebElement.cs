@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -9,40 +11,59 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.Core
 {
-    //public abstract class WebElement: WebElement<HtmlElement>
-    //{
-    //    protected WebElement(IWebElement element)
-    //        :base(element)
-    //    {
-            
-    //    }
-    //}
 
-
-    //public abstract class WebElement<TParent> : BaseWebElement
-    //    where TParent : BaseWebElement
-    //{
-    //    protected WebElement(IWebElement element) :
-    //        base(element)
-    //    {
-
-    //    }
-
-    //    public TParent Parent
-    //    {
-    //        get
-    //        {
-    //            var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
-    //            return typeof (TParent).GetMethod("Create").Invoke(null, new object[] {parentElement}) as TParent;
-    //        }
-    //    }
-
-    //}
-
-
-    public abstract class WebElement : ListWebElements, IWebElement
+    public static class ReflectionHelpers
     {
-        private readonly IWebElement _element;
+        private static Dictionary<Type, Dictionary<string, MethodInfo>> _cache = new Dictionary<Type, Dictionary<string, MethodInfo>>(); 
+
+        public static MethodInfo GetMethod<T>(this Type t, string name)
+        {
+            var method = GetOrAddToCache(t, name);
+            return method.MakeGenericMethod(typeof(T));
+        }
+
+        private static MethodInfo GetOrAddToCache(Type type, string name)
+        {
+            try
+            {
+                return _cache[type][name];
+            }
+            catch
+            {
+                if(!_cache.ContainsKey(type)) _cache.Add(type, new Dictionary<string, MethodInfo>());
+                if(!_cache[type].ContainsKey(name)) _cache[type].Add(name, type.GetMethod(name));
+                return GetOrAddToCache(type, name);
+            }
+        }
+    }
+
+    public class WebElement : ListWebElements, IWebElement
+    {
+        public static T Create<T>(IWebElement element)
+            where T : WebElement, new()
+        {
+            var instance = new T();
+            instance.SetWebElement(element);
+            instance.Created(element);
+            return instance;
+        }
+
+        protected virtual void Created(IWebElement element)
+        {
+            
+        }
+
+        protected WebElement()
+        {
+            
+        }
+
+        private IWebElement _element;
+
+        internal void SetWebElement(IWebElement element)
+        {
+            _element = element;
+        }
 
         public IWebDriver Driver
         {
@@ -60,15 +81,16 @@ namespace Selenium.Webdriver.Domify.Core
             get { return GetAttribute("name"); }
         }
 
-        public T FindNextSibling<T>() where T : WebElement
+        public T FindNextSibling<T>() where T : WebElement, new()
         {
             IWebElement findElement = Driver.FindElement(By.CssSelector(string.Format("#{0} + {1}", Id, typeof(T).Name)));
 
             if (findElement == null)
                 return null;
 
-            MethodInfo methodInfo = typeof(T).GetMethod("Create");
-            return (T)methodInfo.Invoke(null, new object[] { findElement });
+            
+            
+            return Create<T>(findElement);
         }
 
         protected WebElement(IWebElement element)
@@ -103,7 +125,7 @@ namespace Selenium.Webdriver.Domify.Core
             get
             {
                 var parentElement = FindElement(By.XPath(this.GetElementXPath() + "/.."));
-                return typeof(HtmlElement).GetMethod("Create").Invoke(null, new object[] { parentElement }) as HtmlElement;
+                return Create<HtmlElement>(parentElement);
             }
         }
 
@@ -261,7 +283,7 @@ namespace Selenium.Webdriver.Domify.Core
             {
 
                 SeleniumElement.Clear();
-                
+
                 if (!string.IsNullOrEmpty(value))
                     SendKeys(value);
             }

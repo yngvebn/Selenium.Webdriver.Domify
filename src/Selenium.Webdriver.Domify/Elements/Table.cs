@@ -9,17 +9,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("table")]
     public class Table : WebElement
     {
-        public static Table Create(IWebElement element)
-        {
-            return new Table(element);
-        }
-
-        private Table(IWebElement element) :
-            base(element)
-        {
-
-        }
-
         public TableBodyCollection TableBodies
         {
             get { return OwnTableBodies; }

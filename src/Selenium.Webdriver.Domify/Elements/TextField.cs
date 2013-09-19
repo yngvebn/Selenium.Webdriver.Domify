@@ -20,17 +20,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("textarea")]
     public class TextField : WebElement
     {
-        public static TextField Create(IWebElement element)
-        {
-            return new TextField(element);
-        }
-
-        private TextField(IWebElement element) :
-            base(element)
-        {
-
-        }
-
         public override string Text
         {
             get { return Value; }

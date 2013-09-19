@@ -1,12 +1,13 @@
 ﻿using OpenQA.Selenium;
+using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
     public static class CreateExtensions
     {
-        public static T As<T>(this IWebElement element)
+        public static T As<T>(this IWebElement element) where T: WebElement, new()
         {
-            return (T)(typeof(T).GetMethod("Create").Invoke(null, new object[] { element }));
+            return WebElement.Create<T>(element);
         }
     }
 }
