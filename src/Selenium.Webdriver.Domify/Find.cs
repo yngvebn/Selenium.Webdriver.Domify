@@ -38,14 +38,16 @@ namespace Selenium.Webdriver.Domify
             return By("name", nameValue);
         }
 
-        public static By ByText(string text)
+        public static By ByText(string text, bool partial =  false)
         {
-            return OpenQA.Selenium.By.XPath(string.Format(".//*[text()='{0}']", text));
+            if (partial) return ByContainsText(text);
+
+            return OpenQA.Selenium.By.XPath(string.Format("//div[text()='{0}']", text));
         }
 
         public static By ByContainsText(string text)
         {
-            return OpenQA.Selenium.By.XPath(string.Format(".//*[text()='(.?+){0}(.?+)']", text));
+            return OpenQA.Selenium.By.XPath(string.Format("//*[contains(text(), '{0}']", text));
         }
 
         public static By ByIndex(int index)

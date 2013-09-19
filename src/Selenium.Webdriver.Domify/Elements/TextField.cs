@@ -7,8 +7,6 @@ namespace Selenium.Webdriver.Domify.Elements
     [DOMElement("input", Type = "text")]
     [DOMElement("input", Type = "password")]
     [DOMElement("input", Type = "search")]
-    [DOMElement("input", Type = "datetime-local")]
-    [DOMElement("input", Type = "datetime")]
     [DOMElement("input", Type = "email")]
     [DOMElement("input", Type = "month")]
     [DOMElement("input", Type = "number")]
