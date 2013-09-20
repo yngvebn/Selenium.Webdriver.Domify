@@ -24,10 +24,12 @@
       <group targetFramework="net40">
         <dependency id="Selenium.Support" version="2.35.0" />
         <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
       </group>
       <group targetFramework="net45">
         <dependency id="Selenium.Support" version="2.35.0" />
         <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
       </group>
     </dependencies>
     <references>
