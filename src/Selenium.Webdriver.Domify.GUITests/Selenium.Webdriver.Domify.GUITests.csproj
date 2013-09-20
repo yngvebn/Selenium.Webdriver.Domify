@@ -60,7 +60,6 @@
     <Compile Include="Core\PageScenario.cs" />
     <Compile Include="Core\SetupClass.cs" />
     <Compile Include="ButtonTests.cs" />
-    <Compile Include="DateFieldTests.cs" />
     <Compile Include="FindListBasedOnTagNameAndID.cs" />
     <Compile Include="GetFirstElementTests.cs" />
     <Compile Include="IfNothingHappensWaitUntilTimesout.cs" />
