@@ -1,6 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using HtmlAgilityPack;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
+using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify
@@ -38,16 +43,14 @@ namespace Selenium.Webdriver.Domify
             return By("name", nameValue);
         }
 
-        public static By ByText(string text, bool partial =  false)
+        public static By ByText(string text, bool partial = false)
         {
-            if (partial) return ByContainsText(text);
-
-            return OpenQA.Selenium.By.XPath(string.Format("//div[text()='{0}']", text));
+            return new ByTextFinder(text, partial);
         }
 
         public static By ByContainsText(string text)
         {
-            return OpenQA.Selenium.By.XPath(string.Format("//*[contains(text(), '{0}']", text));
+            return ByText(text, true);
         }
 
         public static By ByIndex(int index)
@@ -56,15 +59,48 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static By First<T>()
-            where T: IWebElement
+            where T : IWebElement
         {
             string xPath = "";
-            foreach(var expr in DOMElementXPathFactory.Get<T>())
+            foreach (var expr in DOMElementXPathFactory.Get<T>())
             {
                 xPath += string.Format(".//{0} | ", expr);
             }
-            xPath = "("+xPath.TrimEnd(' ', '|')+")[1]";
+            xPath = "(" + xPath.TrimEnd(' ', '|') + ")[1]";
             return OpenQA.Selenium.By.XPath(xPath);
+        }
+    }
+
+    public class ByTextFinder : By
+    {
+        private readonly string _text;
+        private readonly string _xpathFormat;
+
+        public ByTextFinder(string text, bool partial)
+        {
+            _text = text;
+            _xpathFormat = partial ? ".//*[contains(., '{0}')]" : ".//*[text()[normalize-space()='{0}']]";
+        }
+
+        public override IWebElement FindElement(ISearchContext context)
+        {
+            return FindElements(context).SingleOrDefault();
+        }
+
+        public override ReadOnlyCollection<IWebElement> FindElements(ISearchContext context)
+        {
+            var html = ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            var nodes = doc.DocumentNode.SelectNodes(string.Format(_xpathFormat, _text));
+            
+            if (nodes == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
+            
+            var node = nodes.LastOrDefault();
+            var xpath = node.XPath;
+
+
+            return context.FindElements(By.XPath(xpath));
         }
     }
 }
