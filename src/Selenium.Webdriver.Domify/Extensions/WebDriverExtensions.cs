@@ -27,7 +27,7 @@ namespace Selenium.Webdriver.Domify
             where T: WebElement, new()
         {
             if (timeout == default(TimeSpan))
-                timeout = TimeSpan.FromSeconds(30);
+                timeout = GlobalConfiguration.Configuration.WaitTimeout;
 
             var wait = new WebDriverWait(driver, timeout);
 

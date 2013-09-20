@@ -11,7 +11,7 @@ namespace Selenium.Webdriver.Domify.Elements
     {
         public void SetDate(DateTime date)
         {
-            this.SetAttribute("value", date.ToString("yyyy-MM-dd"));
+            this.SetAttribute("value", date.ToString(GlobalConfiguration.Configuration.DateFormat));
         }
 
         public new DateTime Text
@@ -22,7 +22,7 @@ namespace Selenium.Webdriver.Domify.Elements
 
         public DateTime Value
         {
-            get { return DateTime.ParseExact(GetAttribute("value"), "yyyy-MM-dd", CultureInfo.InvariantCulture); }
+            get { return DateTime.ParseExact(GetAttribute("value"), GlobalConfiguration.Configuration.DateFormat, CultureInfo.InvariantCulture); }
             set
             {
                 SetDate(value);

@@ -15,8 +15,9 @@ namespace Selenium.Webdriver.Domify
             _driver = driver;
             Settings = new DocumentSettings()
                 {
-                    WaitTimeout = TimeSpan.FromSeconds(30),
+                    WaitTimeout = TimeSpan.FromSeconds(34),
                     AlwaysWaitForElement = false,
+                    DateFormat = "yyyy-MM-dd"
                 };
         }
 
@@ -28,7 +29,9 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public IDocumentSettings Settings { get; private set; }
+        public IDocumentSettings Settings { get { return GlobalConfiguration.Configuration; }
+            set { GlobalConfiguration.Configuration = value; }
+        }
 
        
         public string PageSource

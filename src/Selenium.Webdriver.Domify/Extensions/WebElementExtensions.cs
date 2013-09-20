@@ -409,7 +409,7 @@ namespace Selenium.Webdriver.Domify
         public static void WaitUntil<T>(this T element, Predicate<T> predicate, TimeSpan timeOut = default(TimeSpan), Type[] ignoredExceptionTypes = null)
         {
             if (timeOut == default(TimeSpan))
-                timeOut = TimeSpan.FromSeconds(30);
+                timeOut = GlobalConfiguration.Configuration.WaitTimeout;
 
             TimeoutManager.Execute(timeOut, predicate, element, ignoredExceptionTypes);
         }

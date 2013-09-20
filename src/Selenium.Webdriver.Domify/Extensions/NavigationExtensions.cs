@@ -99,7 +99,7 @@ namespace Selenium.Webdriver.Domify
             else
                 throw new InvalidOperationException(
                     "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
-            MethodInfo method = typeof (NavigationExtensions).GetMethod("GetCurrentPage");
+            MethodInfo method =  typeof (NavigationExtensions).GetMethod("GetCurrentPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, null);
         }

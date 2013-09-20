@@ -106,6 +106,7 @@
     <Compile Include="Elements\UL.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
     <Compile Include="Find.cs" />
+    <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="IDocument.cs" />
     <Compile Include="IDocumentSettings.cs" />
     <Compile Include="IListWebElements.cs" />
@@ -135,7 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.nuspec" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

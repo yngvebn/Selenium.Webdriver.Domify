@@ -14,5 +14,6 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         bool AlwaysWaitForElement { get; set; }
 
+        string DateFormat { get; set; }
     }
 }

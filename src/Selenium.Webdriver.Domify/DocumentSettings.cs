@@ -6,5 +6,7 @@ namespace Selenium.Webdriver.Domify
     {
         public TimeSpan WaitTimeout { get; set; }
         public bool AlwaysWaitForElement { get; set; }
+
+        public string DateFormat { get; set; }
     }
 }
