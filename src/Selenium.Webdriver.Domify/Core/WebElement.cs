@@ -11,32 +11,6 @@ using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify.Core
 {
-
-    public static class ReflectionHelpers
-    {
-        private static Dictionary<Type, Dictionary<string, MethodInfo>> _cache = new Dictionary<Type, Dictionary<string, MethodInfo>>(); 
-
-        public static MethodInfo GetMethod<T>(this Type t, string name)
-        {
-            var method = GetOrAddToCache(t, name);
-            return method.MakeGenericMethod(typeof(T));
-        }
-
-        private static MethodInfo GetOrAddToCache(Type type, string name)
-        {
-            try
-            {
-                return _cache[type][name];
-            }
-            catch
-            {
-                if(!_cache.ContainsKey(type)) _cache.Add(type, new Dictionary<string, MethodInfo>());
-                if(!_cache[type].ContainsKey(name)) _cache[type].Add(name, type.GetMethod(name));
-                return GetOrAddToCache(type, name);
-            }
-        }
-    }
-
     public class WebElement : ListWebElements, IWebElement
     {
         public static T Create<T>(IWebElement element)
