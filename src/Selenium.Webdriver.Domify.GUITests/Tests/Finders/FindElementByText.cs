@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Elements;
 using Selenium.Webdriver.Domify.GUITests.Core;
 using Selenium.Webdriver.Domify.GUITests.Pages;
@@ -30,6 +31,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
             }
 
             [Then]
+            [ExpectedException(typeof(NotFoundException))]
             public void ShouldNotBeAbleToFindIfPartialIsFalseAndTextIsPartial()
             {
                 var div = Document.Navigation.GetCurrentPage<GenericElementPage>().Document.Div(Find.ByText("Hello", partial: false));
@@ -39,8 +41,8 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
             [Then]
             public void ShouldBeAbleToFindIfPartialIsTrueAndTextIsPartial()
             {
-                var div = Document.Navigation.GetCurrentPage<GenericElementPage>().Document.Div(Find.ByText("World", partial: true));
-                Assert.That(div, Is.Null);
+                var div = Document.Navigation.GetCurrentPage<GenericElementPage>().Document.Div(Find.ByText("world", partial: true));
+                Assert.That(div, Is.Not.Null);
             }
     }
 }
