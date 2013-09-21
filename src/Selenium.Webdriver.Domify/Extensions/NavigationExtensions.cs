@@ -87,6 +87,17 @@ namespace Selenium.Webdriver.Domify
             document.GoToPageUrl(uri);
         }
 
+        public static void GoTo(this INavigationService document, Assembly containingAssembly, string pageTitle)
+        {
+            PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
+
+            if (navigationInfo != null)
+                document.GoToPageUrl(navigationInfo.Url);
+            else
+                throw new InvalidOperationException(
+                    "Unable to find page with title "+pageTitle);
+        }
+
         /// <summary>
         ///     Browses to the given Page with the current browser window
         /// </summary>
@@ -160,7 +171,10 @@ namespace Selenium.Webdriver.Domify
                 String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.ToString(),
                               StringComparison.InvariantCultureIgnoreCase);
         }
-
+        private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
+        {
+            return CacheHolder.TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
+        }
 
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Type t)
         {

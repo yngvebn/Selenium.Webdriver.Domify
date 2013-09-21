@@ -45,7 +45,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
-      <HintPath>..\Selenium.Webdriver.Domify\packages\Selenium.WebDriver.2.35.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\packages\Selenium.WebDriver.2.35.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support, Version=2.35.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

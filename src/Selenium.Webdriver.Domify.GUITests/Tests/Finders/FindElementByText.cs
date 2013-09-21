@@ -44,5 +44,14 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
                 var div = Document.Navigation.GetCurrentPage<GenericElementPage>().Document.Div(Find.ByText("world", partial: true));
                 Assert.That(div, Is.Not.Null);
             }
+
+        [Then]
+        public void ShouldBeAbleToFindElementByTextWithinElement()
+        {
+            var currentPage = Document.Navigation.GetCurrentPage<GenericElementPage>();
+            var root = Document.Div("body-div");
+            var div = root.Div(Find.ByText("Hello world"));
+            Assert.That(div, Is.Not.Null);
+        }
     }
 }

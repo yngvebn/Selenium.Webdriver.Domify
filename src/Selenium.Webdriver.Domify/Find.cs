@@ -6,6 +6,7 @@ using HtmlAgilityPack;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using Selenium.Webdriver.Domify.Core;
+using Selenium.Webdriver.Domify.Elements;
 using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify
@@ -89,10 +90,15 @@ namespace Selenium.Webdriver.Domify
 
         public override ReadOnlyCollection<IWebElement> FindElements(ISearchContext context)
         {
-            var html = ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
+            var html = context is IWebElement ? ((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource : ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
-            var nodes = doc.DocumentNode.SelectNodes(string.Format(_xpathFormat, _text));
+            var root = doc.DocumentNode;
+            if (context is IWebElement)
+            {
+                root = doc.DocumentNode.SelectSingleNode((WebElement.Create<HtmlElement>((IWebElement) context)).GetElementXPath());
+            }
+            var nodes = root.SelectNodes(string.Format(_xpathFormat, _text));
             
             if (nodes == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
             

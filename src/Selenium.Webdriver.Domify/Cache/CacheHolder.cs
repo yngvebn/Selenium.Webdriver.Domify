@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
@@ -42,6 +44,15 @@ namespace Selenium.Webdriver.Domify.Cache
             }
         }
 
+        public static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
+        {
+            var att = PageDescriptionAttribute.Any(c => c.Value.Title.Equals(pageTitle));
+            if (att) return PageDescriptionAttribute.Single(c => c.Value.Title.Equals(pageTitle)).Value;
+
+            var pages = containingAssembly.GetTypes().Where(t => t.BaseType == typeof(Page));
+            var page = pages.SingleOrDefault(p => p.GetCustomAttribute<PageDescriptionAttribute>().Title.Equals(pageTitle));
+            return TryGetPageDescriptionAttribute(page);
+        }
 
         public static PageDescriptionAttribute TryGetPageDescriptionAttribute(Type t)
         {
