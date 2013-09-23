@@ -24,6 +24,11 @@ namespace Selenium.Webdriver.Domify.Web.Controllers
             return View();
         }
 
+        public ActionResult CustomElements()
+        {
+            return View();
+        }
+
         public ActionResult RadioButtons()
         {
             return View();
