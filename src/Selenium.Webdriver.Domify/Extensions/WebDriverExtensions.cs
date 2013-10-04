@@ -18,9 +18,9 @@ namespace Selenium.Webdriver.Domify
             return driver.PageSource.Replace("&nbsp;", " ").Replace('\u00A0', ' ').Contains(text);
         }
 
-        public static IDocument Document(this IWebDriver driver)
+        public static IDocument Document(this IWebDriver driver, IDocumentSettings settings = null)
         {
-            return new Document(driver);
+            return new Document(driver, settings);
         }
 
         public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))

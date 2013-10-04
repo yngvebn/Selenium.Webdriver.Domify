@@ -2,7 +2,7 @@
 
 namespace Selenium.Webdriver.Domify.Web.Controllers
 {
-    public class HomeController: Controller
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {

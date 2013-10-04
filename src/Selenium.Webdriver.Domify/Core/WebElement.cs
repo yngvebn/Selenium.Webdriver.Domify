@@ -251,10 +251,18 @@ namespace Selenium.Webdriver.Domify.Core
             get { return SeleniumElement.Text; }
             set
             {
-                SeleniumElement.Clear();
+                try
+                {
+                    SeleniumElement.Clear();
+                    if (!string.IsNullOrEmpty(value))
+                        SendKeys(value);
+                }
+                catch(InvalidElementStateException)
+                {
+                    this.SetElementText(value);
+                }
 
-                if (!string.IsNullOrEmpty(value))
-                    SendKeys(value);
+             
             }
         }
 

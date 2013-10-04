@@ -6,19 +6,14 @@ using Selenium.Webdriver.Domify.Javascript;
 
 namespace Selenium.Webdriver.Domify
 {
-    public class Document :ListWebElements, IDocument
+    public class Document : ListWebElements, IDocument
     {
         private readonly IWebDriver _driver;
 
-        internal Document(IWebDriver driver)
+        internal Document(IWebDriver driver, IDocumentSettings settings = null)
         {
             _driver = driver;
-            Settings = new DocumentSettings()
-                {
-                    WaitTimeout = TimeSpan.FromSeconds(34),
-                    AlwaysWaitForElement = false,
-                    DateFormat = "yyyy-MM-dd"
-                };
+            Settings = settings ?? new DocumentSettings();
         }
 
         public Uri Uri
@@ -29,11 +24,13 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public IDocumentSettings Settings { get { return GlobalConfiguration.Configuration; }
+        public IDocumentSettings Settings
+        {
+            get { return GlobalConfiguration.Configuration; }
             set { GlobalConfiguration.Configuration = value; }
         }
 
-       
+
         public string PageSource
         {
             get { return _driver.PageSource; }
@@ -48,18 +45,25 @@ namespace Selenium.Webdriver.Domify
             }
         }
 
-        public bool IsPageLoaded { get
+        public bool IsPageLoaded
         {
-            return Driver.ExecuteJavascript<string>(new GetDocumentReadyState()).Equals("complete", StringComparison.CurrentCultureIgnoreCase);
-        }}
+            get
+            {
+                return Driver.ExecuteJavascript<string>(new GetDocumentReadyState()).Equals("complete", StringComparison.CurrentCultureIgnoreCase);
+            }
+        }
 
         public IWebDriver Driver
         {
-            get { return _driver; }
+            get
+            {
+
+                return _driver;
+            }
         }
 
         public T WaitUntilFound<T>(By find, TimeSpan timeout = default(TimeSpan))
-            where T: WebElement, new()
+            where T : WebElement, new()
         {
             return Driver.WaitUntilFound<T>(find, timeout);
         }
