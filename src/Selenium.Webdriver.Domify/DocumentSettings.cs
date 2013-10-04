@@ -8,5 +8,12 @@ namespace Selenium.Webdriver.Domify
         public bool AlwaysWaitForElement { get; set; }
 
         public string DateFormat { get; set; }
+
+        public DocumentSettings()
+        {
+            WaitTimeout = TimeSpan.FromSeconds(34);
+            AlwaysWaitForElement = false;
+            DateFormat = "yyyy-MM-dd";
+        }
     }
 }
