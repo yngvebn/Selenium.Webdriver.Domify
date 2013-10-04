@@ -23,6 +23,12 @@ namespace Selenium.Webdriver.Domify
             return new Document(driver, settings);
         }
 
+        public static T WaitUntilFound<T>(this IWebDriver driver, string id, TimeSpan timeout = default(TimeSpan))
+            where T : WebElement, new()
+        {
+            return driver.WaitUntilFound<T>(By.Id(id), timeout);
+        }
+
         public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
             where T: WebElement, new()
         {
