@@ -22,9 +22,11 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
             _setupBeforeEachScenario = setupBeforeEachScenario;
         }
 
+        private IDocument _document;
+
         public IDocument Document
         {
-            get { return BrowserTestSettings.Driver.Document(); }
+            get { return _document ?? (_document = BrowserTestSettings.Driver.Document()); }
         }
 
         [TestFixtureSetUp]

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Selenium.Webdriver.Domify.GUITests.Core;
@@ -9,6 +10,11 @@ namespace Selenium.Webdriver.Domify.GUITests
     [TestFixture]
     public class ButtonTests : PageScenario<HomeButtons>
     {
+        protected override void Given()
+        {
+            Document.Settings.BaseUri = new Uri("http://localhost:31337");
+            base.Given();
+        }
         
 
         [Then]

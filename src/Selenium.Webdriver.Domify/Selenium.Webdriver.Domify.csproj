@@ -64,6 +64,7 @@
     <Compile Include="DocumentSettings.cs" />
     <Compile Include="Elements\Fieldset.cs" />
     <Compile Include="Elements\Legend.cs" />
+    <Compile Include="Exceptions\InvalidPageDescriptionException.cs" />
     <Compile Include="Factories\DOMElementCssFactory.cs" />
     <Compile Include="Attributes\DOMElementAttribute.cs" />
     <Compile Include="Factories\DOMElementFilterFactory.cs" />

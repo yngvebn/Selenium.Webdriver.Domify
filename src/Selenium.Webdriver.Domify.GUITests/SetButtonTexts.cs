@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Selenium.Webdriver.Domify.GUITests.Core;
@@ -10,7 +11,12 @@ namespace Selenium.Webdriver.Domify.GUITests
     {
 
 
-
+        protected override void Given()
+        {
+            Document.Settings.BaseUri = new Uri("http://localhost:31337");
+            base.Given();
+        }
+        
         [Then]
         public void AllButtonsShouldHaveText()
         {

@@ -15,5 +15,6 @@ namespace Selenium.Webdriver.Domify
         bool AlwaysWaitForElement { get; set; }
 
         string DateFormat { get; set; }
+        Uri BaseUri { get; set; }
     }
 }
