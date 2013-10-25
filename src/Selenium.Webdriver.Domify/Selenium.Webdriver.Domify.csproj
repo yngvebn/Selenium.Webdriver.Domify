@@ -119,6 +119,7 @@
     <Compile Include="Javascript\Javascript.cs" />
     <Compile Include="Javascript\SetElementAttribute.cs" />
     <Compile Include="Javascript\SetElementCss.cs" />
+    <Compile Include="Javascript\SetWindowSize.cs" />
     <Compile Include="Javascript\SetElementText.cs" />
     <Compile Include="Javascript\SetElementValue.cs" />
     <Compile Include="Javascript\TriggerJavascriptClick.cs" />

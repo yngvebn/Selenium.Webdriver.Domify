@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Selenium.Webdriver.Domify.Cache;
@@ -42,17 +44,47 @@ namespace Selenium.Webdriver.Domify
             return document.GetCurrentPage<T>();
         }
 
+        //private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
+        //{
+        //    if (routeValues == null) return uri;
+        //    string url = uri.ToString();
+        //    string regexPattern = "{{{0}.*?}}";
+        //    foreach (var property in routeValues.GetType().GetProperties())
+        //    {
+        //        url = Regex.Replace(url, string.Format(regexPattern, property.Name), property.GetValue(routeValues, null).ToString(), RegexOptions.IgnoreCase);
+        //    }
+        //    foreach(var match in )
+        //    url = Regex.Replace(url, string.Format(regexPattern, ""), "");
+        //    return new Uri(url);
+        //}
+
         private static Uri ProcessUrlArguments(Uri uri, object routeValues)
         {
-            if (routeValues == null) return uri;
             string url = uri.ToString();
-            string regexPattern = "{{{0}.*?}}";
+            Dictionary<string, string> properties = new Dictionary<string, string>();
             foreach (var property in routeValues.GetType().GetProperties())
             {
-                url = Regex.Replace(url, string.Format(regexPattern, property.Name), property.GetValue(routeValues, null).ToString(), RegexOptions.IgnoreCase);
+                properties.Add(property.Name, property.GetValue(routeValues, null).ToString());
             }
-            url = Regex.Replace(url, string.Format(regexPattern, ""), "");
-            return new Uri(url);
+            List<string> propertyNames = new List<string>(properties.Select(c => c.Key));
+            string regexPattern = "{{{0}.*?}}";
+            foreach (var property in properties.Keys)
+            {
+                if (Regex.IsMatch(url, string.Format(regexPattern, property), RegexOptions.IgnoreCase))
+                {
+                    url = Regex.Replace(url, string.Format(regexPattern, property), properties[property], RegexOptions.IgnoreCase);
+                    propertyNames.Remove(property);
+                }
+            }
+            string queryString = "";
+            foreach (var propertyName in propertyNames)
+            {
+                queryString += string.Format("{0}={1}&", propertyName, properties[propertyName]);
+            }
+            queryString = queryString.TrimEnd('&');
+            if (!string.IsNullOrEmpty(queryString)) queryString = "?" + queryString;
+
+            return new Uri(url + queryString);
         }
 
         /// <summary>

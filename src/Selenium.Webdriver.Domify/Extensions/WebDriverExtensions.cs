@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Selenium.Webdriver.Domify.Core;
 using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Javascript;
 
 namespace Selenium.Webdriver.Domify
 {
@@ -40,6 +42,16 @@ namespace Selenium.Webdriver.Domify
             IWebElement element = wait.Until(dr => dr.FindElement(find));
 
             return element.As<T>();
+        }
+
+        public static void SetWindowSize(this IWebDriver driver, Size size)
+        {
+            driver.ExecuteJavascript(new SetWindowSize(size));
+        }
+
+        public static void SetWindowSize(this IDocument driver, Size size)
+        {
+            driver.Driver.ExecuteJavascript(new SetWindowSize(size));
         }
 
 

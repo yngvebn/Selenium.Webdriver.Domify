@@ -23,6 +23,12 @@ namespace Selenium.Webdriver.Domify
             return javascript.Execute<T>(driver);
         }
 
+
+        public static void ExecuteJavascript(this IWebDriver element, IJavascript javascript, params object[] arguments)
+        {
+            element.ExecuteJavascript<object>(javascript, arguments);
+        }
+
         public static T ExecuteJavascript<T>(this IWebElement element, IJavascript javascript, params object[] arguments)
         {
             return javascript.Execute<T>(((WebElement)element).SeleniumElement);

@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using NUnit.Framework;
 using Selenium.Webdriver.Domify.GUITests.Core;
@@ -33,7 +34,7 @@ namespace Selenium.Webdriver.Domify.GUITests
 
         protected override void When()
         {
-            
+            Document.SetWindowSize(new Size(768,1024));
         }
     }
 }
