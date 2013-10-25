@@ -58,7 +58,7 @@ namespace Selenium.Webdriver.Domify
         //    return new Uri(url);
         //}
 
-        private static Uri ProcessUrlArguments(Uri uri, object routeValues)
+        private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
             Dictionary<string, string> properties = new Dictionary<string, string>();
