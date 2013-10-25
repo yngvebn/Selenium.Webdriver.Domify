@@ -44,20 +44,6 @@ namespace Selenium.Webdriver.Domify
             return document.GetCurrentPage<T>();
         }
 
-        //private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
-        //{
-        //    if (routeValues == null) return uri;
-        //    string url = uri.ToString();
-        //    string regexPattern = "{{{0}.*?}}";
-        //    foreach (var property in routeValues.GetType().GetProperties())
-        //    {
-        //        url = Regex.Replace(url, string.Format(regexPattern, property.Name), property.GetValue(routeValues, null).ToString(), RegexOptions.IgnoreCase);
-        //    }
-        //    foreach(var match in )
-        //    url = Regex.Replace(url, string.Format(regexPattern, ""), "");
-        //    return new Uri(url);
-        //}
-
         private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
