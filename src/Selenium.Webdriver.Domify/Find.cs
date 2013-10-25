@@ -92,6 +92,7 @@ namespace Selenium.Webdriver.Domify
         {
             var html = context is IWebElement ? ((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource : ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
             var doc = new HtmlDocument();
+            HtmlNode.ElementsFlags.Remove("form");
             doc.LoadHtml(html);
             var root = doc.DocumentNode;
             if (context is IWebElement)
