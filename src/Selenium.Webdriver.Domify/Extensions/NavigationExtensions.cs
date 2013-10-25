@@ -11,7 +11,7 @@ namespace Selenium.Webdriver.Domify
     {
         private static T Page<T>(this INavigationService webDriver) where T : Page, new()
         {
-            var t = new T {Document = webDriver.Document};
+            var t = new T { Document = webDriver.Document };
             return t;
         }
 
@@ -26,16 +26,16 @@ namespace Selenium.Webdriver.Domify
             return document.Page<T>();
         }
 
-        public static T GoTo<T>(this INavigationService document, object arguments) where T: Page, new()
+        public static T GoTo<T>(this INavigationService document, dynamic arguments) where T : Page, new()
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute<T>();
 
-        
+
 
             if (navigationInfo != null)
             {
-                    var url = ProcessUrlArguments(navigationInfo.Url, arguments);
-                    document.GoToPageUrl(url);
+                Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
+                document.GoToPageUrl(url);
             }
             else
                 throw new InvalidOperationException(
@@ -113,7 +113,7 @@ namespace Selenium.Webdriver.Domify
                 document.GoToPageUrl(navigationInfo.Url);
             else
                 throw new InvalidOperationException(
-                    "Unable to find page with title "+pageTitle);
+                    "Unable to find page with title " + pageTitle);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Selenium.Webdriver.Domify
             else
                 throw new InvalidOperationException(
                     "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
-            MethodInfo method =  typeof (NavigationExtensions).GetMethod("GetCurrentPage");
+            MethodInfo method = typeof(NavigationExtensions).GetMethod("GetCurrentPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, null);
         }
@@ -167,7 +167,7 @@ namespace Selenium.Webdriver.Domify
         /// <returns></returns>
         public static bool IsAtPage<T>(this INavigationService document) where T : Page, new()
         {
-            return document.IsAtPage(typeof (T));
+            return document.IsAtPage(typeof(T));
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Selenium.Webdriver.Domify
 
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute<T>()
         {
-            return CacheHolder.TryGetPageDescriptionAttribute(typeof (T));
+            return CacheHolder.TryGetPageDescriptionAttribute(typeof(T));
         }
     }
 }
