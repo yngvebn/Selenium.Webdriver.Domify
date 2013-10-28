@@ -91,7 +91,7 @@ namespace Selenium.Webdriver.Domify.Core
                 {
                     bool hasNavigatedToAnotherPage = Driver.Url != currentUrl;
                     return hasNavigatedToAnotherPage;
-                }, new[] {typeof (StaleElementReferenceException)});
+                }, new[] { typeof(StaleElementReferenceException) });
         }
 
         public void ClickAndWaitForNavigation(Func<bool> navigationHasOccured, TimeSpan timeout = default(TimeSpan))
@@ -101,12 +101,12 @@ namespace Selenium.Webdriver.Domify.Core
 
             Click();
 
-            TimeoutManager.Execute(timeout, navigationHasOccured, new[] {typeof (StaleElementReferenceException)});
+            TimeoutManager.Execute(timeout, navigationHasOccured, new[] { typeof(StaleElementReferenceException) });
         }
 
         public T FindNextSibling<T>() where T : WebElement, new()
         {
-            IWebElement findElement = Driver.FindElement(By.CssSelector(string.Format("#{0} + {1}", Id, typeof (T).Name)));
+            IWebElement findElement = Driver.FindElement(By.CssSelector(string.Format("#{0} + {1}", Id, typeof(T).Name)));
 
             if (findElement == null)
                 return null;
@@ -138,7 +138,7 @@ namespace Selenium.Webdriver.Domify.Core
                 timeOut = GlobalConfiguration.Configuration.WaitTimeout;
 
             var wait = new DefaultWait<IWebElement>(this);
-            wait.IgnoreExceptionTypes(typeof (NotFoundException));
+            wait.IgnoreExceptionTypes(typeof(NotFoundException));
             wait.Timeout = timeOut;
 
             T until = wait.Until(func);
@@ -153,7 +153,7 @@ namespace Selenium.Webdriver.Domify.Core
 
         public IWebDriver Driver
         {
-            get { return ((IWrapsDriver) SeleniumElement).WrappedDriver; }
+            get { return ((IWrapsDriver)SeleniumElement).WrappedDriver; }
         }
 
         public string Id
@@ -173,7 +173,17 @@ namespace Selenium.Webdriver.Domify.Core
         }
         public string InnerHtml
         {
-            get { return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerHtml; }
+            get
+            {
+                try
+                {
+                    return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerHtml;
+                }
+                catch
+                {
+                    return Text;
+                }
+            }
         }
 
         public string Name
@@ -257,12 +267,12 @@ namespace Selenium.Webdriver.Domify.Core
                     if (!string.IsNullOrEmpty(value))
                         SendKeys(value);
                 }
-                catch(InvalidElementStateException)
+                catch (InvalidElementStateException)
                 {
                     this.SetElementText(value);
                 }
 
-             
+
             }
         }
 

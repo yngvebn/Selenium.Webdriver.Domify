@@ -98,6 +98,9 @@ namespace Selenium.Webdriver.Domify
             if (context is IWebElement)
             {
                 root = doc.DocumentNode.SelectSingleNode((WebElement.Create<HtmlElement>((IWebElement) context)).GetElementXPath());
+                // This operation could potentially generate a new Id for the element. Reload the HTML
+                doc.LoadHtml(((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource);
+                root = doc.DocumentNode.SelectSingleNode((WebElement.Create<HtmlElement>((IWebElement)context)).GetElementXPath());
             }
             var nodes = root.SelectNodes(string.Format(_xpathFormat, _text));
             
