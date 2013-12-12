@@ -202,6 +202,65 @@ namespace Selenium.Webdriver.Domify
             return context.Find<Div>(constraint);
         }
 
+        public static Header Header(this ISearchContext context, string id)
+        {
+            return context.Header(By.Id(id));
+        }
+
+        public static Header Header(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Header>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Header> Headers(this ISearchContext context, OpenQA.Selenium.By constraint = null)
+        {
+            return context.Find<Header>(constraint);
+        }
+
+        public static Footer Footer(this ISearchContext context, string id)
+        {
+            return context.Footer(By.Id(id));
+        }
+
+        public static Footer Footer(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Footer>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Footer> Footers(this ISearchContext context, OpenQA.Selenium.By constraint = null)
+        {
+            return context.Find<Footer>(constraint);
+        }
+
+        public static Article Article(this ISearchContext context, string id)
+        {
+            return context.Article(By.Id(id));
+        }
+
+        public static Article Article(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Article>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Article> Articles(this ISearchContext context, OpenQA.Selenium.By constraint = null)
+        {
+            return context.Find<Article>(constraint);
+        }
+        public static Section Section(this ISearchContext context, string id)
+        {
+            return context.Section(By.Id(id));
+        }
+
+        public static Section Section(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Section>(constraint).SingleOrThrowNotFoundException();
+        }
+
+        public static IList<Section> Sections(this ISearchContext context, OpenQA.Selenium.By constraint = null)
+        {
+            return context.Find<Section>(constraint);
+        }
+
         public static bool Exists(this ISearchContext context, string id)
         {
             return context.FindElements(By.Id(id)).Count > 0;
