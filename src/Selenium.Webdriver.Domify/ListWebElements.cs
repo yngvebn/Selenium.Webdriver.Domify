@@ -123,6 +123,11 @@ namespace Selenium.Webdriver.Domify
             get { return this.Find<ColorInput>(); }
         }
 
+        public IList<Article> Articles { get { return this.Find<Article>(); } }
+        public IList<Header> Headers { get { return this.Find<Header>(); }  }
+        public IList<Footer> Footers { get { return this.Find<Footer>(); } }
+        public IList<Section> Sections { get { return this.Find<Section>(); }  }
+
         public abstract IWebElement FindElement(OpenQA.Selenium.By @by);
 
         public abstract ReadOnlyCollection<IWebElement> FindElements(OpenQA.Selenium.By @by);

@@ -29,7 +29,10 @@ namespace Selenium.Webdriver.Domify
         IList<RadioButton> RadioButtons { get; }
         IList<Hidden> Hiddens { get;  }
         IList<Range> RangeInputs { get;  }
-        IList<ColorInput> ColorInputs { get;  } 
-
+        IList<ColorInput> ColorInputs { get;  }
+        IList<Article> Articles { get; }
+        IList<Header> Headers { get; }
+        IList<Footer> Footers { get; }
+        IList<Section> Sections { get; } 
     }
 }
