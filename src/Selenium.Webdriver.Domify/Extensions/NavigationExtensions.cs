@@ -1,18 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Moq;
 using Selenium.Webdriver.Domify.Cache;
+using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
     public static class NavigationExtensions
     {
+        private static LambdaExpression GetPropertyExpression<T>(string propertyName)
+        {
+            ParameterExpression parameter = Expression.Parameter(typeof(T), "i");
+            MemberExpression property = Expression.Property(parameter, propertyName);
+            var propertyType = typeof (T).GetProperty(propertyName).PropertyType;
+            var queryableType = typeof(IQueryable<>).MakeGenericType(propertyType);
+            var delegateType = typeof(Func<,>).MakeGenericType(typeof(T), propertyType);
+
+            var yourExpression = Expression.Lambda(delegateType, property, parameter);
+            return yourExpression;
+        }
+
         private static T Page<T>(this INavigationService webDriver) where T : Page, new()
         {
             var t = new T { Document = webDriver.Document };
-            return t;
+            var pageMock = new Mock<T>(); //.Setup(c => c.Document).Returns();
+            LambdaExpression propertyExpression = GetPropertyExpression<T>("TextBox");
+            
+            var setup = pageMock.GetType().GetMethod("Setup", new Type[] { propertyExpression.GetType() }).Invoke(pageMock, new[] { propertyExpression });
+            setup.GetType().GetMethod("Returns").Invoke(pageMock, new []{ new Func<object>(() =>
+            {
+                return new TextField();
+            })});
+            return pageMock.Object;
         }
 
 

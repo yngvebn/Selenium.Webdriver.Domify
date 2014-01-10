@@ -6,7 +6,7 @@ using Selenium.Webdriver.Domify.Elements;
 namespace Selenium.Webdriver.Domify.GUITests.Pages
 {
     [PageDescription("Index", "http://localhost:31337/Home/Index")]
-    public class HomeIndex: Page
+    public class HomeIndex : Page
     {
         public TextField TextBox
         {
@@ -39,7 +39,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         public TextField TextBoxWithoutId
         {
             get { return Document.TextField(By.ClassName("textboxwithoutid")); }
-            
+
         }
 
         public InputFile InputFile
