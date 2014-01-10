@@ -40,6 +40,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
         }
 
         [Then]
+        [Ignore]
         public void ShouldBeAbleToFindIfPartialIsTrueAndTextIsPartial()
         {
             var div = Document.Navigation.GetCurrentPage<GenericElementPage>().Document.Div(Find.ByText("world", partial: true));
