@@ -62,6 +62,7 @@
     <Compile Include="Core\SetupClass.cs" />
     <Compile Include="ButtonTests.cs" />
     <Compile Include="Elements\MyElement.cs" />
+    <Compile Include="Tests\Finders\PageAttributeFinder.cs" />
     <Compile Include="FindListBasedOnTagNameAndID.cs" />
     <Compile Include="GetFirstElementTests.cs" />
     <Compile Include="IfNothingHappensWaitUntilTimesout.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Pages\GenericElementPage.cs" />
     <Compile Include="Pages\HomeButtons.cs" />
     <Compile Include="Pages\HomeIndex.cs" />
+    <Compile Include="Pages\HomeIndexWithAttributes.cs" />
     <Compile Include="Pages\HomeSelectLists.cs" />
     <Compile Include="Pages\HtmlFormsWithCss.cs" />
     <Compile Include="Pages\RadioButtonPage.cs" />

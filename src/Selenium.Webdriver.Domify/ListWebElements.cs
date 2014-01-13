@@ -127,6 +127,7 @@ namespace Selenium.Webdriver.Domify
         public IList<Header> Headers { get { return this.Find<Header>(); }  }
         public IList<Footer> Footers { get { return this.Find<Footer>(); } }
         public IList<Section> Sections { get { return this.Find<Section>(); }  }
+        public IList<Label> Labels { get { return this.Find<Label>(); }  }
 
         public abstract IWebElement FindElement(OpenQA.Selenium.By @by);
 
