@@ -24,17 +24,37 @@ namespace Selenium.Webdriver.Domify
             return yourExpression;
         }
 
+        public static T Get<T>()
+        {
+            return default(T);
+        }
+        static Func<T> GetFactory<T>()
+        {
+            return (Func<T>)GetFactory(typeof(T));
+        }
+
+        static object GetFactory(Type type)
+        {
+            Type funcType = typeof(Func<>).MakeGenericType(type);
+            MethodInfo method = typeof(NavigationExtensions).GetMethod("Get",
+                BindingFlags.Public | BindingFlags.Static).MakeGenericMethod(new []{type});
+            return Delegate.CreateDelegate(funcType, method);
+        }
+
         private static T Page<T>(this INavigationService webDriver) where T : Page, new()
         {
             var t = new T { Document = webDriver.Document };
             var pageMock = new Mock<T>(); //.Setup(c => c.Document).Returns();
             LambdaExpression propertyExpression = GetPropertyExpression<T>("TextBox");
-            
-            var setup = pageMock.GetType().GetMethod("Setup", new Type[] { propertyExpression.GetType() }).Invoke(pageMock, new[] { propertyExpression });
-            setup.GetType().GetMethod("Returns").Invoke(pageMock, new []{ new Func<object>(() =>
-            {
-                return new TextField();
-            })});
+            var propertyType = typeof(T).GetProperty("TextBox").PropertyType;
+            var setupMethod= pageMock.GetType().GetMethods().Single(d => d.Name.Equals("Setup") && d.IsGenericMethod);
+            MethodInfo generic = setupMethod.MakeGenericMethod(propertyType);
+            var setup = generic.Invoke(pageMock, new[] { propertyExpression });
+            var methods = setup.GetType().GetMethods().Where(m => m.Name.Equals("Returns") && !m.IsGenericMethod);
+
+
+
+            methods.First().Invoke(setup, new[]{ GetFactory(propertyType) });
             return pageMock.Object;
         }
 

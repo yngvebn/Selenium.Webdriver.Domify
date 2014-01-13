@@ -7,6 +7,6 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
     public class HomeIndexWithAttributes : Page
     {
         [FindsBy(How = How.Id, Using = "textbox")]
-        public TextField TextBox { get; set; }
+        public virtual TextField TextBox { get; set; }
     }
 }
