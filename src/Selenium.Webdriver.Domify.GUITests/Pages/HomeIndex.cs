@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using Selenium.Webdriver.Domify.Elements;
 
 
@@ -8,14 +9,12 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
     [PageDescription("Index", "http://localhost:31337/Home/Index")]
     public class HomeIndex : Page
     {
-        public TextField TextBox
-        {
-            get { return Document.TextField("textbox"); }
-        }
-        public DateField DateBox
-        {
-            get { return Document.DateField("dateTimeField"); }
-        }
+
+        [FindsBy(Using = "textbox", How = How.Id)]
+        public virtual TextField TextBox { get; set; }
+
+        [FindsBy(Using="dateTimeField", How = How.Id)]
+        public virtual DateField DateBox { get; set; }
 
         public TextField DelayedTextBox
         {

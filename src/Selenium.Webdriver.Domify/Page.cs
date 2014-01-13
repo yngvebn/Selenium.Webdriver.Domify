@@ -7,11 +7,6 @@ namespace Selenium.Webdriver.Domify
 
         }
 
-        protected Page(IDocument driver)
-        {
-            Document = driver;
-        }
-
-        public IDocument Document { get; set; }
+        public virtual IDocument Document { get; set; }
     }
 }

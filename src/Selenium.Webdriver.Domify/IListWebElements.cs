@@ -33,6 +33,7 @@ namespace Selenium.Webdriver.Domify
         IList<Article> Articles { get; }
         IList<Header> Headers { get; }
         IList<Footer> Footers { get; }
-        IList<Section> Sections { get; } 
+        IList<Section> Sections { get; }
+        IList<Label> Labels { get; } 
     }
 }

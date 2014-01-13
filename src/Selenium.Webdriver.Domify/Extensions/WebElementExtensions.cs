@@ -23,6 +23,15 @@ namespace Selenium.Webdriver.Domify
             return context.Find<Button>(constraint).SingleOrThrowNotFoundException();
         }
 
+        public static Label Label(this ISearchContext context, string id)
+        {
+            return context.Label(By.Id(id));
+        }
+
+        public static Label Label(this ISearchContext context, OpenQA.Selenium.By constraint)
+        {
+            return context.Find<Label>(constraint).SingleOrThrowNotFoundException();
+        }
         public static IList<Button> Buttons(this ISearchContext context, OpenQA.Selenium.By constraint = null)
         {
             return context.Find<Button>(constraint);
