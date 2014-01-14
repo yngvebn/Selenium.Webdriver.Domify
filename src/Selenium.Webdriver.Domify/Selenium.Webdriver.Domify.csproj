@@ -115,6 +115,7 @@
     <Compile Include="Elements\THead.cs" />
     <Compile Include="Elements\UL.cs" />
     <Compile Include="Extensions\JavascriptExtensions.cs" />
+    <Compile Include="Factories\PageFactory.cs" />
     <Compile Include="Find.cs" />
     <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="IDocument.cs" />
