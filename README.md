@@ -1,3 +1,5 @@
+<img src="https://www.myget.org/BuildSource/Badge/testing?identifier=a9aac13d-24a3-409c-a10c-86d5d4d411ad" />
+
 # Domify for Selenium Webdriver
 This project is heavily updated, and you should try to keep your nuget-package updated often.
 
