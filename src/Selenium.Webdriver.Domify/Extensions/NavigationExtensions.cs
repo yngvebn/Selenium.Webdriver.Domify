@@ -100,10 +100,24 @@ namespace Selenium.Webdriver.Domify
         }
 
 
+        private static void GoToPageUrl(this INavigationService document, string relativeUrl)
+        {
+            document.Document.Driver.Navigate().GoToUrl(relativeUrl);
+        }
+
+
         /// <summary>
         ///     Browses to the given URI with the current browser window
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
+        {
+            document.GoToPageUrl(uri);
+        }
+
+        /// <summary>
+        ///     Browses to the given URI with the current browser window
+        /// </summary>
+        public static void GoTo(this INavigationService document, string uri)
         {
             document.GoToPageUrl(uri);
         }
