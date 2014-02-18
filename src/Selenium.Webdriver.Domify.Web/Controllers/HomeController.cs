@@ -33,5 +33,10 @@ namespace Selenium.Webdriver.Domify.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Pagewithheadinfo()
+        {
+            return View();
+        }
     }
 }

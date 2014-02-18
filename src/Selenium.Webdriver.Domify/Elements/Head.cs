@@ -3,9 +3,8 @@ using Selenium.Webdriver.Domify.Core;
 
 namespace Selenium.Webdriver.Domify.Elements
 {
-    [DOMElement("article")]
-    public class Article : WebElement
+    [DOMElement("head")]
+    public class Head : WebElement
     {
     }
-
 }

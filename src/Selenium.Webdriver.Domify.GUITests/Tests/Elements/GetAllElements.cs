@@ -79,7 +79,10 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
                    element == typeof(TD) ||
                    element == typeof(TH) ||
                    element == typeof(HtmlElement) ||
-                   element == typeof(THead) ||
+                   element == typeof(THead) || element == typeof (Head) ||
+                    element == typeof(Meta) || element == typeof(Link) || element == typeof(Style) ||
+                     element == typeof(Script) ||
+                    element == typeof (Base) ||
                  element == typeof(LI))
                 {
                     continue;
@@ -100,6 +103,9 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
         {
             foreach (var att in type.GetCustomAttributes(typeof(DOMElementAttribute), false).Cast<DOMElementAttribute>())
             {
+                
+                if (att is HEADElementAttribute) continue;
+                
                 yield return att;
             }
         }

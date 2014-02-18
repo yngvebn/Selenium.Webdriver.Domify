@@ -180,6 +180,7 @@
     <Content Include="Views\Element\DisplayTemplates\AttributeViewModel.cshtml" />
     <Content Include="Views\Home\RadioButtons.cshtml" />
     <Content Include="Views\Home\CustomElements.cshtml" />
+    <Content Include="Views\Home\Pagewithheadinfo.cshtml" />
     <None Include="Views\Html\FormsWithNames.cshtml" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />

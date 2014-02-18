@@ -205,9 +205,9 @@ namespace Selenium.Webdriver.Domify.Core
             get { return _element; }
         }
 
-        public Style Style
+        public CssStyle Style
         {
-            get { return new Style(this); }
+            get { return new CssStyle(this); }
         }
 
         public override IWebElement FindElement(By @by)

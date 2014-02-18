@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 using Selenium.Webdriver.Domify.Core;
+using Selenium.Webdriver.Domify.Elements;
 
 namespace Selenium.Webdriver.Domify
 {
@@ -16,6 +18,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         IDocumentSettings Settings { get; }
 
+        IDocumentHeader Header { get; }
         
         IWebDriver Driver { get; }
 
@@ -33,5 +36,15 @@ namespace Selenium.Webdriver.Domify
 
         T WaitUntilFound<T>(OpenQA.Selenium.By find, TimeSpan timeout = default(TimeSpan)) where T: WebElement,new() ;
         void Refresh();
+    }
+
+    public interface IDocumentHeader
+    {
+        string Title { get; }
+        IDictionary<string, Meta> Meta { get; }
+        IList<Style> Styles { get; }
+        IList<Link> Links { get; }
+        IList<Script> Scripts { get; }
+        Base Base { get; }
     }
 }
