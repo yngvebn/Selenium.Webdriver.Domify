@@ -33,6 +33,12 @@
         <dependency id="HtmlAgilityPack" version="1.4.6" />
         <dependency id="Moq" version="4.2.1312.1622" />
       </group>
+      <group targetFramework="net451">
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
+        <dependency id="Moq" version="4.2.1312.1622" />
+      </group>
     </dependencies>
     <references>
     </references>
@@ -42,5 +48,6 @@
   <files>
     <file src="bin\**\Selenium.Webdriver.Domify.dll" target="lib\net40" />
     <file src="bin\**\Selenium.Webdriver.Domify.dll" target="lib\net45" />
+    <file src="..\..\src451\Selenium.Webdriver.Domify\bin\**\Selenium.Webdriver.Domify.dll" target="lib\net451" />
   </files>
 </package>

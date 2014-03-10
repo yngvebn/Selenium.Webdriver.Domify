@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>title</title>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        input[type=text] {
+            color: blue;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.debug.js"></script>
+    </head>
+    <body>
+        <div id="body-div">
+            @RenderBody()
+        </div>
+        
+        @RenderSection("scripts", false)
+
+    </body>
+</html>
