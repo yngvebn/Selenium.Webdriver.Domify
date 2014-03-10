@@ -48,6 +48,6 @@
   <files>
     <file src="bin\**\Selenium.Webdriver.Domify.dll" target="lib\net40" />
     <file src="bin\**\Selenium.Webdriver.Domify.dll" target="lib\net45" />
-    <file src="..\..\src451\Selenium.Webdriver.Domify\bin\**\Selenium.Webdriver.Domify.dll" target="lib\net451" />
+    <file src="..\..\src4.5.1\Selenium.Webdriver.Domify\bin\**\Selenium.Webdriver.Domify.dll" target="lib\net451" />
   </files>
 </package>
