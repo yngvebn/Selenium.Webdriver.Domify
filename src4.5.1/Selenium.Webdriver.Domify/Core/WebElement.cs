@@ -22,7 +22,7 @@ namespace Selenium.Webdriver.Domify.Core
         {
             if (element == null)
                 throw new ArgumentNullException("element");
-          
+
             _element = element;
         }
 
@@ -65,17 +65,17 @@ namespace Selenium.Webdriver.Domify.Core
                     TimeSpan timeOut = GlobalConfiguration.Configuration.WaitTimeout;
 
                     TimeoutManager.Execute(timeOut, item =>
+                    {
+                        try
                         {
-                            try
-                            {
-                                item.Click();
-                                return true;
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                return false;
-                            }
-                        }, this);
+                            item.Click();
+                            return true;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            return false;
+                        }
+                    }, this);
                 }
             }
         }
@@ -90,10 +90,10 @@ namespace Selenium.Webdriver.Domify.Core
             Click();
 
             TimeoutManager.Execute(timeout, () =>
-                {
-                    bool hasNavigatedToAnotherPage = Driver.Url != currentUrl;
-                    return hasNavigatedToAnotherPage;
-                }, new[] { typeof(StaleElementReferenceException) });
+            {
+                bool hasNavigatedToAnotherPage = Driver.Url != currentUrl;
+                return hasNavigatedToAnotherPage;
+            }, new[] { typeof(StaleElementReferenceException) });
         }
 
         public void ClickAndWaitForNavigation(Func<bool> navigationHasOccured, TimeSpan timeout = default(TimeSpan))
@@ -169,6 +169,7 @@ namespace Selenium.Webdriver.Domify.Core
             get
             {
                 var doc = new HtmlDocument();
+                HtmlNode.ElementsFlags.Remove("option");
                 doc.LoadHtml(Driver.PageSource);
                 return doc;
             }
@@ -260,7 +261,21 @@ namespace Selenium.Webdriver.Domify.Core
 
         public virtual string Text
         {
-            get { return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText; }
+            get
+            {
+                var text = SeleniumElement.Text;
+                if (string.IsNullOrEmpty(text))
+                    try
+                    {
+                        var innerText = HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText;
+                        text = innerText;
+                    }
+                    finally
+                    {
+
+                    }
+                return text;
+            }
             set
             {
                 try

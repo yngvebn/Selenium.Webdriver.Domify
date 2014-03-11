@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
@@ -22,9 +23,9 @@ namespace Selenium.Webdriver.Domify.Elements
             _wrappedSelectElement = new SelectElement(element);
         }
 
-        public IWebElement SelectedOption
+        public WebElement SelectedOption
         {
-            get { return _wrappedSelectElement.SelectedOption; }
+            get { return Options.FirstOrDefault(option => option.IsSelected); }
         }
 
         public void SelectByText(string textOfOptionToSelect)

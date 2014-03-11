@@ -32,6 +32,8 @@ namespace Selenium.Webdriver.Domify.Core
             var instance = new T();
             instance.SetWebElement(element);
             instance.Created(element);
+            if (string.IsNullOrEmpty(element.GetAttribute("id")))
+                instance.GenerateIdForElement();
             return instance;
         }
 
@@ -167,6 +169,7 @@ namespace Selenium.Webdriver.Domify.Core
             get
             {
                 var doc = new HtmlDocument();
+                HtmlNode.ElementsFlags.Remove("option");
                 doc.LoadHtml(Driver.PageSource);
                 return doc;
             }
@@ -258,7 +261,22 @@ namespace Selenium.Webdriver.Domify.Core
 
         public virtual string Text
         {
-            get { return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText; }
+            get
+
+            {
+                var text = SeleniumElement.Text;
+                if(string.IsNullOrEmpty(text))
+                    try
+                    {
+                        var innerText = HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText;
+                        text = innerText;
+                    }
+                    finally
+                    {
+                
+                    }
+                return text;
+            }
             set
             {
                 try
