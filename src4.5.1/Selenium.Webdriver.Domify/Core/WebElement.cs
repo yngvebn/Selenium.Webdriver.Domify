@@ -22,7 +22,7 @@ namespace Selenium.Webdriver.Domify.Core
         {
             if (element == null)
                 throw new ArgumentNullException("element");
-
+          
             _element = element;
         }
 
@@ -32,6 +32,8 @@ namespace Selenium.Webdriver.Domify.Core
             var instance = new T();
             instance.SetWebElement(element);
             instance.Created(element);
+            if (string.IsNullOrEmpty(element.GetAttribute("id")))
+                instance.GenerateIdForElement();
             return instance;
         }
 
@@ -258,7 +260,7 @@ namespace Selenium.Webdriver.Domify.Core
 
         public virtual string Text
         {
-            get { return SeleniumElement.Text; }
+            get { return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText; }
             set
             {
                 try

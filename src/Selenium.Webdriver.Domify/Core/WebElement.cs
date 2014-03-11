@@ -258,7 +258,7 @@ namespace Selenium.Webdriver.Domify.Core
 
         public virtual string Text
         {
-            get { return SeleniumElement.Text; }
+            get { return HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText; }
             set
             {
                 try
