@@ -46,11 +46,13 @@ namespace Selenium.Webdriver.Domify
 
         }
 
+        private NavigationService _navigationService;
         public INavigationService Navigation
         {
             get
             {
-                return new NavigationService(this);
+                if(_navigationService == null) _navigationService = new NavigationService(this);
+                return _navigationService;
             }
         }
 
@@ -84,7 +86,7 @@ namespace Selenium.Webdriver.Domify
 
         public void GoTo(string url)
         {
-            _driver.Navigate().GoToUrl(url);
+            Navigation.GoTo(url);
         }
 
         public void Refresh()
@@ -107,6 +109,7 @@ namespace Selenium.Webdriver.Domify
             return _driver.FindElements(@by);
         }
     }
+
 
     public class DocumentHeader : IDocumentHeader
     {

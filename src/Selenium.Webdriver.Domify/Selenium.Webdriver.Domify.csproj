@@ -80,6 +80,7 @@
     <Compile Include="Elements\Article.cs" />
     <Compile Include="Elements\Fieldset.cs" />
     <Compile Include="Elements\Legend.cs" />
+    <Compile Include="Events\BeforeNavigationEventHandler.cs" />
     <Compile Include="Exceptions\InvalidPageDescriptionException.cs" />
     <Compile Include="Extensions\ElementFinderWrapper.cs" />
     <Compile Include="Factories\DOMElementCssFactory.cs" />

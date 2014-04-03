@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Selenium.Webdriver.Domify.Cache;
 using Selenium.Webdriver.Domify.Elements;
+using Selenium.Webdriver.Domify.Events;
 using Selenium.Webdriver.Domify.Factories;
 
 namespace Selenium.Webdriver.Domify
@@ -28,13 +29,18 @@ namespace Selenium.Webdriver.Domify
         /// <returns></returns>
         public static T GetCurrentPage<T>(this INavigationService document) where T : Page, new()
         {
+            return GetPage<T>(document);
+        }
+
+        public static T GetPage<T>(INavigationService document) where T : Page, new()
+        {
             return document.Page<T>();
         }
 
         public static T GoTo<T>(this INavigationService document, dynamic arguments) where T : Page, new()
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute<T>();
-            
+
             if (navigationInfo != null)
             {
                 Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
@@ -96,12 +102,36 @@ namespace Selenium.Webdriver.Domify
 
         private static void GoToPageUrl(this INavigationService document, Uri relativeUrl)
         {
+            var navigationService = document as NavigationService;
+            if (navigationService != null)
+            {
+                NavigationEventArgs args = new NavigationEventArgs()
+                {
+                    Uri = relativeUrl.ToString(),
+                    Cancel = false
+                };
+                navigationService.OnBeforeNavigation(args);
+                if (args.Cancel) return;
+                relativeUrl = new Uri(args.Uri);
+            }
+
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
         }
 
-
         private static void GoToPageUrl(this INavigationService document, string relativeUrl)
         {
+            var navigationService = document as NavigationService;
+            if (navigationService != null)
+            {
+                var args = new NavigationEventArgs()
+                {
+                    Uri = relativeUrl,
+                    Cancel = false
+                };
+                navigationService.OnBeforeNavigation(args);
+                if (args.Cancel) return;
+                relativeUrl = args.Uri;
+            }
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
         }
 
@@ -145,9 +175,9 @@ namespace Selenium.Webdriver.Domify
             else
                 throw new InvalidOperationException(
                     "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
-            MethodInfo method = typeof(NavigationExtensions).GetMethod("GetCurrentPage");
+            MethodInfo method = typeof(NavigationExtensions).GetMethod("GetPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
-            return genericMethod.Invoke(null, null);
+            return genericMethod.Invoke(null, new object[] { document });
         }
 
         /// <summary>
@@ -200,8 +230,9 @@ namespace Selenium.Webdriver.Domify
             if (navigationInfo == null)
                 throw new InvalidOperationException("The page type does not specify its uri");
 
+
             return
-                String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.AbsolutePath,
+                String.Equals(navigationInfo.Url.AbsolutePath, document.Document.Uri.AbsolutePath,
                               StringComparison.InvariantCultureIgnoreCase) ||
                 String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.ToString(),
                               StringComparison.InvariantCultureIgnoreCase);
