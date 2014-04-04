@@ -25,6 +25,26 @@ namespace Selenium.Webdriver.Domify
             return new Document(driver, settings);
         }
 
+        public static T WaitUntilFound<T>(this IWebDriver driver, string id, ISearchContext inContext, TimeSpan timeout = default(TimeSpan))
+          where T : WebElement, new()
+        {
+            return driver.WaitUntilFound<T>(By.Id(id), inContext, timeout);
+        }
+
+
+        public static T WaitUntilFound<T>(this IWebDriver driver, By find, ISearchContext inContext, TimeSpan timeout = default(TimeSpan))
+            where T : WebElement, new()
+        {
+            if (timeout == default(TimeSpan))
+                timeout = GlobalConfiguration.Configuration.WaitTimeout;
+
+            var wait = new WebDriverWait(driver, timeout);
+
+            IWebElement element = wait.Until(dr => inContext.FindElement(find));
+
+            return element.As<T>();
+        }
+
         public static T WaitUntilFound<T>(this IWebDriver driver, string id, TimeSpan timeout = default(TimeSpan))
             where T : WebElement, new()
         {
@@ -34,14 +54,7 @@ namespace Selenium.Webdriver.Domify
         public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
             where T: WebElement, new()
         {
-            if (timeout == default(TimeSpan))
-                timeout = GlobalConfiguration.Configuration.WaitTimeout;
-
-            var wait = new WebDriverWait(driver, timeout);
-
-            IWebElement element = wait.Until(dr => dr.FindElement(find));
-
-            return element.As<T>();
+            return driver.WaitUntilFound<T>(find, driver, timeout);
         }
 
         public static void SetWindowSize(this IWebDriver driver, Size size)
