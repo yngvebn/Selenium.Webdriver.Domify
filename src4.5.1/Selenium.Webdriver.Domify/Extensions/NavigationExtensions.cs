@@ -141,7 +141,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
         {
-            document.GoToPageUrl(uri);
+            document.GoToPageUrl(ProcessUrlArguments(uri, new {}));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, string uri)
         {
-            document.GoToPageUrl(uri);
+            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new {}));
         }
 
         public static void GoTo(this INavigationService document, Assembly containingAssembly, string pageTitle)
@@ -157,27 +157,38 @@ namespace Selenium.Webdriver.Domify
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
 
             if (navigationInfo != null)
-                document.GoToPageUrl(navigationInfo.Url);
+                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new {}));
             else
                 throw new InvalidOperationException(
                     "Unable to find page with title " + pageTitle);
         }
 
+
+
         /// <summary>
         ///     Browses to the given Page with the current browser window
         /// </summary>
-        public static object GoTo(this INavigationService document, Type t)
+        public static object GoTo(this INavigationService document, Type t, dynamic arguments)
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(t);
-
+            Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
             if (navigationInfo != null)
-                document.GoToPageUrl(navigationInfo.Url);
+                document.GoToPageUrl(url);
             else
                 throw new InvalidOperationException(
                     "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
             MethodInfo method = typeof(NavigationExtensions).GetMethod("GetPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, new object[] { document });
+        }
+
+
+        /// <summary>
+        ///     Browses to the given Page with the current browser window
+        /// </summary>
+        public static object GoTo(this INavigationService document, Type t)
+        {
+            return document.GoTo(t, new {});
         }
 
         /// <summary>

@@ -10,5 +10,6 @@ namespace Selenium.Webdriver.Domify
         IDocument Document { get; }
 
         event BeforeNavigationEventHandler BeforeNavigation;
+
     }
 }
