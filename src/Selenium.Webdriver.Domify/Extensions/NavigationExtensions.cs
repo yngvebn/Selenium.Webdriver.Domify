@@ -56,6 +56,7 @@ namespace Selenium.Webdriver.Domify
         private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
+            routeValues = routeValues ?? new { };
             Dictionary<string, string> properties = new Dictionary<string, string>();
             foreach (var property in routeValues.GetType().GetProperties())
             {
@@ -71,6 +72,7 @@ namespace Selenium.Webdriver.Domify
                     propertyNames.Remove(property);
                 }
             }
+            url = Regex.Replace(url, @"\{.*\}", "");
             string queryString = "";
             foreach (var propertyName in propertyNames)
             {
@@ -141,7 +143,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
         {
-            document.GoToPageUrl(uri);
+            document.GoToPageUrl(ProcessUrlArguments(uri, new { }));
         }
 
         /// <summary>
@@ -149,7 +151,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, string uri)
         {
-            document.GoToPageUrl(uri);
+            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new { }));
         }
 
         public static void GoTo(this INavigationService document, Assembly containingAssembly, string pageTitle)
@@ -157,27 +159,38 @@ namespace Selenium.Webdriver.Domify
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
 
             if (navigationInfo != null)
-                document.GoToPageUrl(navigationInfo.Url);
+                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new { }));
             else
                 throw new InvalidOperationException(
                     "Unable to find page with title " + pageTitle);
         }
 
+
+
         /// <summary>
         ///     Browses to the given Page with the current browser window
         /// </summary>
-        public static object GoTo(this INavigationService document, Type t)
+        public static object GoTo(this INavigationService document, Type t, dynamic arguments)
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(t);
-
+            Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
             if (navigationInfo != null)
-                document.GoToPageUrl(navigationInfo.Url);
+                document.GoToPageUrl(url);
             else
                 throw new InvalidOperationException(
                     "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
             MethodInfo method = typeof(NavigationExtensions).GetMethod("GetPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, new object[] { document });
+        }
+
+
+        /// <summary>
+        ///     Browses to the given Page with the current browser window
+        /// </summary>
+        public static object GoTo(this INavigationService document, Type t)
+        {
+            return document.GoTo(t, new { });
         }
 
         /// <summary>
@@ -231,12 +244,11 @@ namespace Selenium.Webdriver.Domify
                 throw new InvalidOperationException("The page type does not specify its uri");
 
 
-            return
-                String.Equals(navigationInfo.Url.AbsolutePath, document.Document.Uri.AbsolutePath,
-                              StringComparison.InvariantCultureIgnoreCase) ||
-                String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.ToString(),
-                              StringComparison.InvariantCultureIgnoreCase);
+            return UrlHelpers.UrlsAreEqual(ProcessUrlArguments(navigationInfo.Url, null), document.Document.Uri);
+
         }
+
+
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
         {
             return CacheHolder.TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
@@ -250,6 +262,21 @@ namespace Selenium.Webdriver.Domify
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute<T>()
         {
             return CacheHolder.TryGetPageDescriptionAttribute(typeof(T));
+        }
+    }
+
+    public static class UrlHelpers
+    {
+        public static bool UrlsAreEqual(Uri expected, Uri actual)
+        {
+            if (expected.ToString().Equals(actual.ToString(), StringComparison.InvariantCultureIgnoreCase)) return true;
+
+            expected = expected.IsAbsoluteUri ? expected : new Uri(new Uri("http://can.be.anything/"), expected.ToString());
+            actual = actual.IsAbsoluteUri ? actual : new Uri(new Uri("http://can.be.anything/"), actual.ToString());
+
+            if (expected.AbsolutePath.TrimEnd('/').Equals(actual.AbsolutePath.TrimEnd('/'), StringComparison.InvariantCultureIgnoreCase)) return true;
+
+            return false;
         }
     }
 }

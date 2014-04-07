@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AllElementsMustHaveDOMElementAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj">

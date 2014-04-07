@@ -5,11 +5,10 @@ namespace Selenium.Webdriver.Domify
 {
     public class PageDescriptionAttribute : Attribute
     {
-        private readonly string _url;
 
         public PageDescriptionAttribute(string title, string url)
         {
-            _url = url;
+            PageUrl = url;
 
             Title = title;
         }
@@ -18,18 +17,19 @@ namespace Selenium.Webdriver.Domify
         {
             get
             {
-                var uri = new Uri(_url, UriKind.RelativeOrAbsolute);
+                var uri = new Uri(PageUrl, UriKind.RelativeOrAbsolute);
                 if (!uri.IsAbsoluteUri)
                 {
                     if (GlobalConfiguration.Configuration.BaseUri == null)
                         throw new InvalidPageDescriptionException(InvalidPageDescriptionException.BaseUriRequired);
 
-                    uri = new Uri(GlobalConfiguration.Configuration.BaseUri, _url);
+                    uri = new Uri(GlobalConfiguration.Configuration.BaseUri, PageUrl);
                 }
                 return uri;
             }
         }
 
+        public string PageUrl { get; set; }
         public string Title { get; set; }
     }
 }

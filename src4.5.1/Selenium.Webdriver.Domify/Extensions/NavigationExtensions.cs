@@ -56,6 +56,7 @@ namespace Selenium.Webdriver.Domify
         private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
+            routeValues = routeValues ?? new {};
             Dictionary<string, string> properties = new Dictionary<string, string>();
             foreach (var property in routeValues.GetType().GetProperties())
             {
@@ -71,6 +72,7 @@ namespace Selenium.Webdriver.Domify
                     propertyNames.Remove(property);
                 }
             }
+            url = Regex.Replace(url, @"\{.*\}", "");
             string queryString = "";
             foreach (var propertyName in propertyNames)
             {
@@ -242,12 +244,11 @@ namespace Selenium.Webdriver.Domify
                 throw new InvalidOperationException("The page type does not specify its uri");
 
 
-            return
-                String.Equals(navigationInfo.Url.AbsolutePath, document.Document.Uri.AbsolutePath,
-                              StringComparison.InvariantCultureIgnoreCase) ||
-                String.Equals(navigationInfo.Url.ToString(), document.Document.Uri.ToString(),
-                              StringComparison.InvariantCultureIgnoreCase);
+            return UrlHelpers.UrlsAreEqual(ProcessUrlArguments(navigationInfo.Url, null), document.Document.Uri);
+                
         }
+
+        
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
         {
             return CacheHolder.TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
@@ -261,6 +262,21 @@ namespace Selenium.Webdriver.Domify
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute<T>()
         {
             return CacheHolder.TryGetPageDescriptionAttribute(typeof(T));
+        }
+    }
+
+    public static class UrlHelpers
+    {
+        public static bool UrlsAreEqual(Uri expected, Uri actual)
+        {
+            if (expected.ToString().Equals(actual.ToString(), StringComparison.InvariantCultureIgnoreCase)) return true;
+
+            expected = expected.IsAbsoluteUri ? expected : new Uri(new Uri("http://can.be.anything/"), expected.ToString());
+            actual = actual.IsAbsoluteUri ? actual : new Uri(new Uri("http://can.be.anything/"), actual.ToString());
+
+            if (expected.AbsolutePath.TrimEnd('/').Equals(actual.AbsolutePath.TrimEnd('/'), StringComparison.InvariantCultureIgnoreCase)) return true;
+
+            return false;
         }
     }
 }
