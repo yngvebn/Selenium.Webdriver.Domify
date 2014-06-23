@@ -85,6 +85,7 @@
     <Compile Include="Events\BeforeNavigationEventHandler.cs" />
     <Compile Include="Exceptions\InvalidPageDescriptionException.cs" />
     <Compile Include="Extensions\ElementFinderWrapper.cs" />
+    <Compile Include="Extensions\ScreenshotExtensions.cs" />
     <Compile Include="Factories\DOMElementCssFactory.cs" />
     <Compile Include="Attributes\DOMElementAttribute.cs" />
     <Compile Include="Factories\DOMElementFilterFactory.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="IDocumentSettings.cs" />
     <Compile Include="IListWebElements.cs" />
     <Compile Include="INavigationService.cs" />
+    <Compile Include="Javascript\ExecuteHtml2Canvas.cs" />
     <Compile Include="Javascript\GenericJavascript.cs" />
     <Compile Include="Javascript\GetDocumentReadyState.cs" />
     <Compile Include="Javascript\GetElementXPath.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Javascript\SetElementValue.cs" />
     <Compile Include="Javascript\TriggerJavascriptClick.cs" />
     <Compile Include="Javascript\TriggerJavascriptEvents.cs" />
+    <Compile Include="Javascript\TryGetScreenshotBase64.cs" />
     <Compile Include="Knockout.cs" />
     <Compile Include="ListWebElements.cs" />
     <Compile Include="NavigationService.cs" />
@@ -163,7 +166,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Screenshot\Html2Canvas.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

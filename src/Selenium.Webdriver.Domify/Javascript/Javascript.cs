@@ -39,8 +39,9 @@ namespace Selenium.Webdriver.Domify.Javascript
             List<object> obj = new List<object>();
             obj.Add(element);
             obj.AddRange(Arguments);
-            return (T)
+            var result = (T)
                 ((IJavaScriptExecutor)driver).ExecuteScript(WrappedScript, obj.ToArray());
+            return result;
         }
 
         private string WrappedScript
