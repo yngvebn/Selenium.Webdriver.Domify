@@ -9,7 +9,7 @@ namespace Selenium.Webdriver.Domify
 {
     public static class ScreenshotExtensions
     {
-        public static Image GetScreenshot(this IWebDriver driver)
+        public static byte[] GetScreenshot(this IWebDriver driver)
         {
             driver.ExecuteJavascript(new ExecuteHtml2Canvas());
             Stopwatch sw = new Stopwatch();
@@ -24,20 +24,8 @@ namespace Selenium.Webdriver.Domify
 
             if (string.IsNullOrEmpty(base64)) return null;
 
-            return ToImage(base64);
+            return Convert.FromBase64String(base64.Replace("data:image/png;base64,", ""));
         }
 
-        private static Image ToImage(string base64String)
-        {
-            var imageStream = base64String.Replace("data:image/png;base64,", "");
-            byte[] bytes = Convert.FromBase64String(imageStream);
-
-            Image image;
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                image = Image.FromStream(ms);
-                return image;
-            }
-        }
     }
 }
