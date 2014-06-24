@@ -19,3 +19,4 @@ See the [documentation](https://github.com/yngvebn/Selenium.Webdriver.Domify/wik
     Install-Package Selenium.Webdriver.Domify 
 
 
+[Version History](https://github.com/yngvebn/Selenium.Webdriver.Domify/wiki/Version-History)
