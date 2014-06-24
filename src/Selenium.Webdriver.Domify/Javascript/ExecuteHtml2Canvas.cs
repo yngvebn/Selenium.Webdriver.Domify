@@ -8,7 +8,7 @@
 
         private static string GetJavascript()
         {
-            return Html2Canvas.Javascript+"; html2canvas(document.body, {onrendered: function (canvas) {var el = document.createElement('div');var content = document.createTextNode(canvas.toDataURL());el.id = '__s_w_d_screenshot';el.appendChild(content);document.body.appendChild(el);cnv = canvas;}});";
+            return Html2Canvas.Javascript + "; html2canvas(document.body, {onrendered: function (canvas) {localStorage.setItem('__s_w_d_screenshot', canvas.toDataURL());}});";
         }
     }
 }

@@ -9,7 +9,7 @@
 
         private static string GetJavascript()
         {
-            return "return document.getElementById('__s_w_d_screenshot') ? document.getElementById('__s_w_d_screenshot').innerText : ''";
+            return "var bs64 = localStorage.getItem('__s_w_d_screenshot');localStorage.removeItem('__s_w_d_screenshot');return bs64;";
         }
     }
 }
