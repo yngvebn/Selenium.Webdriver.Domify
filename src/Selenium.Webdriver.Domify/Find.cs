@@ -76,11 +76,18 @@ namespace Selenium.Webdriver.Domify
     {
         private readonly string _text;
         private readonly string _xpathFormat;
+        private readonly bool _partial;
 
         public ByTextFinder(string text, bool partial)
         {
-            _text = text;
-            _xpathFormat = partial ? ".//*[contains(., '{0}')]" : ".//*[text()[normalize-space()='{0}']]";
+            _text = CleanSpace(text);
+            _xpathFormat = partial ? ".//*[contains(., '{0}')]" : ".//*[text()['{0}']]";
+            _partial = partial;
+        }
+
+        private string CleanSpace(string text)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(text, @"[\s|\u00A0]", " ").Replace(" ", " ").Trim();
         }
 
         public override IWebElement FindElement(ISearchContext context)
@@ -105,8 +112,11 @@ namespace Selenium.Webdriver.Domify
             var nodes = root.SelectNodes(string.Format(_xpathFormat, _text));
             
             if (nodes == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
+
+            var node = _partial ? nodes.LastOrDefault(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.LastOrDefault(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
+
+            if (node == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
             
-            var node = nodes.LastOrDefault();
             var xpath = node.XPath;
 
 

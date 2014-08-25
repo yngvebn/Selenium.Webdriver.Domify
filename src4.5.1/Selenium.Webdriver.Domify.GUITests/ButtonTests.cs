@@ -19,9 +19,9 @@ namespace Selenium.Webdriver.Domify.GUITests
         
 
         [Then]
-        public void WeShouldFindFourButtons()
+        public void WeShouldFindSixButtons()
         {
-            Assert.That(CurrentPage.Document.Buttons().Count, Is.EqualTo(4));
+            Assert.That(CurrentPage.Document.Buttons().Count, Is.EqualTo(6));
 
               
         }
