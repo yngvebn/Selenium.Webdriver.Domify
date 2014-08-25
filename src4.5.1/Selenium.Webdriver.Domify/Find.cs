@@ -112,9 +112,9 @@ namespace Selenium.Webdriver.Domify
             var htmlNodeCollection = root.SelectNodes(string.Format(_xpathFormat, _text));
 
             if(htmlNodeCollection == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
-            var nodes = htmlNodeCollection.Where(n => n.ChildNodes.All(c => c.NodeType == HtmlNodeType.Text));
-            
-            var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
+            var foundNodes = htmlNodeCollection.Where(n => n.ChildNodes.Any(c => c.NodeType == HtmlNodeType.Text)).Where(c => IsMatch(c.ChildNodes, _text, _partial));
+
+            //var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(_text));
 
 
             List<IWebElement> returnList = new List<IWebElement>();
@@ -126,6 +126,20 @@ namespace Selenium.Webdriver.Domify
 
             return new ReadOnlyCollection<IWebElement>(returnList);
 
+        }
+
+        private bool IsMatch(HtmlNodeCollection childNodes, string textToFind, bool partial)
+        {
+            if (partial)
+            {
+                return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Contains(textToFind));
+            }
+            else
+            {
+                return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(textToFind));
+            }
+
+            return false;
         }
     }
 }
