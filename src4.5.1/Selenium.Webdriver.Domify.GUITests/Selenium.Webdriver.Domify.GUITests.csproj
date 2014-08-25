@@ -61,6 +61,8 @@
     <Compile Include="Core\SetupClass.cs" />
     <Compile Include="ButtonTests.cs" />
     <Compile Include="Elements\MyElement.cs" />
+    <Compile Include="Pages\VisibilityPage.cs" />
+    <Compile Include="Tests\ElementStyles\VisibilityTests.cs" />
     <Compile Include="Tests\Finders\PageAttributeFinder.cs" />
     <Compile Include="FindListBasedOnTagNameAndID.cs" />
     <Compile Include="GetFirstElementTests.cs" />

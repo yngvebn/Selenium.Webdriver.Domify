@@ -19,6 +19,11 @@ namespace Selenium.Webdriver.Domify.Web.Controllers
             return View();
         }
 
+        public ActionResult Visibility()
+        {
+            return View();
+        }
+
         public ActionResult SpanTest()
         {
             return View();

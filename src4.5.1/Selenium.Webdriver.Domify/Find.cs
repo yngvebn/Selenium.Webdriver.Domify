@@ -109,18 +109,22 @@ namespace Selenium.Webdriver.Domify
                 doc.LoadHtml(((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource);
                 root = doc.DocumentNode.SelectSingleNode((WebElement.Create<HtmlElement>((IWebElement)context)).GetElementXPath());
             }
-            var nodes = root.SelectNodes(string.Format(_xpathFormat, _text));
+            var nodes = root.SelectNodes(string.Format(_xpathFormat, _text)).Where(n => n.ChildNodes.All(c => c.NodeType == HtmlNodeType.Text));
             
-            if (nodes == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
+            if (nodes == null) nodes = new HtmlNodeCollection(null);
 
-            var node = _partial ? nodes.LastOrDefault(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.LastOrDefault(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
-
-            if (node == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
-            
-            var xpath = node.XPath;
+            var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
 
 
-            return context.FindElements(By.XPath(xpath));
+            List<IWebElement> returnList = new List<IWebElement>();
+
+            foreach (var node in foundNodes)
+            {
+                returnList.Add(context.FindElement(By.XPath(node.XPath)));
+            }
+
+            return new ReadOnlyCollection<IWebElement>(returnList);
+
         }
     }
 }
