@@ -109,10 +109,11 @@ namespace Selenium.Webdriver.Domify
                 doc.LoadHtml(((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource);
                 root = doc.DocumentNode.SelectSingleNode((WebElement.Create<HtmlElement>((IWebElement)context)).GetElementXPath());
             }
-            var nodes = root.SelectNodes(string.Format(_xpathFormat, _text)).Where(n => n.ChildNodes.All(c => c.NodeType == HtmlNodeType.Text));
-            
-            if (nodes == null) nodes = new HtmlNodeCollection(null);
+            var htmlNodeCollection = root.SelectNodes(string.Format(_xpathFormat, _text));
 
+            if(htmlNodeCollection == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
+            var nodes = htmlNodeCollection.Where(n => n.ChildNodes.All(c => c.NodeType == HtmlNodeType.Text));
+            
             var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
 
 
