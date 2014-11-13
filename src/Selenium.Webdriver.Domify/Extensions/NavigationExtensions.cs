@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -56,8 +57,16 @@ namespace Selenium.Webdriver.Domify
         private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
-            routeValues = routeValues ?? new { };
+            routeValues = routeValues ?? new {};
+
             Dictionary<string, string> properties = new Dictionary<string, string>();
+            if (routeValues is ExpandoObject)
+            {
+                var dict = (IDictionary<string, object>) routeValues;
+                foreach(var key in dict.Keys) properties.Add(key, dict[key].ToString());
+            }
+
+            
             foreach (var property in routeValues.GetType().GetProperties())
             {
                 properties.Add(property.Name, property.GetValue(routeValues, null).ToString());
@@ -68,7 +77,7 @@ namespace Selenium.Webdriver.Domify
             {
                 if (Regex.IsMatch(url, string.Format(regexPattern, property), RegexOptions.IgnoreCase))
                 {
-                    url = Regex.Replace(url, string.Format(regexPattern, property), properties[property], RegexOptions.IgnoreCase);
+                    url = Regex.Replace(url, string.Format(regexPattern, property), properties[property].ToString(), RegexOptions.IgnoreCase);
                     propertyNames.Remove(property);
                 }
             }

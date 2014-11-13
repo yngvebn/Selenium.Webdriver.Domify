@@ -41,7 +41,7 @@ namespace Selenium.Webdriver.Domify
         public static T GoTo<T>(this INavigationService document, dynamic arguments) where T : Page, new()
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute<T>();
-            
+
             if (navigationInfo != null)
             {
                 Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
@@ -57,8 +57,7 @@ namespace Selenium.Webdriver.Domify
         private static Uri ProcessUrlArguments(Uri uri, dynamic routeValues)
         {
             string url = uri.ToString();
-            routeValues = routeValues ?? new {};
-
+            routeValues = routeValues ?? new { };
             Dictionary<string, string> properties = new Dictionary<string, string>();
             if (routeValues is ExpandoObject)
             {
@@ -125,10 +124,10 @@ namespace Selenium.Webdriver.Domify
                 if (args.Cancel) return;
                 relativeUrl = new Uri(args.Uri);
             }
-            
+
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
         }
-        
+
         private static void GoToPageUrl(this INavigationService document, string relativeUrl)
         {
             var navigationService = document as NavigationService;
@@ -152,7 +151,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
         {
-            document.GoToPageUrl(ProcessUrlArguments(uri, new {}));
+            document.GoToPageUrl(ProcessUrlArguments(uri, new { }));
         }
 
         /// <summary>
@@ -160,7 +159,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, string uri)
         {
-            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new {}));
+            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new { }));
         }
 
         public static void GoTo(this INavigationService document, Assembly containingAssembly, string pageTitle)
@@ -168,7 +167,7 @@ namespace Selenium.Webdriver.Domify
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
 
             if (navigationInfo != null)
-                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new {}));
+                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new { }));
             else
                 throw new InvalidOperationException(
                     "Unable to find page with title " + pageTitle);
@@ -199,7 +198,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static object GoTo(this INavigationService document, Type t)
         {
-            return document.GoTo(t, new {});
+            return document.GoTo(t, new { });
         }
 
         /// <summary>
@@ -254,10 +253,10 @@ namespace Selenium.Webdriver.Domify
 
 
             return UrlHelpers.UrlsAreEqual(ProcessUrlArguments(navigationInfo.Url, null), document.Document.Uri);
-                
+
         }
 
-        
+
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
         {
             return CacheHolder.TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
