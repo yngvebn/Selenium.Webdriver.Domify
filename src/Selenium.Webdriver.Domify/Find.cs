@@ -139,7 +139,6 @@ namespace Selenium.Webdriver.Domify
                 return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(textToFind));
             }
 
-            return false;
         }
     }
 }
