@@ -2,6 +2,8 @@
 
 namespace Selenium.Webdriver.Domify.Events
 {
+    public delegate void AfterNavigationEventHandler(object sender, NavigationEventArgs args);
+
     public delegate void BeforeNavigationEventHandler(object sender, NavigationEventArgs args);
     
     public class NavigationEventArgs

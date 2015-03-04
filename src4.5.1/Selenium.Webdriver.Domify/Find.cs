@@ -81,7 +81,7 @@ namespace Selenium.Webdriver.Domify
         public ByTextFinder(string text, bool partial)
         {
             _text = CleanSpace(text);
-            _xpathFormat = partial ? ".//*[contains(., '{0}')]" : ".//*[text()['{0}']]";
+            _xpathFormat = partial ? ".//*[text()[contains(., '{0}')]]" : ".//*[text()['{0}']]";
             _partial = partial;
         }
 
@@ -100,7 +100,7 @@ namespace Selenium.Webdriver.Domify
             var html = context is IWebElement ? ((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource : ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
             var doc = new HtmlDocument();
             HtmlNode.ElementsFlags.Remove("form");
-            doc.LoadHtml(html);
+            doc.LoadHtml(html.Replace("\r\n", ""));
             var root = doc.DocumentNode;
             if (context is IWebElement)
             {

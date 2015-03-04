@@ -127,6 +127,9 @@ namespace Selenium.Webdriver.Domify
             }
             
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
+            
+            if(navigationService != null)
+                navigationService.OnAfterNavigation(new NavigationEventArgs(){ Uri = relativeUrl.ToString(), Cancel = false});
         }
         
         private static void GoToPageUrl(this INavigationService document, string relativeUrl)
@@ -182,12 +185,13 @@ namespace Selenium.Webdriver.Domify
         public static object GoTo(this INavigationService document, Type t, dynamic arguments)
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(t);
+            if (navigationInfo.Url == null)
+                throw new InvalidOperationException("You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
+            
             Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
-            if (navigationInfo != null)
-                document.GoToPageUrl(url);
-            else
-                throw new InvalidOperationException(
-                    "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
+            document.GoToPageUrl(url);
+            
+                
             MethodInfo method = typeof(NavigationExtensions).GetMethod("GetPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, new object[] { document });
