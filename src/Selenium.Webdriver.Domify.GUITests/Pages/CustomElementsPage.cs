@@ -3,7 +3,7 @@ using Selenium.Webdriver.Domify.GUITests.Elements;
 
 namespace Selenium.Webdriver.Domify.GUITests.Pages
 {
-    [PageDescription("Custom elements", "http://localhost:31337/home/customelements")]
+    [PageDescription("Custom elements", "http://localhost:31338/home/customelements")]
     public class CustomElementsPage: Page
     {
         public MyElement MyCustomElement
@@ -12,7 +12,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Pages
         }
     }
 
-    [PageDescription("Custom elements", "http://localhost:31337/home/pagewithheadinfo")]
+    [PageDescription("Custom elements", "http://localhost:31338/home/pagewithheadinfo")]
     public class PageWithHeaderInfo : Page
     {
         public string Title

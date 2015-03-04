@@ -81,7 +81,7 @@ namespace Selenium.Webdriver.Domify
         public ByTextFinder(string text, bool partial)
         {
             _text = CleanSpace(text);
-            _xpathFormat = partial ? ".//*[contains(., '{0}')]" : ".//*[text()['{0}']]";
+            _xpathFormat = partial ? ".//*[text()[contains(., '{0}')]]" : ".//*[text()['{0}']]";
             _partial = partial;
         }
 
@@ -100,7 +100,7 @@ namespace Selenium.Webdriver.Domify
             var html = context is IWebElement ? ((OpenQA.Selenium.Remote.RemoteWebElement)context).WrappedDriver.PageSource : ((OpenQA.Selenium.Remote.RemoteWebDriver)(context)).PageSource;
             var doc = new HtmlDocument();
             HtmlNode.ElementsFlags.Remove("form");
-            doc.LoadHtml(html);
+            doc.LoadHtml(html.Replace("\r\n", ""));
             var root = doc.DocumentNode;
             if (context is IWebElement)
             {
@@ -112,9 +112,9 @@ namespace Selenium.Webdriver.Domify
             var htmlNodeCollection = root.SelectNodes(string.Format(_xpathFormat, _text));
 
             if(htmlNodeCollection == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
-            var nodes = htmlNodeCollection.Where(n => n.ChildNodes.All(c => c.NodeType == HtmlNodeType.Text));
-            
-            var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText).Replace(Environment.NewLine, "").Equals(_text));
+            var foundNodes = htmlNodeCollection.Where(n => n.ChildNodes.Any(c => c.NodeType == HtmlNodeType.Text)).Where(c => IsMatch(c.ChildNodes, _text, _partial));
+
+            //var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(_text));
 
 
             List<IWebElement> returnList = new List<IWebElement>();
@@ -126,6 +126,20 @@ namespace Selenium.Webdriver.Domify
 
             return new ReadOnlyCollection<IWebElement>(returnList);
 
+        }
+
+        private bool IsMatch(HtmlNodeCollection childNodes, string textToFind, bool partial)
+        {
+            if (partial)
+            {
+                return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Contains(textToFind));
+            }
+            else
+            {
+                return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(textToFind));
+            }
+
+            return false;
         }
     }
 }

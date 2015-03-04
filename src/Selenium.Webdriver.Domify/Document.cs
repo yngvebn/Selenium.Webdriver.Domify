@@ -51,7 +51,7 @@ namespace Selenium.Webdriver.Domify
         {
             get
             {
-                if (_navigationService == null) _navigationService = new NavigationService(this);
+                if(_navigationService == null) _navigationService = new NavigationService(this);
                 return _navigationService;
             }
         }
@@ -135,7 +135,7 @@ namespace Selenium.Webdriver.Domify
         private IList<Style> _styles;
         private IList<Link> _links;
         private IList<Script> _scripts;
-
+ 
         private DocumentHeader(IWebDriver driver, Document document)
         {
             _driver = driver;

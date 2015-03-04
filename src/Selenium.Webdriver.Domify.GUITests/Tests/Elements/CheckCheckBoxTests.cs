@@ -22,8 +22,6 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
             element.Checked= true;
         }
 
-
-
         [Then]
         public void CanGetListItemAtSpecificIndex()
         {

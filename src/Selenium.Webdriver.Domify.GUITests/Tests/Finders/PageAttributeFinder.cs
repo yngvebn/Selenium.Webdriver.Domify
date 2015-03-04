@@ -10,7 +10,7 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Finders
     {
         protected override void Given()
         {
-            Document.Settings.BaseUri = new Uri("http://localhost:31337");
+            Document.Settings.BaseUri = new Uri("http://localhost:31338");
             base.Given();
         }
 

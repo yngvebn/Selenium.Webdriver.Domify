@@ -6,6 +6,7 @@ namespace Selenium.Webdriver.Domify
     {
         public IDocument Document { get; private set; }
         public event BeforeNavigationEventHandler BeforeNavigation;
+        public event AfterNavigationEventHandler AfterNavigation;
 
         internal void OnBeforeNavigation(NavigationEventArgs args)
         {
@@ -18,6 +19,14 @@ namespace Selenium.Webdriver.Domify
         internal NavigationService(IDocument document)
         {
             Document = document;
+        }
+
+        public void OnAfterNavigation(NavigationEventArgs args)
+        {
+            if (AfterNavigation != null)
+            {
+                AfterNavigation(this, args);
+            }
         }
     }
 }

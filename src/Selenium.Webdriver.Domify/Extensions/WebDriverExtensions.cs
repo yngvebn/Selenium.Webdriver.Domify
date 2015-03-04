@@ -52,7 +52,7 @@ namespace Selenium.Webdriver.Domify
         }
 
         public static T WaitUntilFound<T>(this IWebDriver driver, By find, TimeSpan timeout = default(TimeSpan))
-            where T : WebElement, new()
+            where T: WebElement, new()
         {
             return driver.WaitUntilFound<T>(find, driver, timeout);
         }

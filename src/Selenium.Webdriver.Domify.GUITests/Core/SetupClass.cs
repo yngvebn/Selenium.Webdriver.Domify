@@ -14,7 +14,7 @@ public class SetupClass
     {
         var dictionary = new Dictionary<string, List<string>>
         {
-            {"args", new List<string>() {"--window-size=300,300"}}
+            //{"args", new List<string>() {"--window-size=300,300"}}
         };
         var caps = DesiredCapabilities.Chrome();
         caps.SetCapability("chromeOptions", dictionary);
@@ -22,7 +22,7 @@ public class SetupClass
         {
             
         };
-        options.AddArgument("--window-size=1,1");
+        //options.AddArgument("--window-size=1,1");
         options.AddArgument("--disable-translate");
         options.AddArgument("--disable-default-apps");
         options.AddArgument("--disable-smooth-scrolling");

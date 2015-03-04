@@ -41,7 +41,7 @@ namespace Selenium.Webdriver.Domify
         public static T GoTo<T>(this INavigationService document, dynamic arguments) where T : Page, new()
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute<T>();
-
+            
             if (navigationInfo != null)
             {
                 Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
@@ -125,10 +125,13 @@ namespace Selenium.Webdriver.Domify
                 if (args.Cancel) return;
                 relativeUrl = new Uri(args.Uri);
             }
-
+            
             document.Document.Driver.Navigate().GoToUrl(relativeUrl);
+            
+            if(navigationService != null)
+                navigationService.OnAfterNavigation(new NavigationEventArgs(){ Uri = relativeUrl.ToString(), Cancel = false});
         }
-
+        
         private static void GoToPageUrl(this INavigationService document, string relativeUrl)
         {
             var navigationService = document as NavigationService;
@@ -152,7 +155,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, Uri uri)
         {
-            document.GoToPageUrl(ProcessUrlArguments(uri, new { }));
+            document.GoToPageUrl(ProcessUrlArguments(uri, new {}));
         }
 
         /// <summary>
@@ -160,7 +163,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static void GoTo(this INavigationService document, string uri)
         {
-            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new { }));
+            document.GoToPageUrl(ProcessUrlArguments(new Uri(uri, UriKind.RelativeOrAbsolute), new {}));
         }
 
         public static void GoTo(this INavigationService document, Assembly containingAssembly, string pageTitle)
@@ -168,7 +171,7 @@ namespace Selenium.Webdriver.Domify
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(containingAssembly, pageTitle);
 
             if (navigationInfo != null)
-                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new { }));
+                document.GoToPageUrl(ProcessUrlArguments(navigationInfo.Url, new {}));
             else
                 throw new InvalidOperationException(
                     "Unable to find page with title " + pageTitle);
@@ -182,12 +185,13 @@ namespace Selenium.Webdriver.Domify
         public static object GoTo(this INavigationService document, Type t, dynamic arguments)
         {
             PageDescriptionAttribute navigationInfo = TryGetPageDescriptionAttribute(t);
+            if (navigationInfo.Url == null)
+                throw new InvalidOperationException("You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
+            
             Uri url = ProcessUrlArguments(navigationInfo.Url, arguments);
-            if (navigationInfo != null)
-                document.GoToPageUrl(url);
-            else
-                throw new InvalidOperationException(
-                    "You are trying to navigate to a page which does not specify its uri (missing PageDescriptionAttribute)");
+            document.GoToPageUrl(url);
+            
+                
             MethodInfo method = typeof(NavigationExtensions).GetMethod("GetPage");
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             return genericMethod.Invoke(null, new object[] { document });
@@ -199,7 +203,7 @@ namespace Selenium.Webdriver.Domify
         /// </summary>
         public static object GoTo(this INavigationService document, Type t)
         {
-            return document.GoTo(t, new { });
+            return document.GoTo(t, new {});
         }
 
         /// <summary>
@@ -254,10 +258,10 @@ namespace Selenium.Webdriver.Domify
 
 
             return UrlHelpers.UrlsAreEqual(ProcessUrlArguments(navigationInfo.Url, null), document.Document.Uri);
-
+                
         }
 
-
+        
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
         {
             return CacheHolder.TryGetPageDescriptionAttribute(containingAssembly, pageTitle);

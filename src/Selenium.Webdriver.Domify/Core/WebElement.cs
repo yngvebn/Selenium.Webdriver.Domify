@@ -65,17 +65,17 @@ namespace Selenium.Webdriver.Domify.Core
                     TimeSpan timeOut = GlobalConfiguration.Configuration.WaitTimeout;
 
                     TimeoutManager.Execute(timeOut, item =>
+                    {
+                        try
                         {
-                            try
-                            {
-                                item.Click();
-                                return true;
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                return false;
-                            }
-                        }, this);
+                            item.Click();
+                            return true;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            return false;
+                        }
+                    }, this);
                 }
             }
         }
@@ -90,10 +90,10 @@ namespace Selenium.Webdriver.Domify.Core
             Click();
 
             TimeoutManager.Execute(timeout, () =>
-                {
-                    bool hasNavigatedToAnotherPage = Driver.Url != currentUrl;
-                    return hasNavigatedToAnotherPage;
-                }, new[] { typeof(StaleElementReferenceException) });
+            {
+                bool hasNavigatedToAnotherPage = Driver.Url != currentUrl;
+                return hasNavigatedToAnotherPage;
+            }, new[] { typeof(StaleElementReferenceException) });
         }
 
         public void ClickAndWaitForNavigation(Func<bool> navigationHasOccured, TimeSpan timeout = default(TimeSpan))
@@ -262,10 +262,9 @@ namespace Selenium.Webdriver.Domify.Core
         public virtual string Text
         {
             get
-
             {
                 var text = SeleniumElement.Text;
-                if(string.IsNullOrEmpty(text))
+                if (string.IsNullOrEmpty(text))
                     try
                     {
                         var innerText = HtmlDocument.DocumentNode.SelectSingleNode(this.GetElementXPath()).InnerText;
@@ -273,7 +272,7 @@ namespace Selenium.Webdriver.Domify.Core
                     }
                     finally
                     {
-                
+
                     }
                 return text;
             }
