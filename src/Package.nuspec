@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Selenium.Webdriver.Domify</id>
+    <version>2.0.22688</version>
+    <title>Selenium.Webdriver.Domify</title>
+    <authors>Yngve Bakken Nilsen</authors>
+    <owners>
+    </owners>
+    <description>
+      Extends Selenium.Webdriver to make it easier to navigate and access the DOM.
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/yngvebn/Selenium.Webdriver.Domify</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <copyright>Copyright 2013-2014</copyright>
+    <dependencies>
+     <!-- <group targetFramework="net40">
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
+        <dependency id="Moq" version="4.2.1409.1722" />
+      </group>-->
+      <group targetFramework="net45">
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
+        <dependency id="Moq" version="4.2.1409.1722" />
+      </group>
+     <!-- <group targetFramework="net451">
+        <dependency id="Selenium.Support" version="2.35.0" />
+        <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="HtmlAgilityPack" version="1.4.6" />
+        <dependency id="Moq" version="4.2.1402.2112" />
+      </group>-->
+    </dependencies>
+    <references>
+    </references>
+    <tags>
+    </tags>
+  </metadata>
+  <files>
+   <!-- <file src="..\..\src4.0\Selenium.Webdriver.Domify\bin\Release\**\Selenium.Webdriver.Domify.dll" target="lib\net40" />-->
+    <file src="src\Selenium.Webdriver.Domify\bin\Release\**\Selenium.Webdriver.Domify.dll" target="lib\net45" />
+    <!--<file src="..\..\src4.5.1\Selenium.Webdriver.Domify\bin\Release\**\Selenium.Webdriver.Domify.dll" target="lib\net451" /> -->
+  </files>
+</package>
