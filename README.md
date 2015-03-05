@@ -1,4 +1,4 @@
-Latest build-status: ![TeamCity Buildstatus](http://38f08615.ngrok.com/app/rest/builds/buildType:(id:SeleniumWebdriverDomify_Build)/statusIcon)
+Latest build-status: ![TeamCity Buildstatus](http://build.bakken-nilsen.com/app/rest/builds/buildType:(id:SeleniumWebdriverDomify_Build)/statusIcon)
 
 # Domify for Selenium Webdriver
 This project is heavily updated, and you should try to keep your nuget-package updated often.
