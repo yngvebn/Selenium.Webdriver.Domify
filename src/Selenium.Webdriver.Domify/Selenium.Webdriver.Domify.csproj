@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\InvalidPageDescriptionException.cs" />
     <Compile Include="Extensions\ElementFinderWrapper.cs" />
     <Compile Include="Extensions\ScreenshotExtensions.cs" />
+    <Compile Include="Extensions\UrlHelpers.cs" />
     <Compile Include="Factories\DOMElementCssFactory.cs" />
     <Compile Include="Attributes\DOMElementAttribute.cs" />
     <Compile Include="Factories\DOMElementFilterFactory.cs" />

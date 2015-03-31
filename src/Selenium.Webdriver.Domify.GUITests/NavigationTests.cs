@@ -26,6 +26,26 @@ namespace Selenium.Webdriver.Domify.GUITests
     }
 
     [TestFixture]
+    public class IsAtPage : BrowserScenario
+    {
+        protected override void Given()
+        {
+            Document.Navigation.GoTo<PageWithParametersInUrl>(new {id = 123});
+        }
+
+        protected override void When()
+        {
+            
+        }
+
+        [Then]
+        public void WeShouldBeOnTheCorrectPage()
+        {
+            Assert.That(Document.Navigation.IsAtPage<PageWithParametersInUrl>(), Is.True);
+        }
+    }
+
+    [TestFixture]
     public class NavigationTests : BrowserScenario
     {
 

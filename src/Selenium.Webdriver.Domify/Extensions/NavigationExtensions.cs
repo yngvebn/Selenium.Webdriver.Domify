@@ -5,9 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Moq;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using Selenium.Webdriver.Domify.Cache;
 using Selenium.Webdriver.Domify.Elements;
 using Selenium.Webdriver.Domify.Events;
@@ -246,8 +243,8 @@ namespace Selenium.Webdriver.Domify
         /// <summary>
         ///     Checks if the current browser is at the given page
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="document"></param>
+        /// <param name="pageType"></param>
         /// <returns></returns>
         public static bool IsAtPage(this INavigationService document, Type pageType)
         {
@@ -256,11 +253,8 @@ namespace Selenium.Webdriver.Domify
             if (navigationInfo == null)
                 throw new InvalidOperationException("The page type does not specify its uri");
 
-
-            return UrlHelpers.UrlsAreEqual(ProcessUrlArguments(navigationInfo.Url, null), document.Document.Uri);
-                
+            return UrlHelpers.MatchUrlPathPattern(navigationInfo.PageUrl, document.Document.Uri);
         }
-
         
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
         {
@@ -275,21 +269,6 @@ namespace Selenium.Webdriver.Domify
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute<T>()
         {
             return CacheHolder.TryGetPageDescriptionAttribute(typeof(T));
-        }
-    }
-
-    public static class UrlHelpers
-    {
-        public static bool UrlsAreEqual(Uri expected, Uri actual)
-        {
-            if (expected.ToString().Equals(actual.ToString(), StringComparison.InvariantCultureIgnoreCase)) return true;
-
-            expected = expected.IsAbsoluteUri ? expected : new Uri(new Uri("http://can.be.anything/"), expected.ToString());
-            actual = actual.IsAbsoluteUri ? actual : new Uri(new Uri("http://can.be.anything/"), actual.ToString());
-
-            if (expected.AbsolutePath.TrimEnd('/').Equals(actual.AbsolutePath.TrimEnd('/'), StringComparison.InvariantCultureIgnoreCase)) return true;
-
-            return false;
         }
     }
 }
