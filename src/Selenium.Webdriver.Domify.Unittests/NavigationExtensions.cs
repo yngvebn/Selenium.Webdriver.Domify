@@ -32,6 +32,14 @@ namespace Selenium.Webdriver.Domify.Unittests
             Assert.That(_navigationService.IsAtPage<SimplePage>(), Is.True);
         }
 
+
+        [Test]
+        public void ShouldResolveIsAtPageCorrectlyWhenWeHaveRouteValues()
+        {
+            _currentUrl = "http://can.be.anything/resource/1";
+            Assert.That(_navigationService.IsAtPage<SimplePageWithRouteValues>(), Is.True);
+        }
+
     }
 
 }

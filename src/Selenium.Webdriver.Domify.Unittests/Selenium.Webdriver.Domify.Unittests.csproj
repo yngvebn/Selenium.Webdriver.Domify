@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AllElementsMustHaveDOMElementAttribute.cs" />
     <Compile Include="DummyPages\PageWithRouteValue.cs" />
+    <Compile Include="DummyPages\SimplePageWithRouteValues.cs" />
     <Compile Include="NavigationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlHelpers.cs" />
