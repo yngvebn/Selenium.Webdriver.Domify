@@ -253,7 +253,7 @@ namespace Selenium.Webdriver.Domify
             if (navigationInfo == null)
                 throw new InvalidOperationException("The page type does not specify its uri");
 
-            return UrlHelpers.MatchUrlPathPattern(navigationInfo.PageUrl, document.Document.Uri);
+            return UrlHelpers.MatchUrlPattern(navigationInfo.PageUrl, document.Document.Uri);
         }
         
         private static PageDescriptionAttribute TryGetPageDescriptionAttribute(Assembly containingAssembly, string pageTitle)
