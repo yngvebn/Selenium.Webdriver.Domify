@@ -24,7 +24,7 @@
       <group>
         <dependency id="Selenium.Support" version="2.35.0" />
         <dependency id="Selenium.WebDriver" version="2.35.0" />
-        <dependency id="HtmlAgilityPack" version="1.4.6" />
+        <dependency id="HtmlAgilityPack" version="1.4.9" />
         <dependency id="Moq" version="4.2.1409.1722" />
       </group>
     </dependencies>
