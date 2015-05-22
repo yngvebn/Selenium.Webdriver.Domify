@@ -100,6 +100,7 @@
     <Compile Include="Tests\Elements\UncheckRadioButtonTests.cs" />
     <Compile Include="Tests\Finders\BySelectors.cs" />
     <Compile Include="Tests\Finders\FindElementByText.cs" />
+    <Compile Include="Tests\Pages\CanAssertPageWithQueryString.cs" />
     <Compile Include="TextFieldTests.cs" />
     <Compile Include="Core\ThenAttribute.cs" />
     <Compile Include="UploadFile.cs" />

@@ -120,6 +120,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HtmlController.cs" />
     <Compile Include="Controllers\IsAtPageController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\IsAtPage\Index.cshtml" />
     <Content Include="Views\IsAtPage\ParametersInQuery.cshtml" />
+    <Content Include="Views\Tests\Query.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenium.Webdriver.Domify\Selenium.Webdriver.Domify.csproj">
