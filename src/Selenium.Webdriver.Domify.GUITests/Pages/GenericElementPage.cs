@@ -12,4 +12,10 @@
     {
         
     }
+
+    [PageDescription("PageWithQuery", "http://localhost:31338/tests")]
+    public class RootPageWithoutQuery : Page
+    {
+
+    }
 }

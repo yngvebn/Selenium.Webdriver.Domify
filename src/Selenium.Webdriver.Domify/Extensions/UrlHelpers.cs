@@ -21,7 +21,7 @@ namespace Selenium.Webdriver.Domify
         {
             bool isAbsoluteUrlTemplate = IsAbsoluteUrl(urlTemplate);
             urlTemplate = Regex.Replace(urlTemplate, @"\?.*$", "");
-            string pattern = Regex.Replace(urlTemplate, @"{(.*?)}", "(.*?)")+"$";
+            string pattern = Regex.Replace(urlTemplate, @"{(.*?)}", "(.*?)")+"(/?)$";
 
             return Regex.IsMatch(isAbsoluteUrlTemplate ? actual.GetLeftPart(UriPartial.Path) : actual.AbsolutePath, pattern, RegexOptions.IgnoreCase);
         }

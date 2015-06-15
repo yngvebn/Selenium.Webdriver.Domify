@@ -167,7 +167,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Screenshot\Html2Canvas.cs" />
+    <Compile Include="Javascript\Screenshot\Html2Canvas.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
