@@ -1,7 +1,6 @@
 Latest build-status: ![TeamCity Buildstatus](http://build.bakken-nilsen.com/app/rest/builds/buildType:(id:SeleniumWebdriverDomify_Build)/statusIcon)
 
 # Domify for Selenium Webdriver
-This project is heavily updated, and you should try to keep your nuget-package updated often.
 
 _Please use the [issuetracker](https://github.com/yngvebn/Selenium.Webdriver.Domify/issues) to report any bugs_
 Domify adds extensions to the Selenium Webdriver to make DOM-testing easier!
