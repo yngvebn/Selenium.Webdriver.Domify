@@ -5,7 +5,6 @@ Latest build-status: ![TeamCity Buildstatus](http://build.bakken-nilsen.com/app/
 _Please use the [issuetracker](https://github.com/yngvebn/Selenium.Webdriver.Domify/issues) to report any bugs_
 Domify adds extensions to the Selenium Webdriver to make DOM-testing easier!
 
-
 ## What can it be used for?
 Easily create acceptance and GUI test which tests a variety of browsers thanks to the different WebDriver implementations
 
