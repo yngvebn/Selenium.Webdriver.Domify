@@ -113,15 +113,24 @@ namespace Selenium.Webdriver.Domify
 
             if(htmlNodeCollection == null) return new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
             var foundNodes = htmlNodeCollection.Where(n => n.ChildNodes.Any(c => c.NodeType == HtmlNodeType.Text)).Where(c => IsMatch(c.ChildNodes, _text, _partial));
+            
 
             //var foundNodes = _partial ? nodes.Where(n => CleanSpace(n.InnerText).Contains(_text)) : nodes.Where(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(_text));
 
 
             List<IWebElement> returnList = new List<IWebElement>();
 
-            foreach (var node in foundNodes)
+            List<string> xpaths = new List<string>();
+            foreach (var node in foundNodes.Reverse())
             {
-                returnList.Add(context.FindElement(By.XPath(node.XPath)));
+                if(xpaths.All(n => n.IndexOf(node.XPath, System.StringComparison.Ordinal) != 0))
+                    xpaths.Add(node.XPath);
+            }
+
+            foreach (var xpath in xpaths)
+            {
+                IWebElement thisNode = context.FindElement(By.XPath(xpath));
+                    returnList.Add(thisNode);
             }
 
             return new ReadOnlyCollection<IWebElement>(returnList);
@@ -139,7 +148,6 @@ namespace Selenium.Webdriver.Domify
                 return childNodes.Any(n => CleanSpace(n.InnerText.Replace(Environment.NewLine, "")).Equals(textToFind));
             }
 
-            return false;
         }
     }
 }

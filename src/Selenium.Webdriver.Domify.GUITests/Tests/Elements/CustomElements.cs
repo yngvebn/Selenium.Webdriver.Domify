@@ -30,7 +30,6 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Elements
 
     public class DocumentHeadTests : PageScenario<PageWithHeaderInfo>
     {
-        private MyElement element;
         protected override void When()
         {
             

@@ -11,6 +11,7 @@ namespace Selenium.Webdriver.Domify
 {
     public static class JavascriptExtensions
     {
+        static readonly Random Random = new Random();
 
         public static object ExecuteJavascript(this IWebDriver driver, string script, IWebElement element = null)
         {
@@ -63,8 +64,8 @@ namespace Selenium.Webdriver.Domify
 
         private static string GenerateRandomId()
         {
-            Random random = new Random();
-            var idNumber = random.Next(1000000);
+            
+            var idNumber = Random.Next(1000000);
             string id = string.Format("___s_w_d_{0}", idNumber);
             return id;
         }
