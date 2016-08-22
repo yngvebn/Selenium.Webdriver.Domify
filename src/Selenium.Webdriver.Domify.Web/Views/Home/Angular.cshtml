@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "title";
+}
+@section headscripts
+{
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>   
+}
+<h2>Angular stuff</h2>
+
+<div ng-app="test" ng-controller="main as ctrl">
+    <table id="angular-table">
+        <tr>
+            <td>First column</td>
+            <td ng-repeat="item in ctrl.items">{{item}}</td>
+        </tr>
+
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        var app = angular.module('test', []);
+
+
+        function MainController() {
+            var vm = this;
+
+            vm.items = [];
+
+            for (var i = 0; i < 5; i++) {
+                vm.items.push('Item ' + i);
+            }
+        }
+
+        app.controller('main', MainController);
+
+
+</script>
+}

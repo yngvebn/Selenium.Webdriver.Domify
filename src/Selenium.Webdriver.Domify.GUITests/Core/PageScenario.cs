@@ -5,6 +5,8 @@ namespace Selenium.Webdriver.Domify.GUITests.Core
         protected T CurrentPage { get; private set; }
         protected override void Given()
         {
+            if (typeof(T) == typeof(NoPage)) return;
+
             CurrentPage = Document.Navigation.GoTo<T>();
         }
     }

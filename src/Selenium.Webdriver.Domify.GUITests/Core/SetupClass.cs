@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
@@ -18,19 +19,16 @@ public class SetupClass
         };
         var caps = DesiredCapabilities.Chrome();
         caps.SetCapability("chromeOptions", dictionary);
-        ChromeOptions options = new ChromeOptions()
-        {
-            
-        };
-        //options.AddArgument("--window-size=1,1");
-        options.AddArgument("--disable-translate");
-        options.AddArgument("--disable-default-apps");
-        options.AddArgument("--disable-smooth-scrolling");
-        options.AddArgument("--no-autofill-for-password-generation");
         
-        BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\", options);
+        DesiredCapabilities dcaps = new DesiredCapabilities();
+        dcaps.SetCapability("takesScreenshot", true);
+        PhantomJSOptions options = new PhantomJSOptions();
+
+        options.AddAdditionalCapability("phantomjs.binary.path", Path.GetDirectoryName("..\\..\\..\\..\\Drivers\\"));
         
-        //BrowserTestSettings.Driver = new PhantomJSDriver("..\\..\\..\\..\\Drivers\\");
+        //BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\", options);
+        
+        BrowserTestSettings.Driver = new PhantomJSDriver(options);
 
     }
 

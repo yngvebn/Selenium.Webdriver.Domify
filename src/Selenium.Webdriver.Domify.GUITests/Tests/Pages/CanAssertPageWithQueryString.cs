@@ -23,4 +23,25 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Pages
             Assert.That(Document.Navigation.IsAtPage<PageWithQueryString>());
         }
     }
+
+
+    [TestFixture]
+    public class CanAssertPageWithReplacement : BrowserScenario
+    {
+        protected override void Given()
+        {
+
+        }
+
+        protected override void When()
+        {
+            base.Document.Navigation.GoTo("http://localhost:31338/tests/query");
+        }
+
+        [Test]
+        public void WeShouldBeAtCorrectPage()
+        {
+            Assert.That(Document.Navigation.IsAtPage<PageWithReplacement>());
+        }
+    }
 }

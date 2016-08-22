@@ -5,17 +5,4 @@
     public class GenericElementPage: Page
     {
     }
-
-
-    [PageDescription("PageWithQuery", "http://localhost:31338/tests/query?t={token}&u={username}")]
-    public class PageWithQueryString : Page
-    {
-        
-    }
-
-    [PageDescription("PageWithQuery", "http://localhost:31338/tests")]
-    public class RootPageWithoutQuery : Page
-    {
-
-    }
 }

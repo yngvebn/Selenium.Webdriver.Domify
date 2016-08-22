@@ -45,8 +45,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.2.40.0\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.0.0-beta2\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver.Support">
       <HintPath>..\packages\Selenium.Support.2.40.0\lib\net40\WebDriver.Support.dll</HintPath>
@@ -61,7 +62,18 @@
     <Compile Include="Core\SetupClass.cs" />
     <Compile Include="ButtonTests.cs" />
     <Compile Include="Elements\MyElement.cs" />
+    <Compile Include="Pages\AngularPage.cs" />
+    <Compile Include="Pages\HtmlFormsWithId.cs" />
+    <Compile Include="Pages\HtmlFormsWithMultipleCssClasses.cs" />
+    <Compile Include="Pages\HtmlFormsWithNames.cs" />
+    <Compile Include="Pages\HtmlFormsWithValues.cs" />
+    <Compile Include="Pages\PageWithHeaderInfo.cs" />
+    <Compile Include="Pages\PageWithParametersInUrl.cs" />
+    <Compile Include="Pages\PageWithQueryString.cs" />
+    <Compile Include="Pages\PageWithReplacement.cs" />
+    <Compile Include="Pages\RootPageWithoutQuery.cs" />
     <Compile Include="Pages\VisibilityPage.cs" />
+    <Compile Include="Tests\AngularJS\CanAssertCorrectTextInDynamicallyCreatedTableCells.cs" />
     <Compile Include="Tests\ElementStyles\VisibilityTests.cs" />
     <Compile Include="Tests\Finders\PageAttributeFinder.cs" />
     <Compile Include="FindListBasedOnTagNameAndID.cs" />
@@ -116,6 +128,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="IEDriverServer.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="phantomjs.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\file.txt">

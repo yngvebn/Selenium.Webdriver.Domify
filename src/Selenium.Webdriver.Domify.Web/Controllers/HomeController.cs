@@ -43,5 +43,10 @@ namespace Selenium.Webdriver.Domify.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Angular()
+        {
+            return View();
+        }
     }
 }
