@@ -28,7 +28,7 @@ public class SetupClass
         options.AddArgument("--disable-smooth-scrolling");
         options.AddArgument("--no-autofill-for-password-generation");
         
-        BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\..\\Drivers\\", options);
+        BrowserTestSettings.Driver = new ChromeDriver("..\\..\\..\\Packages\\Selenium.WebDriver.ChromeDriver.2.25.0.8\\driver", options);
         
         //BrowserTestSettings.Driver = new PhantomJSDriver("..\\..\\..\\..\\Drivers\\");
 

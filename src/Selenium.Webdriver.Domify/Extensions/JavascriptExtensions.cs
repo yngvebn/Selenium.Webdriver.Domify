@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -12,6 +14,20 @@ namespace Selenium.Webdriver.Domify
     public static class JavascriptExtensions
     {
         static readonly Random Random = new Random();
+
+        static JavascriptExtensions()
+        {
+            _randomIds = new Queue<int>();
+            EnqueueIds(1000);
+        }
+
+        private static void EnqueueIds(int howMany)
+        {
+            for (int i = 0; i < howMany; i++)
+            {
+                _randomIds.Enqueue(Random.Next(10000000));
+            }
+        }
 
         public static object ExecuteJavascript(this IWebDriver driver, string script, IWebElement element = null)
         {
@@ -62,11 +78,16 @@ namespace Selenium.Webdriver.Domify
             element.ExecuteJavascript(new SetElementAttribute( attributeName, attributeValue));
         }
 
+        private static Queue<int> _randomIds { get; set; }
+
         private static string GenerateRandomId()
         {
             
-            var idNumber = Random.Next(1000000);
-            string id = string.Format("___s_w_d_{0}", idNumber);
+            var idNumber = _randomIds.Dequeue();
+
+            if (_randomIds.Count < 500) EnqueueIds(500);
+
+            string id = $"___s_w_d_{idNumber}";
             return id;
         }
 
