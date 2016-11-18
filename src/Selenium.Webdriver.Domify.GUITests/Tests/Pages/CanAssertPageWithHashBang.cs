@@ -5,7 +5,7 @@ using Selenium.Webdriver.Domify.GUITests.Pages;
 namespace Selenium.Webdriver.Domify.GUITests.Tests.Pages
 {
     [TestFixture]
-    public class CanAssertPageWithQueryString : BrowserScenario
+    public class CanAssertPageWithHashBang : BrowserScenario
     {
         protected override void Given()
         {
@@ -14,13 +14,13 @@ namespace Selenium.Webdriver.Domify.GUITests.Tests.Pages
 
         protected override void When()
         {
-            base.Document.Navigation.GoTo("http://localhost:31338/tests/query?t=12345&u=yngvebn");
+            base.Document.Navigation.GoTo("http://localhost:31338/#/12345/yngvebn");
         }
 
         [Test]
         public void WeShouldBeAtCorrectPage()
         {
-            Assert.That(Document.Navigation.IsAtPage<PageWithQueryString>());
+            Assert.That(Document.Navigation.IsAtPage<PageWithHashBang>());
         }
     }
 }
