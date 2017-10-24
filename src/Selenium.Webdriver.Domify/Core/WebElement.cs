@@ -249,6 +249,11 @@ namespace Selenium.Webdriver.Domify.Core
             return SeleniumElement.GetAttribute(attributeName);
         }
 
+        public string GetProperty(string propertyName)
+        {
+            return SeleniumElement.GetProperty(propertyName);
+        }
+
         public string GetCssValue(string propertyName)
         {
             return SeleniumElement.GetCssValue(propertyName);

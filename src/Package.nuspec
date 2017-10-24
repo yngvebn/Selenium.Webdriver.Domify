@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Selenium.Webdriver.Domify</id>
-    <version>2.0.22688</version>
+    <version>3.1.0</version>
     <title>Selenium.Webdriver.Domify</title>
     <authors>Yngve Bakken Nilsen</authors>
     <owners>
@@ -22,8 +22,8 @@
     <copyright>Copyright 2013-2014</copyright>
     <dependencies>
       <group>
-        <dependency id="Selenium.Support" version="2.35.0" />
-        <dependency id="Selenium.WebDriver" version="2.35.0" />
+        <dependency id="Selenium.Support" version="3.5.2" />
+        <dependency id="Selenium.WebDriver" version="3.5.2" />
         <dependency id="HtmlAgilityPack" version="1.4.9" />
         <dependency id="Moq" version="4.2.1409.1722" />
       </group>
