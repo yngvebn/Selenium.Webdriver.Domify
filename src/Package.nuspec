@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Selenium.Webdriver.Domify</id>
-    <version>3.1.0</version>
+    <version>2.3.0</version>
     <title>Selenium.Webdriver.Domify</title>
     <authors>Yngve Bakken Nilsen</authors>
     <owners>
