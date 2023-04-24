@@ -1,3 +1,5 @@
+### IMPORTANT! This package is no longer maintained. Use Cypress, Playwright or something modern instead :)
+
 Latest build-status: ![TeamCity Buildstatus](http://build.bakken-nilsen.com/app/rest/builds/buildType:(id:SeleniumWebdriverDomify_Build)/statusIcon)
 
 # Domify for Selenium Webdriver
